@@ -1,5 +1,5 @@
 import {inject, bindable} from 'aurelia-framework'
-import {AuTableCustomAttribute} from 'au-table/au-table'
+import {AuTableCustomAttribute} from './au-table'
 
 @inject(AuTableCustomAttribute)
 export class AutFilterCustomAttribute {

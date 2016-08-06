@@ -1,6 +1,6 @@
 "use strict";
 
-System.register(["aurelia-framework", "au-table/au-table"], function (_export, _context) {
+System.register(["aurelia-framework", "./au-table"], function (_export, _context) {
     "use strict";
 
     var inject, bindable, bindingMode, AuTableCustomAttribute, _dec, _dec2, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, AutPaginationCustomElement;
@@ -59,8 +59,8 @@ System.register(["aurelia-framework", "au-table/au-table"], function (_export, _
             inject = _aureliaFramework.inject;
             bindable = _aureliaFramework.bindable;
             bindingMode = _aureliaFramework.bindingMode;
-        }, function (_auTableAuTable) {
-            AuTableCustomAttribute = _auTableAuTable.AuTableCustomAttribute;
+        }, function (_auTable) {
+            AuTableCustomAttribute = _auTable.AuTableCustomAttribute;
         }],
         execute: function () {
             _export("AutPaginationCustomElement", AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = function () {

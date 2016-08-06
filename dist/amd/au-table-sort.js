@@ -1,4 +1,4 @@
-define(["exports", "aurelia-framework", "au-table/au-table"], function (exports, _aureliaFramework, _auTable) {
+define(["exports", "aurelia-framework", "./au-table"], function (exports, _aureliaFramework, _auTable) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {

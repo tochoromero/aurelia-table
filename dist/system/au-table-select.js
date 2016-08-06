@@ -1,6 +1,6 @@
 "use strict";
 
-System.register(["aurelia-framework", "au-table/au-table"], function (_export, _context) {
+System.register(["aurelia-framework", "./au-table"], function (_export, _context) {
     "use strict";
 
     var inject, bindable, bindingMode, BindingEngine, AuTableCustomAttribute, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, AutSelectCustomAttribute;
@@ -60,8 +60,8 @@ System.register(["aurelia-framework", "au-table/au-table"], function (_export, _
             bindable = _aureliaFramework.bindable;
             bindingMode = _aureliaFramework.bindingMode;
             BindingEngine = _aureliaFramework.BindingEngine;
-        }, function (_auTableAuTable) {
-            AuTableCustomAttribute = _auTableAuTable.AuTableCustomAttribute;
+        }, function (_auTable) {
+            AuTableCustomAttribute = _auTable.AuTableCustomAttribute;
         }],
         execute: function () {
             _export("AutSelectCustomAttribute", AutSelectCustomAttribute = (_dec = inject(AuTableCustomAttribute, Element, BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = function () {

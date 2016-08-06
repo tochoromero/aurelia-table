@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['aurelia-framework', 'au-table/au-table'], function (_export, _context) {
+System.register(['aurelia-framework', './au-table'], function (_export, _context) {
     "use strict";
 
     var inject, bindable, AuTableCustomAttribute, _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, AutFilterCustomAttribute;
@@ -58,8 +58,8 @@ System.register(['aurelia-framework', 'au-table/au-table'], function (_export, _
         setters: [function (_aureliaFramework) {
             inject = _aureliaFramework.inject;
             bindable = _aureliaFramework.bindable;
-        }, function (_auTableAuTable) {
-            AuTableCustomAttribute = _auTableAuTable.AuTableCustomAttribute;
+        }, function (_auTable) {
+            AuTableCustomAttribute = _auTable.AuTableCustomAttribute;
         }],
         execute: function () {
             _export('AutFilterCustomAttribute', AutFilterCustomAttribute = (_dec = inject(AuTableCustomAttribute), _dec(_class = (_class2 = function () {

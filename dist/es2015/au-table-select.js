@@ -44,7 +44,7 @@ function _initializerWarningHelper(descriptor, context) {
 }
 
 import { inject, bindable, bindingMode, BindingEngine } from "aurelia-framework";
-import { AuTableCustomAttribute } from "au-table/au-table";
+import { AuTableCustomAttribute } from "./au-table";
 
 export let AutSelectCustomAttribute = (_dec = inject(AuTableCustomAttribute, Element, BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = class AutSelectCustomAttribute {
 
