@@ -1,4 +1,4 @@
-var _dec, _dec2, _dec3, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
+var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
 function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -43,10 +43,11 @@ function _initializerWarningHelper(descriptor, context) {
     throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-import { bindable, bindingMode, children } from "aurelia-framework";
+import { inject, bindable, bindingMode, BindingEngine } from "aurelia-framework";
 
-export let AuTableCustomAttribute = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = class AuTableCustomAttribute {
-    constructor() {
+export let AuTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = class AuTableCustomAttribute {
+
+    constructor(bindingEngine) {
         _initDefineProp(this, "data", _descriptor, this);
 
         _initDefineProp(this, "displayData", _descriptor2, this);
@@ -63,11 +64,17 @@ export let AuTableCustomAttribute = (_dec = bindable({ defaultBindingMode: bindi
 
         this.isAttached = false;
         this.sortChangedListeners = [];
+
+        this.dataObserver = bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
     }
 
     attached() {
         this.isAttached = true;
         this.applyPlugins();
+    }
+
+    detached() {
+        this.dataObserver.dispose();
     }
 
     filterTextChanged() {
@@ -211,25 +218,25 @@ export let AuTableCustomAttribute = (_dec = bindable({ defaultBindingMode: bindi
         }
     }
 
-}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "data", [bindable], {
+}, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "data", [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "displayData", [_dec], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "displayData", [_dec2], {
     enumerable: true,
     initializer: null
-}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "filterText", [bindable], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "filterText", [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "filterKeys", [bindable], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "filterKeys", [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "currentPage", [_dec2], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "currentPage", [_dec3], {
     enumerable: true,
     initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [bindable], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "pageSize", [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor7 = _applyDecoratedDescriptor(_class.prototype, "totalItems", [_dec3], {
+}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "totalItems", [_dec4], {
     enumerable: true,
     initializer: null
-})), _class));
+})), _class2)) || _class);

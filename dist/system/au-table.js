@@ -3,7 +3,7 @@
 System.register(["aurelia-framework"], function (_export, _context) {
     "use strict";
 
-    var bindable, bindingMode, children, _dec, _dec2, _dec3, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, AuTableCustomAttribute;
+    var inject, bindable, bindingMode, BindingEngine, _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, AuTableCustomAttribute;
 
     function _initDefineProp(target, property, descriptor, context) {
         if (!descriptor) return;
@@ -56,13 +56,16 @@ System.register(["aurelia-framework"], function (_export, _context) {
 
     return {
         setters: [function (_aureliaFramework) {
+            inject = _aureliaFramework.inject;
             bindable = _aureliaFramework.bindable;
             bindingMode = _aureliaFramework.bindingMode;
-            children = _aureliaFramework.children;
+            BindingEngine = _aureliaFramework.BindingEngine;
         }],
         execute: function () {
-            _export("AuTableCustomAttribute", AuTableCustomAttribute = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = function () {
-                function AuTableCustomAttribute() {
+            _export("AuTableCustomAttribute", AuTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = function () {
+                function AuTableCustomAttribute(bindingEngine) {
+                    var _this = this;
+
                     _classCallCheck(this, AuTableCustomAttribute);
 
                     _initDefineProp(this, "data", _descriptor, this);
@@ -81,11 +84,19 @@ System.register(["aurelia-framework"], function (_export, _context) {
 
                     this.isAttached = false;
                     this.sortChangedListeners = [];
+
+                    this.dataObserver = bindingEngine.collectionObserver(this.data).subscribe(function () {
+                        return _this.applyPlugins();
+                    });
                 }
 
                 AuTableCustomAttribute.prototype.attached = function attached() {
                     this.isAttached = true;
                     this.applyPlugins();
+                };
+
+                AuTableCustomAttribute.prototype.detached = function detached() {
+                    this.dataObserver.dispose();
                 };
 
                 AuTableCustomAttribute.prototype.filterTextChanged = function filterTextChanged() {
@@ -269,28 +280,28 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 return AuTableCustomAttribute;
-            }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "data", [bindable], {
+            }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "data", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "displayData", [_dec], {
+            }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "displayData", [_dec2], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "filterText", [bindable], {
+            }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "filterText", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "filterKeys", [bindable], {
+            }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "filterKeys", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "currentPage", [_dec2], {
+            }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "currentPage", [_dec3], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor6 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [bindable], {
+            }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "pageSize", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor7 = _applyDecoratedDescriptor(_class.prototype, "totalItems", [_dec3], {
+            }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "totalItems", [_dec4], {
                 enumerable: true,
                 initializer: null
-            })), _class)));
+            })), _class2)) || _class));
 
             _export("AuTableCustomAttribute", AuTableCustomAttribute);
         }
