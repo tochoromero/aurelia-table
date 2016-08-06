@@ -19,8 +19,14 @@ export class AuTableCustomAttribute {
     sortOrder;
     sortChangedListeners = [];
 
+    dataObserver;
+
     constructor(bindingEngine){
-        this.dataObserver = bindingEngine.collectionObserver(this.data)
+        this.bindingEngine = bindingEngine;
+    }
+
+    bind(){
+        this.dataObserver = this.bindingEngine.collectionObserver(this.data)
             .subscribe(() => this.applyPlugins())
     }
 

@@ -65,7 +65,11 @@ export let AuTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = binda
         this.isAttached = false;
         this.sortChangedListeners = [];
 
-        this.dataObserver = bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+        this.bindingEngine = bindingEngine;
+    }
+
+    bind() {
+        this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
     }
 
     attached() {

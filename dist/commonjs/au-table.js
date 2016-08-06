@@ -56,8 +56,6 @@ function _initializerWarningHelper(descriptor, context) {
 
 var AuTableCustomAttribute = exports.AuTableCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_aureliaFramework.BindingEngine), _dec2 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec3 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec4 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec(_class = (_class2 = function () {
     function AuTableCustomAttribute(bindingEngine) {
-        var _this = this;
-
         _classCallCheck(this, AuTableCustomAttribute);
 
         _initDefineProp(this, "data", _descriptor, this);
@@ -77,10 +75,16 @@ var AuTableCustomAttribute = exports.AuTableCustomAttribute = (_dec = (0, _aurel
         this.isAttached = false;
         this.sortChangedListeners = [];
 
-        this.dataObserver = bindingEngine.collectionObserver(this.data).subscribe(function () {
+        this.bindingEngine = bindingEngine;
+    }
+
+    AuTableCustomAttribute.prototype.bind = function bind() {
+        var _this = this;
+
+        this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
             return _this.applyPlugins();
         });
-    }
+    };
 
     AuTableCustomAttribute.prototype.attached = function attached() {
         this.isAttached = true;
