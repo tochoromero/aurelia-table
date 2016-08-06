@@ -1,0 +1,4 @@
+.idea/
+jspm_packages/
+node_modules/
+aurelia-table.iml
