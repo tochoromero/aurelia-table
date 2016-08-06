@@ -1,5 +1,6 @@
-import {bindable, bindingMode, children} from "aurelia-framework";
+import {inject, bindable, bindingMode, BindingEngine} from "aurelia-framework";
 
+@inject(BindingEngine)
 export class AuTableCustomAttribute {
 
     @bindable data;
@@ -18,9 +19,18 @@ export class AuTableCustomAttribute {
     sortOrder;
     sortChangedListeners = [];
 
+    constructor(bindingEngine){
+        this.dataObserver = bindingEngine.collectionObserver(this.data)
+            .subscribe(() => this.applyPlugins())
+    }
+
     attached() {
         this.isAttached = true;
         this.applyPlugins();
+    }
+
+    detached(){
+        this.dataObserver.dispose();
     }
 
     filterTextChanged(){
