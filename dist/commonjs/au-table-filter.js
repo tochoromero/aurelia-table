@@ -56,7 +56,7 @@ function _initializerWarningHelper(descriptor, context) {
     throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-var AutFilterCustomAttribute = exports.AutFilterCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AuTableCustomAttribute), _dec(_class = (_class2 = function () {
+var AutFilterCustomAttribute = exports.AutFilterCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AureliaTableCustomAttribute), _dec(_class = (_class2 = function () {
     function AutFilterCustomAttribute(auTable) {
         _classCallCheck(this, AutFilterCustomAttribute);
 

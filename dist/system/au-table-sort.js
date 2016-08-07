@@ -3,7 +3,7 @@
 System.register(["aurelia-framework", "./au-table"], function (_export, _context) {
     "use strict";
 
-    var inject, bindable, AuTableCustomAttribute, _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, AutSortCustomAttribute;
+    var inject, bindable, AureliaTableCustomAttribute, _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, AutSortCustomAttribute;
 
     function _initDefineProp(target, property, descriptor, context) {
         if (!descriptor) return;
@@ -59,10 +59,10 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
             inject = _aureliaFramework.inject;
             bindable = _aureliaFramework.bindable;
         }, function (_auTable) {
-            AuTableCustomAttribute = _auTable.AuTableCustomAttribute;
+            AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;
         }],
         execute: function () {
-            _export("AutSortCustomAttribute", AutSortCustomAttribute = (_dec = inject(AuTableCustomAttribute, Element), _dec(_class = (_class2 = function () {
+            _export("AutSortCustomAttribute", AutSortCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, Element), _dec(_class = (_class2 = function () {
                 function AutSortCustomAttribute(auTable, element) {
                     var _this = this;
 

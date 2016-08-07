@@ -1,7 +1,7 @@
 import {inject, bindable} from "aurelia-framework";
-import {AuTableCustomAttribute} from "./au-table";
+import {AureliaTableCustomAttribute} from "./au-table";
 
-@inject(AuTableCustomAttribute, Element)
+@inject(AureliaTableCustomAttribute, Element)
 export class AutSortCustomAttribute {
 
     @bindable key;

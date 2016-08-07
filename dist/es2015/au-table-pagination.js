@@ -43,8 +43,7 @@ function _initializerWarningHelper(descriptor, context) {
     throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-import { inject, bindable, bindingMode } from "aurelia-framework";
-import { AuTableCustomAttribute } from "./au-table";
+import { bindable, bindingMode } from "aurelia-framework";
 
 export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = class AutPaginationCustomElement {
     constructor() {

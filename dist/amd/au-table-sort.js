@@ -57,7 +57,7 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
 
     var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
 
-    var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AuTableCustomAttribute, Element), _dec(_class = (_class2 = function () {
+    var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AureliaTableCustomAttribute, Element), _dec(_class = (_class2 = function () {
         function AutSortCustomAttribute(auTable, element) {
             var _this = this;
 

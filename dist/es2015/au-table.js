@@ -45,7 +45,7 @@ function _initializerWarningHelper(descriptor, context) {
 
 import { inject, bindable, bindingMode, BindingEngine } from "aurelia-framework";
 
-export let AuTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = class AuTableCustomAttribute {
+export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = class AureliaTableCustomAttribute {
 
     constructor(bindingEngine) {
         _initDefineProp(this, "data", _descriptor, this);

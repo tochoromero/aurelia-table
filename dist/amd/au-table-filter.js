@@ -57,7 +57,7 @@ define(['exports', 'aurelia-framework', './au-table'], function (exports, _aurel
 
     var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
 
-    var AutFilterCustomAttribute = exports.AutFilterCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AuTableCustomAttribute), _dec(_class = (_class2 = function () {
+    var AutFilterCustomAttribute = exports.AutFilterCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AureliaTableCustomAttribute), _dec(_class = (_class2 = function () {
         function AutFilterCustomAttribute(auTable) {
             _classCallCheck(this, AutFilterCustomAttribute);
 

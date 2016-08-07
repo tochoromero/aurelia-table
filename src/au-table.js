@@ -1,7 +1,7 @@
 import {inject, bindable, bindingMode, BindingEngine} from "aurelia-framework";
 
 @inject(BindingEngine)
-export class AuTableCustomAttribute {
+export class AureliaTableCustomAttribute {
 
     @bindable data;
     @bindable({defaultBindingMode: bindingMode.twoWay}) displayData;

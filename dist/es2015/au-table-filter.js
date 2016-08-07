@@ -44,9 +44,9 @@ function _initializerWarningHelper(descriptor, context) {
 }
 
 import { inject, bindable } from 'aurelia-framework';
-import { AuTableCustomAttribute } from './au-table';
+import { AureliaTableCustomAttribute } from './au-table';
 
-export let AutFilterCustomAttribute = (_dec = inject(AuTableCustomAttribute), _dec(_class = (_class2 = class AutFilterCustomAttribute {
+export let AutFilterCustomAttribute = (_dec = inject(AureliaTableCustomAttribute), _dec(_class = (_class2 = class AutFilterCustomAttribute {
 
     constructor(auTable) {
         _initDefineProp(this, 'filterText', _descriptor, this);

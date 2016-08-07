@@ -9,8 +9,6 @@ var _dec, _dec2, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3,
 
 var _aureliaFramework = require("aurelia-framework");
 
-var _auTable = require("./au-table");
-
 function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
     Object.defineProperty(target, property, {

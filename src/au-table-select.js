@@ -1,7 +1,7 @@
 import {inject, bindable, bindingMode, BindingEngine} from "aurelia-framework";
-import {AuTableCustomAttribute} from "./au-table";
+import {AureliaTableCustomAttribute} from "./au-table";
 
-@inject(AuTableCustomAttribute, Element, BindingEngine)
+@inject(AureliaTableCustomAttribute, Element, BindingEngine)
 export class AutSelectCustomAttribute {
 
     @bindable({defaultBindingMode: bindingMode.twoWay}) row;

@@ -1,5 +1,4 @@
-import {inject, bindable, bindingMode} from "aurelia-framework";
-import {AuTableCustomAttribute} from "./au-table";
+import {bindable, bindingMode} from "aurelia-framework";
 
 export class AutPaginationCustomElement {
 

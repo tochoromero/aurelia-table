@@ -3,7 +3,7 @@
 System.register(['aurelia-framework', './au-table'], function (_export, _context) {
     "use strict";
 
-    var inject, bindable, AuTableCustomAttribute, _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, AutFilterCustomAttribute;
+    var inject, bindable, AureliaTableCustomAttribute, _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, AutFilterCustomAttribute;
 
     function _initDefineProp(target, property, descriptor, context) {
         if (!descriptor) return;
@@ -59,10 +59,10 @@ System.register(['aurelia-framework', './au-table'], function (_export, _context
             inject = _aureliaFramework.inject;
             bindable = _aureliaFramework.bindable;
         }, function (_auTable) {
-            AuTableCustomAttribute = _auTable.AuTableCustomAttribute;
+            AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;
         }],
         execute: function () {
-            _export('AutFilterCustomAttribute', AutFilterCustomAttribute = (_dec = inject(AuTableCustomAttribute), _dec(_class = (_class2 = function () {
+            _export('AutFilterCustomAttribute', AutFilterCustomAttribute = (_dec = inject(AureliaTableCustomAttribute), _dec(_class = (_class2 = function () {
                 function AutFilterCustomAttribute(auTable) {
                     _classCallCheck(this, AutFilterCustomAttribute);
 
