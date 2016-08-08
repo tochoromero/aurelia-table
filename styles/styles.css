@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+}
+
+.splash {
+    text-align: center;
+    margin: 10% 0 0 0;
+    box-sizing: border-box;
+}
+
+.navbar-default {
+    color: #6E4D9B;
+}
+
+.splash .message {
+    font-size: 72px;
+    line-height: 72px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.splash .fa-spinner {
+    text-align: center;
+    display: inline-block;
+    font-size: 72px;
+    margin-top: 50px;
+}
+
+.page-host {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50px;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.page-banner {
+    color: #fff;
+    text-align: center;
+    background-image: linear-gradient(120deg, #6E4D9B, #E82887);
+
+}
+
+.page-banner {
+    padding: 5em 6em;
+}
+
+.project-name {
+    margin-top: 0;
+    margin-bottom: 0.1rem;
+    font-size: 4em;
+}
+
+.project-tagline {
+    margin-bottom: 2em;
+    font-weight: normal;
+    opacity: 0.7;
+}
+
+.project-tagline {
+    font-size: 1.5em;
+}
+
+.page-banner a {
+    color: #1e6bb8;
+    text-decoration: none;
+}
+
+.page-banner a:hover {
+    text-decoration: underline;
+}
+
+.page-banner .btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3rem;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.page-banner .btn + .btn {
+    margin-left: 1rem;
+}
+
+.page-banner .btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.page-banner .btn {
+    padding: 0.75rem 1rem;
+}
+
+
+
+.padding {
+    padding: 0.8em;
+}
+
+/* animation definitions */
+@-webkit-keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(100%, 0, 0);
+        -ms-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

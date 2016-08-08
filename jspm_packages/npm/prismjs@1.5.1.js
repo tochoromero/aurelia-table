@@ -1,0 +1,1 @@
+module.exports = require("npm:prismjs@1.5.1/prism");

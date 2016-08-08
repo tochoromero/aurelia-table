@@ -1,0 +1,1 @@
+module.exports = require("github:github/fetch@1.0.0/fetch.js");
