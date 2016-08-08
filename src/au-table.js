@@ -21,13 +21,15 @@ export class AureliaTableCustomAttribute {
 
     dataObserver;
 
-    constructor(bindingEngine){
+    constructor(bindingEngine) {
         this.bindingEngine = bindingEngine;
     }
 
-    bind(){
-        this.dataObserver = this.bindingEngine.collectionObserver(this.data)
-            .subscribe(() => this.applyPlugins())
+    bind() {
+        if (this.data) {
+            this.dataObserver = this.bindingEngine.collectionObserver(this.data)
+                .subscribe(() => this.applyPlugins())
+        }
     }
 
     attached() {
@@ -35,25 +37,27 @@ export class AureliaTableCustomAttribute {
         this.applyPlugins();
     }
 
-    detached(){
-        this.dataObserver.dispose();
+    detached() {
+        if (this.dataObserver) {
+            this.dataObserver.dispose();
+        }
     }
 
-    filterTextChanged(){
-        if(this.hasPagination()){
+    filterTextChanged() {
+        if (this.hasPagination()) {
             this.currentPage = 1;
         }
         this.applyPlugins();
     }
 
-    filterKeysChanged(){
-        if(this.hasPagination()){
+    filterKeysChanged() {
+        if (this.hasPagination()) {
             this.currentPage = 1;
         }
         this.applyPlugins();
     }
 
-    currentPageChanged(){
+    currentPageChanged() {
         this.applyPlugins();
     }
 
@@ -68,7 +72,7 @@ export class AureliaTableCustomAttribute {
      * Applies all the plugins to the display data
      */
     applyPlugins() {
-        if(!this.isAttached) {
+        if (!this.isAttached || !this.data) {
             return;
         }
 
@@ -81,10 +85,10 @@ export class AureliaTableCustomAttribute {
         if (this.sortKey && this.sortOrder !== 0) {
             this.doSort(localData, this.sortKey, this.sortOrder);
         }
-        
+
         this.totalItems = localData.length;
 
-        if(this.hasPagination()){
+        if (this.hasPagination()) {
             localData = this.doPaginate(localData);
         }
 
@@ -114,10 +118,10 @@ export class AureliaTableCustomAttribute {
             let val1;
             let val2;
 
-            if(typeof sortKey === "function"){
+            if (typeof sortKey === "function") {
                 val1 = sortKey(a);
                 val2 = sortKey(b);
-            }else{
+            } else {
                 val1 = a[sortKey];
                 val2 = b[sortKey];
             }
@@ -135,8 +139,8 @@ export class AureliaTableCustomAttribute {
         });
     }
 
-    doPaginate(toPaginate){
-        if(toPaginate.length <= this.pageSize){
+    doPaginate(toPaginate) {
+        if (toPaginate.length <= this.pageSize) {
             return toPaginate;
         }
 
@@ -152,11 +156,18 @@ export class AureliaTableCustomAttribute {
             && this.filterText.trim().length > 0 && this.filterKeys.length > 0;
     }
 
-    hasPagination(){
+    hasPagination() {
         return this.currentPage > 0;
     }
 
     dataChanged() {
+        if (this.dataObserver) {
+            this.dataObserver.dispose();
+        }
+
+        this.dataObserver = this.bindingEngine.collectionObserver(this.data)
+            .subscribe(() => this.applyPlugins());
+
         this.applyPlugins();
     }
 
@@ -166,26 +177,26 @@ export class AureliaTableCustomAttribute {
         this.applyPlugins();
         this.emitSortChanged();
     }
-    
-    addSortChangedListener(callback){
+
+    addSortChangedListener(callback) {
         this.sortChangedListeners.push(callback);
     }
 
-    removeSortChangedListener(callback){
+    removeSortChangedListener(callback) {
         this.removeListener(callback, this.sortChangedListeners)
     }
-    
-    emitSortChanged(){
-        for(let listener of this.sortChangedListeners){
+
+    emitSortChanged() {
+        for (let listener of this.sortChangedListeners) {
             listener();
         }
     }
-    
-    removeListener(callback, listeners){
+
+    removeListener(callback, listeners) {
         var index = listeners.indexOf(callback);
 
-        if(index > -1) {
-           listeners.splice(index, 1);
+        if (index > -1) {
+            listeners.splice(index, 1);
         }
     }
 
