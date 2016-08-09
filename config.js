@@ -209,6 +209,9 @@ System.config({
     "basics.js": [
       "aurelia-fetch-client"
     ],
+    "filter.js": [
+      "aurelia-fetch-client"
+    ],
     "main.js": [
       "bootstrap"
     ]
@@ -219,6 +222,8 @@ System.config({
       "app.js",
       "basics.html!github:systemjs/plugin-text@0.0.8.js",
       "basics.js",
+      "filter.html!github:systemjs/plugin-text@0.0.8.js",
+      "filter.js",
       "introduction.html!github:systemjs/plugin-text@0.0.8.js",
       "introduction.js",
       "main.js",
