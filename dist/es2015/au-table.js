@@ -69,7 +69,9 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     }
 
     bind() {
-        this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+        if (this.data) {
+            this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+        }
     }
 
     attached() {
@@ -78,7 +80,9 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     }
 
     detached() {
-        this.dataObserver.dispose();
+        if (this.dataObserver) {
+            this.dataObserver.dispose();
+        }
     }
 
     filterTextChanged() {
@@ -104,7 +108,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     }
 
     applyPlugins() {
-        if (!this.isAttached) {
+        if (!this.isAttached || !this.data) {
             return;
         }
 
@@ -190,6 +194,12 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     }
 
     dataChanged() {
+        if (this.dataObserver) {
+            this.dataObserver.dispose();
+        }
+
+        this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+
         this.applyPlugins();
     }
 

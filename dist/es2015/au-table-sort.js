@@ -96,7 +96,7 @@ export let AutSortCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, 
 
     handleDefault() {
         if (this.default) {
-            this.order = this.default === 'reverse' ? -1 : 1;
+            this.order = this.default === 'desc' ? -1 : 1;
             this.doSort();
         }
     }

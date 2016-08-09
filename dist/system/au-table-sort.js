@@ -115,7 +115,7 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
 
                 AutSortCustomAttribute.prototype.handleDefault = function handleDefault() {
                     if (this.default) {
-                        this.order = this.default === 'reverse' ? -1 : 1;
+                        this.order = this.default === 'desc' ? -1 : 1;
                         this.doSort();
                     }
                 };

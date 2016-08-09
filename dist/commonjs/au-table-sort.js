@@ -109,7 +109,7 @@ var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aurel
 
     AutSortCustomAttribute.prototype.handleDefault = function handleDefault() {
         if (this.default) {
-            this.order = this.default === 'reverse' ? -1 : 1;
+            this.order = this.default === 'desc' ? -1 : 1;
             this.doSort();
         }
     };

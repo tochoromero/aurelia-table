@@ -89,9 +89,11 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 AureliaTableCustomAttribute.prototype.bind = function bind() {
                     var _this = this;
 
-                    this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
-                        return _this.applyPlugins();
-                    });
+                    if (this.data) {
+                        this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
+                            return _this.applyPlugins();
+                        });
+                    }
                 };
 
                 AureliaTableCustomAttribute.prototype.attached = function attached() {
@@ -100,7 +102,9 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 AureliaTableCustomAttribute.prototype.detached = function detached() {
-                    this.dataObserver.dispose();
+                    if (this.dataObserver) {
+                        this.dataObserver.dispose();
+                    }
                 };
 
                 AureliaTableCustomAttribute.prototype.filterTextChanged = function filterTextChanged() {
@@ -126,7 +130,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 AureliaTableCustomAttribute.prototype.applyPlugins = function applyPlugins() {
-                    if (!this.isAttached) {
+                    if (!this.isAttached || !this.data) {
                         return;
                     }
 
@@ -238,6 +242,16 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 AureliaTableCustomAttribute.prototype.dataChanged = function dataChanged() {
+                    var _this2 = this;
+
+                    if (this.dataObserver) {
+                        this.dataObserver.dispose();
+                    }
+
+                    this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
+                        return _this2.applyPlugins();
+                    });
+
                     this.applyPlugins();
                 };
 
