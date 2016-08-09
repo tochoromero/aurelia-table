@@ -214,6 +214,9 @@ System.config({
     ],
     "main.js": [
       "bootstrap"
+    ],
+    "sort.js": [
+      "aurelia-fetch-client"
     ]
   },
   bundles: {
@@ -227,7 +230,9 @@ System.config({
       "introduction.html!github:systemjs/plugin-text@0.0.8.js",
       "introduction.js",
       "main.js",
-      "nav-bar.html!github:systemjs/plugin-text@0.0.8.js"
+      "nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
+      "sort.html!github:systemjs/plugin-text@0.0.8.js",
+      "sort.js"
     ],
     "aurelia.js": [
       "github:github/fetch@1.0.0.js",

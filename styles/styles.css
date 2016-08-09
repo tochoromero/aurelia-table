@@ -106,6 +106,26 @@ body {
     padding: 0.8em;
 }
 
+.aut-sort:before {
+    font-family: FontAwesome;
+    padding-right: 0.5em;
+    width: 1.28571429em;
+    display: inline-block;
+    text-align: center;
+}
+
+.aut-sortable:before {
+    content: "\f0dc";
+}
+
+.aut-asc:before {
+    content: "\f160";
+}
+
+.aut-desc:before {
+    content: "\f161";
+}
+
 /* animation definitions */
 @-webkit-keyframes fadeInRight {
     0% {
