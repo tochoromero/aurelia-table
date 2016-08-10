@@ -3,7 +3,7 @@ import {bindable, bindingMode} from "aurelia-framework";
 export class AutPaginationCustomElement {
 
     @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
-    @bindable({defaultBindingMode: bindingMode.twoWay}) pageSize;
+    @bindable pageSize;
     @bindable totalItems;
     @bindable hideSinglePage = true;
 
@@ -21,6 +21,14 @@ export class AutPaginationCustomElement {
     }
 
     totalItemsChanged() {
+        this.calculateTotalPages();
+    }
+
+    pageSizeChanged() {
+        this.calculateTotalPages();
+    }
+
+    calculateTotalPages() {
         if (this.totalItems <= this.pageSize) {
             this.totalPages = 1;
             return;

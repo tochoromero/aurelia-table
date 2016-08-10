@@ -1,4 +1,4 @@
-var _dec, _dec2, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
 function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -45,7 +45,7 @@ function _initializerWarningHelper(descriptor, context) {
 
 import { bindable, bindingMode } from "aurelia-framework";
 
-export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = class AutPaginationCustomElement {
+export let AutPaginationCustomElement = (_dec = bindable({defaultBindingMode: bindingMode.twoWay}), (_class = class AutPaginationCustomElement {
     constructor() {
         _initDefineProp(this, "currentPage", _descriptor, this);
 
@@ -69,6 +69,14 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
     }
 
     totalItemsChanged() {
+        this.calculateTotalPages();
+    }
+
+    pageSizeChanged() {
+        this.calculateTotalPages();
+    }
+
+    calculateTotalPages() {
         if (this.totalItems <= this.pageSize) {
             this.totalPages = 1;
             return;
@@ -99,7 +107,7 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
 }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentPage", [_dec], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [_dec2], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [bindable], {
     enumerable: true,
     initializer: null
 }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "totalItems", [bindable], {

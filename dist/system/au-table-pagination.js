@@ -3,7 +3,7 @@
 System.register(["aurelia-framework"], function (_export, _context) {
     "use strict";
 
-    var bindable, bindingMode, _dec, _dec2, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, AutPaginationCustomElement;
+    var bindable, bindingMode, _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, AutPaginationCustomElement;
 
     function _initDefineProp(target, property, descriptor, context) {
         if (!descriptor) return;
@@ -60,7 +60,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
             bindingMode = _aureliaFramework.bindingMode;
         }],
         execute: function () {
-            _export("AutPaginationCustomElement", AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = function () {
+            _export("AutPaginationCustomElement", AutPaginationCustomElement = (_dec = bindable({defaultBindingMode: bindingMode.twoWay}), (_class = function () {
                 function AutPaginationCustomElement() {
                     _classCallCheck(this, AutPaginationCustomElement);
 
@@ -86,6 +86,14 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 AutPaginationCustomElement.prototype.totalItemsChanged = function totalItemsChanged() {
+                    this.calculateTotalPages();
+                };
+
+                AutPaginationCustomElement.prototype.pageSizeChanged = function pageSizeChanged() {
+                    this.calculateTotalPages();
+                };
+
+                AutPaginationCustomElement.prototype.calculateTotalPages = function calculateTotalPages() {
                     if (this.totalItems <= this.pageSize) {
                         this.totalPages = 1;
                         return;
@@ -118,7 +126,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
             }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentPage", [_dec], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [_dec2], {
+            }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [bindable], {
                 enumerable: true,
                 initializer: null
             }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "totalItems", [bindable], {

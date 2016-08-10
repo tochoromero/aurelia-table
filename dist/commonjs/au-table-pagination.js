@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AutPaginationCustomElement = undefined;
 
-var _dec, _dec2, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
 var _aureliaFramework = require("aurelia-framework");
 
@@ -54,7 +54,7 @@ function _initializerWarningHelper(descriptor, context) {
     throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec2 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), (_class = function () {
+var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0, _aureliaFramework.bindable)({defaultBindingMode: _aureliaFramework.bindingMode.twoWay}), (_class = function () {
     function AutPaginationCustomElement() {
         _classCallCheck(this, AutPaginationCustomElement);
 
@@ -80,6 +80,14 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
     };
 
     AutPaginationCustomElement.prototype.totalItemsChanged = function totalItemsChanged() {
+        this.calculateTotalPages();
+    };
+
+    AutPaginationCustomElement.prototype.pageSizeChanged = function pageSizeChanged() {
+        this.calculateTotalPages();
+    };
+
+    AutPaginationCustomElement.prototype.calculateTotalPages = function calculateTotalPages() {
         if (this.totalItems <= this.pageSize) {
             this.totalPages = 1;
             return;
@@ -112,7 +120,7 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
 }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentPage", [_dec], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [_dec2], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "pageSize", [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
 }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "totalItems", [_aureliaFramework.bindable], {
