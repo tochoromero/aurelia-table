@@ -61,6 +61,10 @@ export class AureliaTableCustomAttribute {
         this.applyPlugins();
     }
 
+    pageSizeChanged() {
+        this.applyPlugins();
+    }
+
     /**
      * Copies the data into the display data
      */
