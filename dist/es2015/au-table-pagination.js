@@ -78,6 +78,10 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
     }
 
     selectPage(page) {
+        if (page < 1 || page > this.totalPages || page === this.currentPage) {
+            return;
+        }
+
         this.currentPage = page;
     }
 

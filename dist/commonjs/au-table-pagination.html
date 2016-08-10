@@ -1,22 +1,23 @@
 <template>
-    <nav aria-label="Page navigation" hide.bind="hideSinglePage && totalPages === 1">
-        <ul class="pagination">
-            <li class-name.bind="currentPage === 1 ? 'disabled' : ''">
-                <a href="#" aria-label="Previous" click.delegate="previousPage()" show.bind="currentPage !== 1">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-                <span show.bind="currentPage === 1">&laquo;</span>
-            </li>
-            <li repeat.for="i of totalPages" class-name.bind="currentPage === (i + 1) ? 'active' : ''">
-                <a show.bind="currentPage !== (i + 1)" href="#" click.delegate="selectPage(i+1)">${i + 1}</a>
-                <span show.bind="currentPage === (i + 1)">${i + 1}</span>
-            </li>
-            <li  class-name.bind="currentPage === totalPages ? 'disabled' : ''">
-                <a href="#" aria-label="Next" click.delegate="nextPage()" show.bind="currentPage !== totalPages">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-                <span show.bind="currentPage === totalPages">&raquo;</span>
-            </li>
-        </ul>
-    </nav>
+    <template replaceable part="pagination">
+        <nav hide.bind="hideSinglePage && totalPages === 1">
+            <ul class="pagination">
+                <li class-name.bind="currentPage === 1 ? 'disabled' : ''">
+                    <a aria-label="Previous" click.delegate="previousPage()">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li repeat.for="i of totalPages" class-name.bind="currentPage === (i + 1) ? 'active' : ''">
+                    <a click.delegate="selectPage(i+1)">${i + 1}</a>
+                </li>
+
+                <li class-name.bind="currentPage === totalPages ? 'disabled' : ''">
+                    <a aria-label="Next" click.delegate="nextPage()">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </template>
 </template>

@@ -120,6 +120,10 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
             this.applyPlugins();
         };
 
+        AureliaTableCustomAttribute.prototype.pageSizeChanged = function pageSizeChanged() {
+            this.applyPlugins();
+        };
+
         AureliaTableCustomAttribute.prototype.getDataCopy = function getDataCopy() {
             return [].concat(this.data);
         };

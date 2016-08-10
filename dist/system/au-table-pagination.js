@@ -95,6 +95,10 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 AutPaginationCustomElement.prototype.selectPage = function selectPage(page) {
+                    if (page < 1 || page > this.totalPages || page === this.currentPage) {
+                        return;
+                    }
+
                     this.currentPage = page;
                 };
 

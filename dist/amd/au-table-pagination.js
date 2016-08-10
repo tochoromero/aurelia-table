@@ -92,6 +92,10 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
         };
 
         AutPaginationCustomElement.prototype.selectPage = function selectPage(page) {
+            if (page < 1 || page > this.totalPages || page === this.currentPage) {
+                return;
+            }
+
             this.currentPage = page;
         };
 

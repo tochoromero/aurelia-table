@@ -89,6 +89,10 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
     };
 
     AutPaginationCustomElement.prototype.selectPage = function selectPage(page) {
+        if (page < 1 || page > this.totalPages || page === this.currentPage) {
+            return;
+        }
+
         this.currentPage = page;
     };
 

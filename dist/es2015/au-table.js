@@ -103,6 +103,10 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
         this.applyPlugins();
     }
 
+    pageSizeChanged() {
+        this.applyPlugins();
+    }
+
     getDataCopy() {
         return [].concat(this.data);
     }
