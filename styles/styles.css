@@ -101,7 +101,6 @@ body {
 }
 
 
-
 .padding {
     padding: 0.8em;
 }
@@ -124,6 +123,37 @@ body {
 
 .aut-desc:before {
     content: "\f161";
+}
+
+.ul.custom-pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.custom-pagination li {
+    display: inline;
+}
+
+ul.custom-pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+ul.custom-pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+ul.custom-pagination li a:hover:not(.active):not(.disabled) {
+    background-color: #ddd;
+}
+
+ul.custom-pagination li a.disabled {
+    color: darkgrey;
 }
 
 /* animation definitions */

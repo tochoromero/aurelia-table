@@ -209,11 +209,17 @@ System.config({
     "basics.js": [
       "aurelia-fetch-client"
     ],
+    "customPagination.js": [
+      "aurelia-fetch-client"
+    ],
     "filter.js": [
       "aurelia-fetch-client"
     ],
     "main.js": [
       "bootstrap"
+    ],
+    "pagination.js": [
+      "aurelia-fetch-client"
     ],
     "sort.js": [
       "aurelia-fetch-client"
@@ -225,12 +231,16 @@ System.config({
       "app.js",
       "basics.html!github:systemjs/plugin-text@0.0.8.js",
       "basics.js",
+      "customPagination.html!github:systemjs/plugin-text@0.0.8.js",
+      "customPagination.js",
       "filter.html!github:systemjs/plugin-text@0.0.8.js",
       "filter.js",
       "introduction.html!github:systemjs/plugin-text@0.0.8.js",
       "introduction.js",
       "main.js",
       "nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
+      "pagination.html!github:systemjs/plugin-text@0.0.8.js",
+      "pagination.js",
       "sort.html!github:systemjs/plugin-text@0.0.8.js",
       "sort.js"
     ],
