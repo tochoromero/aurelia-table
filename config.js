@@ -221,6 +221,9 @@ System.config({
     "pagination.js": [
       "aurelia-fetch-client"
     ],
+    "selection.js": [
+      "aurelia-fetch-client"
+    ],
     "sort.js": [
       "aurelia-fetch-client"
     ]
@@ -241,6 +244,8 @@ System.config({
       "nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
       "pagination.html!github:systemjs/plugin-text@0.0.8.js",
       "pagination.js",
+      "selection.html!github:systemjs/plugin-text@0.0.8.js",
+      "selection.js",
       "sort.html!github:systemjs/plugin-text@0.0.8.js",
       "sort.js"
     ],
