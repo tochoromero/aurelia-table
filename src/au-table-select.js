@@ -15,8 +15,8 @@ export class AutSelectCustomAttribute {
         this.element = element;
         this.bindingEngine = bindingEngine;
 
-        this.rowSelectedListener = () => {
-            this.handleRowSelected();
+        this.rowSelectedListener = e => {
+            this.handleRowSelected(e);
         };
     }
 
@@ -42,7 +42,12 @@ export class AutSelectCustomAttribute {
         }
     }
 
-    handleRowSelected() {
+    handleRowSelected(e) {
+        let source = event.target || event.srcElement;
+        if (source.tagName.toLowerCase() !== 'td') {
+            return;
+        }
+
         if(this.mode === 'single'){
             this.deselectAll();
         }

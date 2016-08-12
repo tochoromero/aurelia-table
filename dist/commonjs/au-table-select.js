@@ -72,8 +72,8 @@ var AutSelectCustomAttribute = exports.AutSelectCustomAttribute = (_dec = (0, _a
         this.element = element;
         this.bindingEngine = bindingEngine;
 
-        this.rowSelectedListener = function () {
-            _this.handleRowSelected();
+        this.rowSelectedListener = function (e) {
+            _this.handleRowSelected(e);
         };
     }
 
@@ -103,7 +103,12 @@ var AutSelectCustomAttribute = exports.AutSelectCustomAttribute = (_dec = (0, _a
         }
     };
 
-    AutSelectCustomAttribute.prototype.handleRowSelected = function handleRowSelected() {
+    AutSelectCustomAttribute.prototype.handleRowSelected = function handleRowSelected(e) {
+        var source = event.target || event.srcElement;
+        if (source.tagName.toLowerCase() !== 'td') {
+            return;
+        }
+
         if (this.mode === 'single') {
             this.deselectAll();
         }

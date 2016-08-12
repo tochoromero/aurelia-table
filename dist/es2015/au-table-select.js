@@ -59,8 +59,8 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
         this.element = element;
         this.bindingEngine = bindingEngine;
 
-        this.rowSelectedListener = () => {
-            this.handleRowSelected();
+        this.rowSelectedListener = e => {
+            this.handleRowSelected(e);
         };
     }
 
@@ -86,7 +86,12 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
         }
     }
 
-    handleRowSelected() {
+    handleRowSelected(e) {
+        let source = event.target || event.srcElement;
+        if (source.tagName.toLowerCase() !== 'td') {
+            return;
+        }
+
         if (this.mode === 'single') {
             this.deselectAll();
         }
