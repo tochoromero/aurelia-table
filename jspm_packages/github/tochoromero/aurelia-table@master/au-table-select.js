@@ -74,8 +74,8 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
             this.element = element;
             this.bindingEngine = bindingEngine;
 
-            this.rowSelectedListener = function () {
-                _this.handleRowSelected();
+            this.rowSelectedListener = function (e) {
+                _this.handleRowSelected(e);
             };
         }
 
@@ -105,7 +105,12 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
             }
         };
 
-        AutSelectCustomAttribute.prototype.handleRowSelected = function handleRowSelected() {
+        AutSelectCustomAttribute.prototype.handleRowSelected = function handleRowSelected(e) {
+            var source = event.target || event.srcElement;
+            if (source.tagName.toLowerCase() !== 'td') {
+                return;
+            }
+
             if (this.mode === 'single') {
                 this.deselectAll();
             }
