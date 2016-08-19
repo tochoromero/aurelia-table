@@ -101,14 +101,17 @@ export class AureliaTableCustomAttribute {
 
     doFilter(toFilter) {
         let filteredData = [];
-
+        
         for (let next of toFilter) {
             for (let key of this.filterKeys) {
-                let value = next[key].toString();
 
-                if (value.toLowerCase().indexOf(this.filterText.toLowerCase()) > -1) {
-                    filteredData.push(next);
-                    break;
+                if( next[key]!= null ){
+                    let value = next[key].toString().toLowerCase();
+
+                    if (value.indexOf(this.filterText.toLowerCase()) > -1) {
+                        filteredData.push(next);
+                        break;
+                    }
                 }
             }
         }
