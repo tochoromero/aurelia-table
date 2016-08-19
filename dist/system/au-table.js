@@ -188,11 +188,14 @@ System.register(["aurelia-framework"], function (_export, _context) {
 
                             var key = _ref2;
 
-                            var value = next[key].toString();
 
-                            if (value.toLowerCase().indexOf(this.filterText.toLowerCase()) > -1) {
-                                filteredData.push(next);
-                                break;
+                            if (next[key]) {
+                                var value = next[key].toString().toLowerCase();
+
+                                if (value.indexOf(this.filterText.toLowerCase()) > -1) {
+                                    filteredData.push(next);
+                                    break;
+                                }
                             }
                         }
                     }
