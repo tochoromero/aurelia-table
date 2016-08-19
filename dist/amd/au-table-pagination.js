@@ -57,7 +57,7 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
 
     var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
-    var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), (_class = function () {
+    var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0, _aureliaFramework.bindable)({defaultBindingMode: _aureliaFramework.bindingMode.twoWay}), (_class = function () {
         function AutPaginationCustomElement() {
             _classCallCheck(this, AutPaginationCustomElement);
 

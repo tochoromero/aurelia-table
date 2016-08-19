@@ -141,7 +141,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
         for (let next of toFilter) {
             for (let key of this.filterKeys) {
 
-                if (next[key]) {
+                if (next[key] != null) {
                     let value = next[key].toString().toLowerCase();
 
                     if (value.indexOf(this.filterText.toLowerCase()) > -1) {

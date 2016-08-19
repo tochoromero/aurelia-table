@@ -189,7 +189,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                             var key = _ref2;
 
 
-                            if (next[key]) {
+                            if (next[key] != null) {
                                 var value = next[key].toString().toLowerCase();
 
                                 if (value.indexOf(this.filterText.toLowerCase()) > -1) {
