@@ -199,6 +199,11 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
         };
 
         AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort, sortKey, sortOrder) {
+
+            var isNumeric = function isNumeric(n) {
+                return !isNaN(parseFloat(n)) && isFinite(n);
+            };
+
             toSort.sort(function (a, b) {
 
                 var val1 = void 0;
@@ -212,13 +217,16 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
                     val2 = b[sortKey];
                 }
 
-                if (isNaN(val1)) {
+                if (val1 == null) val1 = "";
+                if (val2 == null) val2 = "";
+
+                if (isNumeric(val1) && isNumeric(val2)) {
+                    return (val1 - val2) * sortOrder;
+                } else {
                     var str1 = val1.toString();
                     var str2 = val2.toString();
 
                     return str1.localeCompare(str2) * sortOrder;
-                } else {
-                    return (val1 - val2) * sortOrder;
                 }
             });
         };

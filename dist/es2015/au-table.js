@@ -156,6 +156,11 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     }
 
     doSort(toSort, sortKey, sortOrder) {
+
+        let isNumeric = n => {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        };
+
         toSort.sort((a, b) => {
 
             let val1;
@@ -169,13 +174,16 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
                 val2 = b[sortKey];
             }
 
-            if (isNaN(val1)) {
+            if (val1 == null) val1 = "";
+            if (val2 == null) val2 = "";
+
+            if (isNumeric(val1) && isNumeric(val2)) {
+                return (val1 - val2) * sortOrder;
+            } else {
                 let str1 = val1.toString();
                 let str2 = val2.toString();
 
                 return str1.localeCompare(str2) * sortOrder;
-            } else {
-                return (val1 - val2) * sortOrder;
             }
         });
     }
