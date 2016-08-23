@@ -9,14 +9,14 @@ export class AutSelectCustomAttribute {
     @bindable selectedClass = 'aut-row-selected';
 
     selectedSubscription;
-    
+
     constructor(auTable, element, bindingEngine) {
         this.auTable = auTable;
         this.element = element;
         this.bindingEngine = bindingEngine;
 
-        this.rowSelectedListener = e => {
-            this.handleRowSelected(e);
+        this.rowSelectedListener = event => {
+            this.handleRowSelected(event);
         };
     }
 
@@ -26,7 +26,7 @@ export class AutSelectCustomAttribute {
 
         this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$IsSelected').subscribe(() => this.isSelectedChanged());
 
-        this.setClass();        
+        this.setClass();
     }
 
     detached() {
@@ -35,43 +35,43 @@ export class AutSelectCustomAttribute {
     }
 
     setClass() {
-        if(this.row.$IsSelected){
+        if (this.row.$IsSelected) {
             this.element.classList.add(this.selectedClass);
-        }else{
+        } else {
             this.element.classList.remove(this.selectedClass);
         }
     }
 
-    handleRowSelected(e) {        
+    handleRowSelected(event) {
         let source = event.target || event.srcElement;
         if (source.tagName.toLowerCase() !== 'td') {
             return;
         }
 
-        if(this.mode === 'single'){
+        if (this.mode === 'single') {
             this.deselectAll();
         }
-                
+
         this.row.$IsSelected = this.row.$IsSelected ? false : true;
         this.setClass();
 
-        if( this.row.$IsSelected){
+        if (this.row.$IsSelected) {
             this.dispatchSelectedEvent();
         }
-    }    
+    }
 
-    dispatchSelectedEvent(){
-        let selectedEvent = {};
-        if(window.CustomEvent){
+    dispatchSelectedEvent() {
+        let selectedEvent;
+        if (window.CustomEvent) {
             selectedEvent = new CustomEvent('select', {
-                    detail:{ row: this.row }, 
-                    bubbles: true
-                });
-        } else{
+                detail: {row: this.row},
+                bubbles: true
+            });
+        } else {
             selectedEvent = document.createEvent('CustomEvent');
             selectedEvent.initCustomEvent('select', true, true, {
-                detail: { row: this.row}
-                });            
+                detail: {row: this.row}
+            });
         }
         this.element.dispatchEvent(selectedEvent);
     }
@@ -82,7 +82,7 @@ export class AutSelectCustomAttribute {
 
     deselectAll() {
         this.auTable.data.forEach(item => {
-            if(item !== this.row){
+            if (item !== this.row) {
                 item.$IsSelected = false
             }
         });
