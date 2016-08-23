@@ -126,8 +126,8 @@ export class AureliaTableCustomAttribute {
             let val2;
 
             if (typeof sortKey === "function") {
-                val1 = sortKey(a);
-                val2 = sortKey(b);
+                val1 = sortKey(a, sortOrder);
+                val2 = sortKey(b, sortOrder);
             } else {
                 val1 = a[sortKey];
                 val2 = b[sortKey];
