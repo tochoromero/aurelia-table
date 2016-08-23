@@ -123,6 +123,26 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
 
                     this.row.$IsSelected = this.row.$IsSelected ? false : true;
                     this.setClass();
+
+                    if (this.row.$IsSelected) {
+                        this.dispatchSelectedEvent();
+                    }
+                };
+
+                AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
+                    var selectedEvent = {};
+                    if (window.CustomEvent) {
+                        selectedEvent = new CustomEvent('select', {
+                            detail: { row: this.row },
+                            bubbles: true
+                        });
+                    } else {
+                        selectedEvent = document.createEvent('CustomEvent');
+                        selectedEvent.initCustomEvent('select', true, true, {
+                            detail: { row: this.row }
+                        });
+                    }
+                    this.element.dispatchEvent(selectedEvent);
                 };
 
                 AutSelectCustomAttribute.prototype.isSelectedChanged = function isSelectedChanged() {

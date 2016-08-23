@@ -9,7 +9,7 @@ export class AutSelectCustomAttribute {
     @bindable selectedClass = 'aut-row-selected';
 
     selectedSubscription;
-
+    
     constructor(auTable, element, bindingEngine) {
         this.auTable = auTable;
         this.element = element;
@@ -26,7 +26,7 @@ export class AutSelectCustomAttribute {
 
         this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$IsSelected').subscribe(() => this.isSelectedChanged());
 
-        this.setClass();
+        this.setClass();        
     }
 
     detached() {
@@ -42,7 +42,7 @@ export class AutSelectCustomAttribute {
         }
     }
 
-    handleRowSelected(e) {
+    handleRowSelected(e) {        
         let source = event.target || event.srcElement;
         if (source.tagName.toLowerCase() !== 'td') {
             return;
@@ -51,9 +51,29 @@ export class AutSelectCustomAttribute {
         if(this.mode === 'single'){
             this.deselectAll();
         }
-        
+                
         this.row.$IsSelected = this.row.$IsSelected ? false : true;
         this.setClass();
+
+        if( this.row.$IsSelected){
+            this.dispatchSelectedEvent();
+        }
+    }    
+
+    dispatchSelectedEvent(){
+        let selectedEvent = {};
+        if(window.CustomEvent){
+            selectedEvent = new CustomEvent('select', {
+                    detail:{ row: this.row }, 
+                    bubbles: true
+                });
+        } else{
+            selectedEvent = document.createEvent('CustomEvent');
+            selectedEvent.initCustomEvent('select', true, true, {
+                detail: { row: this.row}
+                });            
+        }
+        this.element.dispatchEvent(selectedEvent);
     }
 
     isSelectedChanged() {
