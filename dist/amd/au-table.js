@@ -199,10 +199,7 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
         };
 
         AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort, sortKey, sortOrder) {
-
-            var isNumeric = function isNumeric(n) {
-                return !isNaN(parseFloat(n)) && isFinite(n);
-            };
+            var _this2 = this;
 
             toSort.sort(function (a, b) {
 
@@ -220,7 +217,7 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
                 if (val1 == null) val1 = "";
                 if (val2 == null) val2 = "";
 
-                if (isNumeric(val1) && isNumeric(val2)) {
+                if (_this2.isNumeric(val1) && _this2.isNumeric(val2)) {
                     return (val1 - val2) * sortOrder;
                 } else {
                     var str1 = val1.toString();
@@ -229,6 +226,10 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
                     return str1.localeCompare(str2) * sortOrder;
                 }
             });
+        };
+
+        AureliaTableCustomAttribute.prototype.isNumeric = function isNumeric(toCheck) {
+            return !isNaN(parseFloat(toCheck)) && isFinite(toCheck);
         };
 
         AureliaTableCustomAttribute.prototype.doPaginate = function doPaginate(toPaginate) {
@@ -252,14 +253,14 @@ define(["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
         };
 
         AureliaTableCustomAttribute.prototype.dataChanged = function dataChanged() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.dataObserver) {
                 this.dataObserver.dispose();
             }
 
             this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
-                return _this2.applyPlugins();
+                return _this3.applyPlugins();
             });
 
             this.applyPlugins();
