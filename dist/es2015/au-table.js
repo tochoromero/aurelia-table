@@ -169,15 +169,22 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
                 val2 = b[sortKey];
             }
 
-            if (isNaN(val1)) {
+            if (val1 == null) val1 = "";
+            if (val2 == null) val2 = "";
+
+            if (this.isNumeric(val1) && this.isNumeric(val2)) {
+                return (val1 - val2) * sortOrder;
+            } else {
                 let str1 = val1.toString();
                 let str2 = val2.toString();
 
                 return str1.localeCompare(str2) * sortOrder;
-            } else {
-                return (val1 - val2) * sortOrder;
             }
         });
+    }
+
+    isNumeric(toCheck) {
+        return !isNaN(parseFloat(toCheck)) && isFinite(toCheck);
     }
 
     doPaginate(toPaginate) {
