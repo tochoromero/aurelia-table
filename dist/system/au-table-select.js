@@ -80,8 +80,8 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
                     this.element = element;
                     this.bindingEngine = bindingEngine;
 
-                    this.rowSelectedListener = function (e) {
-                        _this.handleRowSelected(e);
+                    this.rowSelectedListener = function (event) {
+                        _this.handleRowSelected(event);
                     };
                 }
 
@@ -91,7 +91,7 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
                     this.element.style.cursor = 'pointer';
                     this.element.addEventListener('click', this.rowSelectedListener);
 
-                    this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$IsSelected').subscribe(function () {
+                    this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$isSelected').subscribe(function () {
                         return _this2.isSelectedChanged();
                     });
 
@@ -104,14 +104,14 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
                 };
 
                 AutSelectCustomAttribute.prototype.setClass = function setClass() {
-                    if (this.row.$IsSelected) {
+                    if (this.row.$isSelected) {
                         this.element.classList.add(this.selectedClass);
                     } else {
                         this.element.classList.remove(this.selectedClass);
                     }
                 };
 
-                AutSelectCustomAttribute.prototype.handleRowSelected = function handleRowSelected(e) {
+                AutSelectCustomAttribute.prototype.handleRowSelected = function handleRowSelected(event) {
                     var source = event.target || event.srcElement;
                     if (source.tagName.toLowerCase() !== 'td') {
                         return;
@@ -121,16 +121,16 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
                         this.deselectAll();
                     }
 
-                    this.row.$IsSelected = this.row.$IsSelected ? false : true;
+                    this.row.$isSelected = this.row.$isSelected ? false : true;
                     this.setClass();
 
-                    if (this.row.$IsSelected) {
+                    if (this.row.$isSelected) {
                         this.dispatchSelectedEvent();
                     }
                 };
 
                 AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
-                    var selectedEvent = {};
+                    var selectedEvent = void 0;
                     if (window.CustomEvent) {
                         selectedEvent = new CustomEvent('select', {
                             detail: { row: this.row },
@@ -147,6 +147,10 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
 
                 AutSelectCustomAttribute.prototype.isSelectedChanged = function isSelectedChanged() {
                     this.setClass();
+
+                    if (this.row.$isSelected) {
+                        dispatchSelectedEvent();
+                    }
                 };
 
                 AutSelectCustomAttribute.prototype.deselectAll = function deselectAll() {
@@ -154,7 +158,7 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
 
                     this.auTable.data.forEach(function (item) {
                         if (item !== _this3.row) {
-                            item.$IsSelected = false;
+                            item.$isSelected = false;
                         }
                     });
                 };

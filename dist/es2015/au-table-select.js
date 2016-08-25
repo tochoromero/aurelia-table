@@ -59,8 +59,8 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
         this.element = element;
         this.bindingEngine = bindingEngine;
 
-        this.rowSelectedListener = e => {
-            this.handleRowSelected(e);
+        this.rowSelectedListener = event => {
+            this.handleRowSelected(event);
         };
     }
 
@@ -68,7 +68,7 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
         this.element.style.cursor = 'pointer';
         this.element.addEventListener('click', this.rowSelectedListener);
 
-        this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$IsSelected').subscribe(() => this.isSelectedChanged());
+        this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$isSelected').subscribe(() => this.isSelectedChanged());
 
         this.setClass();
     }
@@ -79,14 +79,14 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
     }
 
     setClass() {
-        if (this.row.$IsSelected) {
+        if (this.row.$isSelected) {
             this.element.classList.add(this.selectedClass);
         } else {
             this.element.classList.remove(this.selectedClass);
         }
     }
 
-    handleRowSelected(e) {
+    handleRowSelected(event) {
         let source = event.target || event.srcElement;
         if (source.tagName.toLowerCase() !== 'td') {
             return;
@@ -96,16 +96,16 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
             this.deselectAll();
         }
 
-        this.row.$IsSelected = this.row.$IsSelected ? false : true;
+        this.row.$isSelected = this.row.$isSelected ? false : true;
         this.setClass();
 
-        if (this.row.$IsSelected) {
+        if (this.row.$isSelected) {
             this.dispatchSelectedEvent();
         }
     }
 
     dispatchSelectedEvent() {
-        let selectedEvent = {};
+        let selectedEvent;
         if (window.CustomEvent) {
             selectedEvent = new CustomEvent('select', {
                 detail: { row: this.row },
@@ -122,12 +122,16 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
 
     isSelectedChanged() {
         this.setClass();
+
+        if (this.row.$isSelected) {
+            dispatchSelectedEvent();
+        }
     }
 
     deselectAll() {
         this.auTable.data.forEach(item => {
             if (item !== this.row) {
-                item.$IsSelected = false;
+                item.$isSelected = false;
             }
         });
     }
