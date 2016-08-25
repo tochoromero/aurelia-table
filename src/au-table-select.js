@@ -24,7 +24,7 @@ export class AutSelectCustomAttribute {
         this.element.style.cursor = 'pointer';
         this.element.addEventListener('click', this.rowSelectedListener);
 
-        this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$IsSelected').subscribe(() => this.isSelectedChanged());
+        this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$isSelected').subscribe(() => this.isSelectedChanged());
 
         this.setClass();
     }
@@ -35,7 +35,7 @@ export class AutSelectCustomAttribute {
     }
 
     setClass() {
-        if (this.row.$IsSelected) {
+        if (this.row.$isSelected) {
             this.element.classList.add(this.selectedClass);
         } else {
             this.element.classList.remove(this.selectedClass);
@@ -52,10 +52,10 @@ export class AutSelectCustomAttribute {
             this.deselectAll();
         }
 
-        this.row.$IsSelected = this.row.$IsSelected ? false : true;
+        this.row.$isSelected = this.row.$isSelected ? false : true;
         this.setClass();
 
-        if (this.row.$IsSelected) {
+        if (this.row.$isSelected) {
             this.dispatchSelectedEvent();
         }
     }
@@ -79,7 +79,7 @@ export class AutSelectCustomAttribute {
     isSelectedChanged() {
         this.setClass();
 
-        if (this.row.$IsSelected) {
+        if (this.row.$isSelected) {
             dispatchSelectedEvent();
         }
     }
@@ -87,7 +87,7 @@ export class AutSelectCustomAttribute {
     deselectAll() {
         this.auTable.data.forEach(item => {
             if (item !== this.row) {
-                item.$IsSelected = false
+                item.$isSelected = false
             }
         });
     }
