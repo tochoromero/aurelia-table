@@ -13,11 +13,14 @@ export class AureliaTableCustomAttribute {
     @bindable pageSize;
     @bindable({defaultBindingMode: bindingMode.twoWay}) totalItems;
 
+    @bindable({defaultBindingMode: bindingMode.twoWay}) api;
+
     isAttached = false;
 
     sortKey;
     sortOrder;
     sortChangedListeners = [];
+    beforePagination = [];
 
     dataObserver;
 
@@ -29,6 +32,10 @@ export class AureliaTableCustomAttribute {
         if (this.data) {
             this.dataObserver = this.bindingEngine.collectionObserver(this.data)
                 .subscribe(() => this.applyPlugins())
+        }
+
+        this.api = {
+            revealItem: (item) => this.revealItem(item)
         }
     }
 
@@ -93,6 +100,7 @@ export class AureliaTableCustomAttribute {
         this.totalItems = localData.length;
 
         if (this.hasPagination()) {
+            this.beforePagination = [].concat(localData);
             localData = this.doPaginate(localData);
         }
 
@@ -210,6 +218,22 @@ export class AureliaTableCustomAttribute {
         if (index > -1) {
             listeners.splice(index, 1);
         }
+    }
+
+    revealItem(item) {
+        if (!this.hasPagination()) {
+            return true;
+        }
+
+        let index = this.beforePagination.indexOf(item);
+
+        if (index === -1) {
+            return false;
+        }
+
+        this.currentPage = Math.ceil((index + 1) / this.pageSize);
+
+        return true;
     }
 
 }
