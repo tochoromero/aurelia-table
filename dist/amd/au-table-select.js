@@ -115,11 +115,6 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
             }
 
             this.row.$isSelected = this.row.$isSelected ? false : true;
-            this.setClass();
-
-            if (this.row.$isSelected) {
-                this.dispatchSelectedEvent();
-            }
         };
 
         AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
@@ -142,7 +137,7 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
             this.setClass();
 
             if (this.row.$isSelected) {
-                dispatchSelectedEvent();
+                this.dispatchSelectedEvent();
             }
         };
 

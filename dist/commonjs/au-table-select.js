@@ -114,11 +114,6 @@ var AutSelectCustomAttribute = exports.AutSelectCustomAttribute = (_dec = (0, _a
         }
 
         this.row.$isSelected = this.row.$isSelected ? false : true;
-        this.setClass();
-
-        if (this.row.$isSelected) {
-            this.dispatchSelectedEvent();
-        }
     };
 
     AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
@@ -141,7 +136,7 @@ var AutSelectCustomAttribute = exports.AutSelectCustomAttribute = (_dec = (0, _a
         this.setClass();
 
         if (this.row.$isSelected) {
-            dispatchSelectedEvent();
+            this.dispatchSelectedEvent();
         }
     };
 

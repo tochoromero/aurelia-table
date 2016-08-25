@@ -122,11 +122,6 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
                     }
 
                     this.row.$isSelected = this.row.$isSelected ? false : true;
-                    this.setClass();
-
-                    if (this.row.$isSelected) {
-                        this.dispatchSelectedEvent();
-                    }
                 };
 
                 AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
@@ -149,7 +144,7 @@ System.register(["aurelia-framework", "./au-table"], function (_export, _context
                     this.setClass();
 
                     if (this.row.$isSelected) {
-                        dispatchSelectedEvent();
+                        this.dispatchSelectedEvent();
                     }
                 };
 

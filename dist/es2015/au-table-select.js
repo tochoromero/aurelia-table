@@ -97,11 +97,6 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
         }
 
         this.row.$isSelected = this.row.$isSelected ? false : true;
-        this.setClass();
-
-        if (this.row.$isSelected) {
-            this.dispatchSelectedEvent();
-        }
     }
 
     dispatchSelectedEvent() {
@@ -124,7 +119,7 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
         this.setClass();
 
         if (this.row.$isSelected) {
-            dispatchSelectedEvent();
+            this.dispatchSelectedEvent();
         }
     }
 
