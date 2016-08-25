@@ -78,6 +78,10 @@ export class AutSelectCustomAttribute {
 
     isSelectedChanged() {
         this.setClass();
+
+        if (this.row.$IsSelected) {
+            dispatchSelectedEvent();
+        }
     }
 
     deselectAll() {
