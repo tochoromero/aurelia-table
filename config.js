@@ -206,6 +206,9 @@ System.config({
     }
   },
   depCache: {
+    "api.js": [
+      "aurelia-fetch-client"
+    ],
     "basics.js": [
       "aurelia-fetch-client"
     ],
@@ -216,7 +219,8 @@ System.config({
       "aurelia-fetch-client"
     ],
     "main.js": [
-      "bootstrap"
+      "bootstrap",
+      "jquery"
     ],
     "pagination.js": [
       "aurelia-fetch-client"
@@ -230,6 +234,8 @@ System.config({
   },
   bundles: {
     "app-build.js": [
+      "api.html!github:systemjs/plugin-text@0.0.8.js",
+      "api.js",
       "app.html!github:systemjs/plugin-text@0.0.8.js",
       "app.js",
       "basics.html!github:systemjs/plugin-text@0.0.8.js",

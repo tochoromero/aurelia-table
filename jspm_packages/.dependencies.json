@@ -141,7 +141,7 @@
     "indexof": "npm:indexof@0.0.1"
   },
   "github:twbs/bootstrap@3.3.7": {
-    "jquery": "jspm:jquery@2"
+    "jquery": "jspm:jquery"
   },
   "npm:util@0.10.3": {
     "inherits": "npm:inherits@2.0.1",
