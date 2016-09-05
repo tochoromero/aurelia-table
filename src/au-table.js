@@ -6,8 +6,7 @@ export class AureliaTableCustomAttribute {
     @bindable data;
     @bindable({defaultBindingMode: bindingMode.twoWay}) displayData;
 
-    @bindable filterText;
-    @bindable filterKeys;
+    @bindable filters;
 
     @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
     @bindable pageSize;
@@ -23,15 +22,22 @@ export class AureliaTableCustomAttribute {
     beforePagination = [];
 
     dataObserver;
+    filterObservers = [];
 
     constructor(bindingEngine) {
         this.bindingEngine = bindingEngine;
     }
 
     bind() {
-        if (this.data) {
-            this.dataObserver = this.bindingEngine.collectionObserver(this.data)
-                .subscribe(() => this.applyPlugins())
+        if (Array.isArray(this.data)) {
+            this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins())
+        }
+
+        if (Array.isArray(this.filters)) {
+            for (let filter of this.filters) {
+                let observer = this.bindingEngine.propertyObserver(filter, 'value').subscribe(() => this.filterChanged());
+                this.filterObservers.push(observer);
+            }
         }
 
         this.api = {
@@ -48,16 +54,13 @@ export class AureliaTableCustomAttribute {
         if (this.dataObserver) {
             this.dataObserver.dispose();
         }
-    }
 
-    filterTextChanged() {
-        if (this.hasPagination()) {
-            this.currentPage = 1;
+        for (let observer of this.filterObservers) {
+            observer.dispose();
         }
-        this.applyPlugins();
     }
 
-    filterKeysChanged() {
+    filterChanged() {
         if (this.hasPagination()) {
             this.currentPage = 1;
         }
@@ -109,22 +112,33 @@ export class AureliaTableCustomAttribute {
 
     doFilter(toFilter) {
         let filteredData = [];
-        
-        for (let next of toFilter) {
-            for (let key of this.filterKeys) {
 
-                if( next[key]!= null ){
-                    let value = next[key].toString().toLowerCase();
-
-                    if (value.indexOf(this.filterText.toLowerCase()) > -1) {
-                        filteredData.push(next);
-                        break;
-                    }
+        for (let item of toFilter) {
+            for (let filter of this.filters) {
+                if (this.passFilter(item, filter)) {
+                    filteredData.push(item);
                 }
             }
         }
 
         return filteredData;
+    }
+
+    passFilter(item, filter) {
+        if (filter.value === null || filter.value === undefined || filter.value.toString().trim() === '') {
+            return true;
+        }
+
+        for (let key of filter.keys) {
+            if (item[key] != null) {
+                let value = item[key].toString().toLowerCase();
+
+                if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     doSort(toSort, sortKey, sortOrder) {
@@ -141,10 +155,10 @@ export class AureliaTableCustomAttribute {
                 val2 = b[sortKey];
             }
 
-            if(val1 == null) val1 = "";
-            if(val2 == null) val2 = "";
+            if (val1 == null) val1 = "";
+            if (val2 == null) val2 = "";
 
-            if (this.isNumeric(val1) && this.isNumeric(val2)) {               
+            if (this.isNumeric(val1) && this.isNumeric(val2)) {
                 return (val1 - val2) * sortOrder;
             } else {
                 let str1 = val1.toString();
@@ -155,7 +169,7 @@ export class AureliaTableCustomAttribute {
         });
     }
 
-    isNumeric(toCheck){
+    isNumeric(toCheck) {
         return !isNaN(parseFloat(toCheck)) && isFinite(toCheck);
     }
 
@@ -172,8 +186,7 @@ export class AureliaTableCustomAttribute {
     }
 
     hasFilter() {
-        return this.filterText && (typeof this.filterText === 'string' || this.filterText instanceof String)
-            && this.filterText.trim().length > 0 && this.filterKeys.length > 0;
+        return Array.isArray(this.filters) && this.filters.length > 0;
     }
 
     hasPagination() {

@@ -1,4 +1,4 @@
-var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8;
+var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
 function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -48,32 +48,38 @@ import { inject, bindable, bindingMode, BindingEngine } from "aurelia-framework"
 export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec3 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec4 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec5 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec(_class = (_class2 = class AureliaTableCustomAttribute {
 
     constructor(bindingEngine) {
-        _initDefineProp(this, "data", _descriptor, this);
+        _initDefineProp(this, 'data', _descriptor, this);
 
-        _initDefineProp(this, "displayData", _descriptor2, this);
+        _initDefineProp(this, 'displayData', _descriptor2, this);
 
-        _initDefineProp(this, "filterText", _descriptor3, this);
+        _initDefineProp(this, 'filters', _descriptor3, this);
 
-        _initDefineProp(this, "filterKeys", _descriptor4, this);
+        _initDefineProp(this, 'currentPage', _descriptor4, this);
 
-        _initDefineProp(this, "currentPage", _descriptor5, this);
+        _initDefineProp(this, 'pageSize', _descriptor5, this);
 
-        _initDefineProp(this, "pageSize", _descriptor6, this);
+        _initDefineProp(this, 'totalItems', _descriptor6, this);
 
-        _initDefineProp(this, "totalItems", _descriptor7, this);
-
-        _initDefineProp(this, "api", _descriptor8, this);
+        _initDefineProp(this, 'api', _descriptor7, this);
 
         this.isAttached = false;
         this.sortChangedListeners = [];
         this.beforePagination = [];
+        this.filterObservers = [];
 
         this.bindingEngine = bindingEngine;
     }
 
     bind() {
-        if (this.data) {
+        if (Array.isArray(this.data)) {
             this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+        }
+
+        if (Array.isArray(this.filters)) {
+            for (let filter of this.filters) {
+                let observer = this.bindingEngine.propertyObserver(filter, 'value').subscribe(() => this.filterChanged());
+                this.filterObservers.push(observer);
+            }
         }
 
         this.api = {
@@ -90,16 +96,13 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
         if (this.dataObserver) {
             this.dataObserver.dispose();
         }
-    }
 
-    filterTextChanged() {
-        if (this.hasPagination()) {
-            this.currentPage = 1;
+        for (let observer of this.filterObservers) {
+            observer.dispose();
         }
-        this.applyPlugins();
     }
 
-    filterKeysChanged() {
+    filterChanged() {
         if (this.hasPagination()) {
             this.currentPage = 1;
         }
@@ -146,21 +149,32 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     doFilter(toFilter) {
         let filteredData = [];
 
-        for (let next of toFilter) {
-            for (let key of this.filterKeys) {
-
-                if (next[key] != null) {
-                    let value = next[key].toString().toLowerCase();
-
-                    if (value.indexOf(this.filterText.toLowerCase()) > -1) {
-                        filteredData.push(next);
-                        break;
-                    }
+        for (let item of toFilter) {
+            for (let filter of this.filters) {
+                if (this.passFilter(item, filter)) {
+                    filteredData.push(item);
                 }
             }
         }
 
         return filteredData;
+    }
+
+    passFilter(item, filter) {
+        if (filter.value === null || filter.value === undefined || filter.value.toString().trim() === '') {
+            return true;
+        }
+
+        for (let key of filter.keys) {
+            if (item[key] != null) {
+                let value = item[key].toString().toLowerCase();
+
+                if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     doSort(toSort, sortKey, sortOrder) {
@@ -208,7 +222,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
     }
 
     hasFilter() {
-        return this.filterText && (typeof this.filterText === 'string' || this.filterText instanceof String) && this.filterText.trim().length > 0 && this.filterKeys.length > 0;
+        return Array.isArray(this.filters) && this.filters.length > 0;
     }
 
     hasPagination() {
@@ -270,28 +284,25 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
         return true;
     }
 
-}, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "data", [bindable], {
+}, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'data', [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "displayData", [_dec2], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'displayData', [_dec2], {
     enumerable: true,
     initializer: null
-}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "filterText", [bindable], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'filters', [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "filterKeys", [bindable], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'currentPage', [_dec3], {
     enumerable: true,
     initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "currentPage", [_dec3], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, 'pageSize', [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "pageSize", [bindable], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
     enumerable: true,
     initializer: null
-}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "totalItems", [_dec4], {
-    enumerable: true,
-    initializer: null
-}), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "api", [_dec5], {
+}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
     enumerable: true,
     initializer: null
 })), _class2)) || _class);
