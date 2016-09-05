@@ -226,6 +226,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
 
                     if (this.passFilter(item, filter)) {
                         filteredData.push(item);
+                        break;
                     }
                 }
             }

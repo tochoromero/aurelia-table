@@ -117,6 +117,7 @@ export class AureliaTableCustomAttribute {
             for (let filter of this.filters) {
                 if (this.passFilter(item, filter)) {
                     filteredData.push(item);
+                    break;
                 }
             }
         }

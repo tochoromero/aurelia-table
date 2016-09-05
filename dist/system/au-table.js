@@ -231,6 +231,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
                             if (this.passFilter(item, filter)) {
                                 filteredData.push(item);
+                                break;
                             }
                         }
                     }

@@ -153,6 +153,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
             for (let filter of this.filters) {
                 if (this.passFilter(item, filter)) {
                     filteredData.push(item);
+                    break;
                 }
             }
         }

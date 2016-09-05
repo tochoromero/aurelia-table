@@ -223,6 +223,7 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
 
                 if (this.passFilter(item, filter)) {
                     filteredData.push(item);
+                    break;
                 }
             }
         }
