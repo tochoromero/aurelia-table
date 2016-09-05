@@ -215,6 +215,8 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
                         var item = _ref3;
 
+                        var passed = true;
+
                         for (var _iterator4 = this.filters, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator](); ;) {
                             var _ref4;
 
@@ -229,10 +231,14 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
                             var filter = _ref4;
 
-                            if (this.passFilter(item, filter)) {
-                                filteredData.push(item);
+                            if (!this.passFilter(item, filter)) {
+                                passed = false;
                                 break;
                             }
+                        }
+
+                        if (passed) {
+                            filteredData.push(item);
                         }
                     }
 

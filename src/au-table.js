@@ -114,11 +114,17 @@ export class AureliaTableCustomAttribute {
         let filteredData = [];
 
         for (let item of toFilter) {
+            let passed = true;
+
             for (let filter of this.filters) {
-                if (this.passFilter(item, filter)) {
-                    filteredData.push(item);
+                if (!this.passFilter(item, filter)) {
+                    passed = false;
                     break;
                 }
+            }
+
+            if (passed) {
+                filteredData.push(item);
             }
         }
 
