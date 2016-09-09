@@ -205,33 +205,6 @@ System.config({
       "indexof": "npm:indexof@0.0.1"
     }
   },
-  depCache: {
-    "api.js": [
-      "aurelia-fetch-client"
-    ],
-    "basics.js": [
-      "aurelia-fetch-client"
-    ],
-    "customPagination.js": [
-      "aurelia-fetch-client"
-    ],
-    "filter.js": [
-      "aurelia-fetch-client"
-    ],
-    "main.js": [
-      "bootstrap",
-      "jquery"
-    ],
-    "pagination.js": [
-      "aurelia-fetch-client"
-    ],
-    "selection.js": [
-      "aurelia-fetch-client"
-    ],
-    "sort.js": [
-      "aurelia-fetch-client"
-    ]
-  },
   bundles: {
     "app-build.js": [
       "api.html!github:systemjs/plugin-text@0.0.8.js",
@@ -347,6 +320,34 @@ System.config({
       "npm:aurelia-templating@1.0.0/aurelia-templating.js",
       "npm:jquery@2.2.4.js",
       "npm:jquery@2.2.4/dist/jquery.js"
+    ]
+  },
+  depCache: {
+    "api.js": [
+      "aurelia-fetch-client"
+    ],
+    "basics.js": [
+      "aurelia-fetch-client"
+    ],
+    "customPagination.js": [
+      "aurelia-fetch-client"
+    ],
+    "filter.js": [
+      "aurelia-fetch-client"
+    ],
+    "main.js": [
+      "bootstrap",
+      "jquery",
+      "fetch"
+    ],
+    "pagination.js": [
+      "aurelia-fetch-client"
+    ],
+    "selection.js": [
+      "aurelia-fetch-client"
+    ],
+    "sort.js": [
+      "aurelia-fetch-client"
     ]
   }
 });
