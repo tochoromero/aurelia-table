@@ -124,7 +124,7 @@ export class AureliaTableCustomAttribute {
             }
 
             if (passed) {
-                filteredData.push(item);
+                filteredData.push(item)
             }
         }
 

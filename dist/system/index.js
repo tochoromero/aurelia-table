@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 
-System.register([], function (_export, _context) {
+System.register(["./au-table", "./au-table-pagination", "./au-table-select", "./au-table-sort"], function (_export, _context) {
     "use strict";
 
+    var AureliaTableCustomAttribute, AutPaginationCustomElement, AutSelectCustomAttribute, AutSortCustomAttribute;
     function configure(config) {
         config.globalResources('./au-table');
         config.globalResources('./au-table-pagination');
@@ -10,10 +11,26 @@ System.register([], function (_export, _context) {
         config.globalResources('./au-table-sort');
     }
 
-    _export('configure', configure);
+    _export("configure", configure);
 
     return {
-        setters: [],
-        execute: function () {}
+        setters: [function (_auTable) {
+            AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;
+        }, function (_auTablePagination) {
+            AutPaginationCustomElement = _auTablePagination.AutPaginationCustomElement;
+        }, function (_auTableSelect) {
+            AutSelectCustomAttribute = _auTableSelect.AutSelectCustomAttribute;
+        }, function (_auTableSort) {
+            AutSortCustomAttribute = _auTableSort.AutSortCustomAttribute;
+        }],
+        execute: function () {
+            _export("AureliaTableCustomAttribute", AureliaTableCustomAttribute);
+
+            _export("AutPaginationCustomElement", AutPaginationCustomElement);
+
+            _export("AutSelectCustomAttribute", AutSelectCustomAttribute);
+
+            _export("AutSortCustomAttribute", AutSortCustomAttribute);
+        }
     };
 });
