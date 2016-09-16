@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-System.register(['aurelia-framework'], function (_export, _context) {
+System.register(["aurelia-framework"], function (_export, _context) {
     "use strict";
 
     var inject, bindable, bindingMode, BindingEngine, _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, AureliaTableCustomAttribute;
@@ -62,23 +62,23 @@ System.register(['aurelia-framework'], function (_export, _context) {
             BindingEngine = _aureliaFramework.BindingEngine;
         }],
         execute: function () {
-            _export('AureliaTableCustomAttribute', AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec3 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec4 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec5 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec(_class = (_class2 = function () {
+            _export("AureliaTableCustomAttribute", AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec3 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec4 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec5 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec(_class = (_class2 = function () {
                 function AureliaTableCustomAttribute(bindingEngine) {
                     _classCallCheck(this, AureliaTableCustomAttribute);
 
-                    _initDefineProp(this, 'data', _descriptor, this);
+                    _initDefineProp(this, "data", _descriptor, this);
 
-                    _initDefineProp(this, 'displayData', _descriptor2, this);
+                    _initDefineProp(this, "displayData", _descriptor2, this);
 
-                    _initDefineProp(this, 'filters', _descriptor3, this);
+                    _initDefineProp(this, "filters", _descriptor3, this);
 
-                    _initDefineProp(this, 'currentPage', _descriptor4, this);
+                    _initDefineProp(this, "currentPage", _descriptor4, this);
 
-                    _initDefineProp(this, 'pageSize', _descriptor5, this);
+                    _initDefineProp(this, "pageSize", _descriptor5, this);
 
-                    _initDefineProp(this, 'totalItems', _descriptor6, this);
+                    _initDefineProp(this, "totalItems", _descriptor6, this);
 
-                    _initDefineProp(this, 'api', _descriptor7, this);
+                    _initDefineProp(this, "api", _descriptor7, this);
 
                     this.isAttached = false;
                     this.sortChangedListeners = [];
@@ -246,7 +246,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
                 };
 
                 AureliaTableCustomAttribute.prototype.passFilter = function passFilter(item, filter) {
-                    if (filter.value === null || filter.value === undefined || filter.value.toString().trim() === '') {
+                    if (filter.value === null || filter.value === undefined) {
                         return true;
                     }
 
@@ -264,7 +264,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
                         var key = _ref5;
 
-                        if (item[key] != null) {
+                        if (item[key] !== null && item[key] !== undefined) {
                             var value = item[key].toString().toLowerCase();
 
                             if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
@@ -402,30 +402,30 @@ System.register(['aurelia-framework'], function (_export, _context) {
                 };
 
                 return AureliaTableCustomAttribute;
-            }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'data', [bindable], {
+            }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "data", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'displayData', [_dec2], {
+            }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "displayData", [_dec2], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'filters', [bindable], {
+            }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "filters", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'currentPage', [_dec3], {
+            }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "currentPage", [_dec3], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, 'pageSize', [bindable], {
+            }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "pageSize", [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
+            }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "totalItems", [_dec4], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
+            }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "api", [_dec5], {
                 enumerable: true,
                 initializer: null
             })), _class2)) || _class));
 
-            _export('AureliaTableCustomAttribute', AureliaTableCustomAttribute);
+            _export("AureliaTableCustomAttribute", AureliaTableCustomAttribute);
         }
     };
 });

@@ -5,10 +5,9 @@ System.register(["./au-table", "./au-table-pagination", "./au-table-select", "./
 
     var AureliaTableCustomAttribute, AutPaginationCustomElement, AutSelectCustomAttribute, AutSortCustomAttribute;
     function configure(config) {
-        config.globalResources('./au-table');
-        config.globalResources('./au-table-pagination');
-        config.globalResources('./au-table-select');
-        config.globalResources('./au-table-sort');
+        config.globalResources('./au-table', './au-table-pagination', './au-table-select', './au-table-sort');
+
+        configureHtmlResourcePlugin(config);
     }
 
     _export("configure", configure);

@@ -15,10 +15,9 @@ var _auTableSelect = require("./au-table-select");
 var _auTableSort = require("./au-table-sort");
 
 function configure(config) {
-    config.globalResources('./au-table');
-    config.globalResources('./au-table-pagination');
-    config.globalResources('./au-table-select');
-    config.globalResources('./au-table-sort');
+    config.globalResources('./au-table', './au-table-pagination', './au-table-select', './au-table-sort');
+
+    configureHtmlResourcePlugin(config);
 }
 
 exports.AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;

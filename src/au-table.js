@@ -132,12 +132,12 @@ export class AureliaTableCustomAttribute {
     }
 
     passFilter(item, filter) {
-        if (filter.value === null || filter.value === undefined || filter.value.toString().trim() === '') {
+        if (filter.value === null || filter.value === undefined) {
             return true;
         }
 
         for (let key of filter.keys) {
-            if (item[key] != null) {
+            if (item[key] !== null && item[key] !== undefined) {
                 let value = item[key].toString().toLowerCase();
 
                 if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
