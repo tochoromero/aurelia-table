@@ -8,8 +8,6 @@ define(["exports", "./au-table", "./au-table-pagination", "./au-table-select", "
     exports.configure = configure;
     function configure(config) {
         config.globalResources('./au-table', './au-table-pagination', './au-table-select', './au-table-sort');
-
-        configureHtmlResourcePlugin(config);
     }
 
     exports.AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;

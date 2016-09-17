@@ -5,8 +5,6 @@ import {AutSortCustomAttribute} from "./au-table-sort";
 
 export function configure(config) {
     config.globalResources('./au-table', './au-table-pagination', './au-table-select', './au-table-sort');
-
-    configureHtmlResourcePlugin(config);
 }
 
 export {AureliaTableCustomAttribute, AutPaginationCustomElement, AutSelectCustomAttribute, AutSortCustomAttribute};

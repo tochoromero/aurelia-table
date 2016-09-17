@@ -10,8 +10,6 @@ export function configure(config) {
         './au-table-select',
         './au-table-sort'
     );
-
-    configureHtmlResourcePlugin(config);
 }
 
 export {
