@@ -60,7 +60,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
             bindingMode = _aureliaFramework.bindingMode;
         }],
         execute: function () {
-            _export("AutPaginationCustomElement", AutPaginationCustomElement = (_dec = bindable({defaultBindingMode: bindingMode.twoWay}), (_class = function () {
+            _export("AutPaginationCustomElement", AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = function () {
                 function AutPaginationCustomElement() {
                     _classCallCheck(this, AutPaginationCustomElement);
 

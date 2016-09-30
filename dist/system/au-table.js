@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-System.register(["aurelia-framework"], function (_export, _context) {
+System.register(['aurelia-framework'], function (_export, _context) {
     "use strict";
 
     var inject, bindable, bindingMode, BindingEngine, _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, AureliaTableCustomAttribute;
@@ -62,23 +62,23 @@ System.register(["aurelia-framework"], function (_export, _context) {
             BindingEngine = _aureliaFramework.BindingEngine;
         }],
         execute: function () {
-            _export("AureliaTableCustomAttribute", AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec3 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec4 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec5 = bindable({defaultBindingMode: bindingMode.twoWay}), _dec(_class = (_class2 = function () {
+            _export('AureliaTableCustomAttribute', AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec5 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = function () {
                 function AureliaTableCustomAttribute(bindingEngine) {
                     _classCallCheck(this, AureliaTableCustomAttribute);
 
-                    _initDefineProp(this, "data", _descriptor, this);
+                    _initDefineProp(this, 'data', _descriptor, this);
 
-                    _initDefineProp(this, "displayData", _descriptor2, this);
+                    _initDefineProp(this, 'displayData', _descriptor2, this);
 
-                    _initDefineProp(this, "filters", _descriptor3, this);
+                    _initDefineProp(this, 'filters', _descriptor3, this);
 
-                    _initDefineProp(this, "currentPage", _descriptor4, this);
+                    _initDefineProp(this, 'currentPage', _descriptor4, this);
 
-                    _initDefineProp(this, "pageSize", _descriptor5, this);
+                    _initDefineProp(this, 'pageSize', _descriptor5, this);
 
-                    _initDefineProp(this, "totalItems", _descriptor6, this);
+                    _initDefineProp(this, 'totalItems', _descriptor6, this);
 
-                    _initDefineProp(this, "api", _descriptor7, this);
+                    _initDefineProp(this, 'api', _descriptor7, this);
 
                     this.isAttached = false;
                     this.sortChangedListeners = [];
@@ -98,7 +98,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                     }
 
                     if (Array.isArray(this.filters)) {
-                        for (var _iterator = this.filters, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
+                        for (var _iterator = this.filters, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
                             var _ref;
 
                             if (_isArray) {
@@ -136,7 +136,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                         this.dataObserver.dispose();
                     }
 
-                    for (var _iterator2 = this.filterObservers, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator](); ;) {
+                    for (var _iterator2 = this.filterObservers, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
                         var _ref2;
 
                         if (_isArray2) {
@@ -201,7 +201,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 AureliaTableCustomAttribute.prototype.doFilter = function doFilter(toFilter) {
                     var filteredData = [];
 
-                    for (var _iterator3 = toFilter, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator](); ;) {
+                    for (var _iterator3 = toFilter, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
                         var _ref3;
 
                         if (_isArray3) {
@@ -217,7 +217,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
 
                         var passed = true;
 
-                        for (var _iterator4 = this.filters, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator](); ;) {
+                        for (var _iterator4 = this.filters, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
                             var _ref4;
 
                             if (_isArray4) {
@@ -250,7 +250,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                         return true;
                     }
 
-                    for (var _iterator5 = filter.keys, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : _iterator5[Symbol.iterator](); ;) {
+                    for (var _iterator5 = filter.keys, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : _iterator5[Symbol.iterator]();;) {
                         var _ref5;
 
                         if (_isArray5) {
@@ -264,8 +264,9 @@ System.register(["aurelia-framework"], function (_export, _context) {
 
                         var key = _ref5;
 
-                        if (item[key] !== null && item[key] !== undefined) {
-                            var value = item[key].toString().toLowerCase();
+                        var asObj = this.getValueByDotNotation(item, key);
+                        if (asObj !== null && asObj !== undefined) {
+                            var value = asObj.toString().toLowerCase();
 
                             if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
                                 return true;
@@ -273,6 +274,10 @@ System.register(["aurelia-framework"], function (_export, _context) {
                         }
                     }
                     return false;
+                };
+
+                AureliaTableCustomAttribute.prototype.getValueByDotNotation = function getValueByDotNotation(obj, path) {
+                    return new Function('_', 'return _.' + path)(obj);
                 };
 
                 AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort, sortKey, sortOrder) {
@@ -359,7 +364,7 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 AureliaTableCustomAttribute.prototype.emitSortChanged = function emitSortChanged() {
-                    for (var _iterator6 = this.sortChangedListeners, _isArray6 = Array.isArray(_iterator6), _i6 = 0, _iterator6 = _isArray6 ? _iterator6 : _iterator6[Symbol.iterator](); ;) {
+                    for (var _iterator6 = this.sortChangedListeners, _isArray6 = Array.isArray(_iterator6), _i6 = 0, _iterator6 = _isArray6 ? _iterator6 : _iterator6[Symbol.iterator]();;) {
                         var _ref6;
 
                         if (_isArray6) {
@@ -402,30 +407,30 @@ System.register(["aurelia-framework"], function (_export, _context) {
                 };
 
                 return AureliaTableCustomAttribute;
-            }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "data", [bindable], {
+            }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'data', [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "displayData", [_dec2], {
+            }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'displayData', [_dec2], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "filters", [bindable], {
+            }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'filters', [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "currentPage", [_dec3], {
+            }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'currentPage', [_dec3], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "pageSize", [bindable], {
+            }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, 'pageSize', [bindable], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "totalItems", [_dec4], {
+            }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
                 enumerable: true,
                 initializer: null
-            }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "api", [_dec5], {
+            }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
                 enumerable: true,
                 initializer: null
             })), _class2)) || _class));
 
-            _export("AureliaTableCustomAttribute", AureliaTableCustomAttribute);
+            _export('AureliaTableCustomAttribute', AureliaTableCustomAttribute);
         }
     };
 });

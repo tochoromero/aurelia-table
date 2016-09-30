@@ -45,7 +45,7 @@ function _initializerWarningHelper(descriptor, context) {
 
 import { bindable, bindingMode } from "aurelia-framework";
 
-export let AutPaginationCustomElement = (_dec = bindable({defaultBindingMode: bindingMode.twoWay}), (_class = class AutPaginationCustomElement {
+export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = class AutPaginationCustomElement {
     constructor() {
         _initDefineProp(this, "currentPage", _descriptor, this);
 
