@@ -137,8 +137,9 @@ export class AureliaTableCustomAttribute {
         }
 
         for (let key of filter.keys) {
-            if (item[key] !== null && item[key] !== undefined) {
-                let value = item[key].toString().toLowerCase();
+            let asObj = this.getValueByDotNotation(item, key);
+            if (asObj !== null && asObj !== undefined) {
+                let value = asObj.toString().toLowerCase();
 
                 if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
                     return true;
@@ -146,6 +147,10 @@ export class AureliaTableCustomAttribute {
             }
         }
         return false;
+    }
+
+    getValueByDotNotation(obj, path) {
+        return new Function('_', 'return _.' + path)(obj);
     }
 
     doSort(toSort, sortKey, sortOrder) {
