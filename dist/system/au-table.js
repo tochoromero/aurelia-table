@@ -264,8 +264,10 @@ System.register(["aurelia-framework"], function (_export, _context) {
 
                         var key = _ref5;
 
-                        if (item[key] !== null && item[key] !== undefined) {
-                            var value = item[key].toString().toLowerCase();
+                        var value = this.getPropertyValue(item, key);
+
+                        if (value !== null && value !== undefined) {
+                            value = value.toString().toLowerCase();
 
                             if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
                                 return true;
@@ -287,8 +289,8 @@ System.register(["aurelia-framework"], function (_export, _context) {
                             val1 = sortKey(a, sortOrder);
                             val2 = sortKey(b, sortOrder);
                         } else {
-                            val1 = a[sortKey];
-                            val2 = b[sortKey];
+                            val1 = _this2.getPropertyValue(a, sortKey);
+                            val2 = _this2.getPropertyValue(b, sortKey);
                         }
 
                         if (val1 == null) val1 = "";
@@ -303,6 +305,21 @@ System.register(["aurelia-framework"], function (_export, _context) {
                             return str1.localeCompare(str2) * sortOrder;
                         }
                     });
+                };
+
+                AureliaTableCustomAttribute.prototype.getPropertyValue = function getPropertyValue(object, keyPath) {
+                    keyPath = keyPath.replace(/\[(\w+)\]/g, '.$1');
+                    keyPath = keyPath.replace(/^\./, '');
+                    var a = keyPath.split('.');
+                    for (var i = 0, n = a.length; i < n; ++i) {
+                        var k = a[i];
+                        if (k in object) {
+                            object = object[k];
+                        } else {
+                            return;
+                        }
+                    }
+                    return object;
                 };
 
                 AureliaTableCustomAttribute.prototype.isNumeric = function isNumeric(toCheck) {

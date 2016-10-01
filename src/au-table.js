@@ -137,8 +137,10 @@ export class AureliaTableCustomAttribute {
         }
 
         for (let key of filter.keys) {
-            if (item[key] !== null && item[key] !== undefined) {
-                let value = item[key].toString().toLowerCase();
+            let value = this.getPropertyValue(item, key);
+
+            if (value !== null && value !== undefined) {
+                value = value.toString().toLowerCase();
 
                 if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
                     return true;
@@ -158,8 +160,8 @@ export class AureliaTableCustomAttribute {
                 val1 = sortKey(a, sortOrder);
                 val2 = sortKey(b, sortOrder);
             } else {
-                val1 = a[sortKey];
-                val2 = b[sortKey];
+                val1 = this.getPropertyValue(a, sortKey);
+                val2 = this.getPropertyValue(b, sortKey);
             }
 
             if (val1 == null) val1 = "";
@@ -174,6 +176,27 @@ export class AureliaTableCustomAttribute {
                 return str1.localeCompare(str2) * sortOrder;
             }
         });
+    }
+
+    /**
+     * Retrieves the value in the object specified by the key path
+     * @param object the object
+     * @param keyPath the path
+     * @returns {*} the value
+     */
+    getPropertyValue(object, keyPath) {
+        keyPath = keyPath.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        keyPath = keyPath.replace(/^\./, '');           // strip a leading dot
+        var a = keyPath.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+            var k = a[i];
+            if (k in object) {
+                object = object[k];
+            } else {
+                return;
+            }
+        }
+        return object;
     }
 
     isNumeric(toCheck) {

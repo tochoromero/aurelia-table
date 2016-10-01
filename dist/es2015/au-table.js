@@ -173,8 +173,10 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
         }
 
         for (let key of filter.keys) {
-            if (item[key] !== null && item[key] !== undefined) {
-                let value = item[key].toString().toLowerCase();
+            let value = this.getPropertyValue(item, key);
+
+            if (value !== null && value !== undefined) {
+                value = value.toString().toLowerCase();
 
                 if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
                     return true;
@@ -194,8 +196,8 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
                 val1 = sortKey(a, sortOrder);
                 val2 = sortKey(b, sortOrder);
             } else {
-                val1 = a[sortKey];
-                val2 = b[sortKey];
+                val1 = this.getPropertyValue(a, sortKey);
+                val2 = this.getPropertyValue(b, sortKey);
             }
 
             if (val1 == null) val1 = "";
@@ -210,6 +212,21 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
                 return str1.localeCompare(str2) * sortOrder;
             }
         });
+    }
+
+    getPropertyValue(object, keyPath) {
+        keyPath = keyPath.replace(/\[(\w+)\]/g, '.$1');
+        keyPath = keyPath.replace(/^\./, '');
+        var a = keyPath.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+            var k = a[i];
+            if (k in object) {
+                object = object[k];
+            } else {
+                return;
+            }
+        }
+        return object;
     }
 
     isNumeric(toCheck) {
