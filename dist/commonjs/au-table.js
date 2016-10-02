@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -7,7 +7,7 @@ exports.AureliaTableCustomAttribute = undefined;
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
-var _aureliaFramework = require("aurelia-framework");
+var _aureliaFramework = require('aurelia-framework');
 
 function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -58,19 +58,19 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
     function AureliaTableCustomAttribute(bindingEngine) {
         _classCallCheck(this, AureliaTableCustomAttribute);
 
-        _initDefineProp(this, "data", _descriptor, this);
+        _initDefineProp(this, 'data', _descriptor, this);
 
-        _initDefineProp(this, "displayData", _descriptor2, this);
+        _initDefineProp(this, 'displayData', _descriptor2, this);
 
-        _initDefineProp(this, "filters", _descriptor3, this);
+        _initDefineProp(this, 'filters', _descriptor3, this);
 
-        _initDefineProp(this, "currentPage", _descriptor4, this);
+        _initDefineProp(this, 'currentPage', _descriptor4, this);
 
-        _initDefineProp(this, "pageSize", _descriptor5, this);
+        _initDefineProp(this, 'pageSize', _descriptor5, this);
 
-        _initDefineProp(this, "totalItems", _descriptor6, this);
+        _initDefineProp(this, 'totalItems', _descriptor6, this);
 
-        _initDefineProp(this, "api", _descriptor7, this);
+        _initDefineProp(this, 'api', _descriptor7, this);
 
         this.isAttached = false;
         this.sortChangedListeners = [];
@@ -238,7 +238,11 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
     };
 
     AureliaTableCustomAttribute.prototype.passFilter = function passFilter(item, filter) {
-        if (filter.value === null || filter.value === undefined) {
+        if (typeof filter.custom === 'function' && !filter.custom(filter.value, item)) {
+            return false;
+        }
+
+        if (filter.value === null || filter.value === undefined || !Array.isArray(filter.keys)) {
             return true;
         }
 
@@ -411,25 +415,25 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
     };
 
     return AureliaTableCustomAttribute;
-}(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "data", [_aureliaFramework.bindable], {
+}(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'data', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "displayData", [_dec2], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'displayData', [_dec2], {
     enumerable: true,
     initializer: null
-}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "filters", [_aureliaFramework.bindable], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'filters', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "currentPage", [_dec3], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'currentPage', [_dec3], {
     enumerable: true,
     initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "pageSize", [_aureliaFramework.bindable], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, 'pageSize', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "totalItems", [_dec4], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
     enumerable: true,
     initializer: null
-}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "api", [_dec5], {
+}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
     enumerable: true,
     initializer: null
 })), _class2)) || _class);

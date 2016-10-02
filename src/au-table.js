@@ -132,11 +132,11 @@ export class AureliaTableCustomAttribute {
     }
 
     passFilter(item, filter) {
-        if (typeof filter.custom === 'function') {
-            return filter.custom(filter.value, item);
+        if (typeof filter.custom === 'function' && !filter.custom(filter.value, item)) {
+            return false;
         }
 
-        if (filter.value === null || filter.value === undefined) {
+        if (filter.value === null || filter.value === undefined || !Array.isArray(filter.keys)) {
             return true;
         }
 
