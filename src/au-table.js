@@ -136,6 +136,10 @@ export class AureliaTableCustomAttribute {
             return true;
         }
 
+        if (typeof filter.custom === 'function') {
+            return filter.custom(filter.value, item);
+        }
+
         for (let key of filter.keys) {
             let value = this.getPropertyValue(item, key);
 
