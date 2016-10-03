@@ -1,0 +1,13 @@
+<template>
+    <ul class="nav ${tabsClass} ${vertical ? 'nav-stacked' : ''}" role="tablist">
+        <li role="presentation" repeat.for="tab of tabs"
+            class="${active === tab.index ? 'active' : ''} ${tab.disabled ? 'disabled' : ''}">
+            <a href role="tab" click.delegate="selectTab(tab)" innerHTML.bind="tab.header"></a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <slot></slot>
+    </div>
+
+</template>

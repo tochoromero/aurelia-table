@@ -27,6 +27,7 @@ System.config({
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@2.2.4",
     "text": "github:systemjs/plugin-text@0.0.8",
+    "tochoromero/aurelia-bootstrap": "github:tochoromero/aurelia-bootstrap@master",
     "tochoromero/aurelia-table": "github:tochoromero/aurelia-table@master",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
@@ -206,16 +207,16 @@ System.config({
     }
   },
   depCache: {
-    "api.js": [
+    "api/api.js": [
       "aurelia-fetch-client"
     ],
-    "basics.js": [
+    "basics/basics.js": [
       "aurelia-fetch-client"
     ],
-    "customPagination.js": [
+    "filter/custom-filter.js": [
       "aurelia-fetch-client"
     ],
-    "filter.js": [
+    "filter/filter.js": [
       "aurelia-fetch-client"
     ],
     "main.js": [
@@ -223,42 +224,63 @@ System.config({
       "jquery",
       "fetch"
     ],
-    "pagination.js": [
+    "pagination/customPagination.js": [
       "aurelia-fetch-client"
     ],
-    "selection.js": [
+    "pagination/pagination.js": [
       "aurelia-fetch-client"
     ],
-    "sort.js": [
+    "selection/selection.js": [
+      "aurelia-fetch-client"
+    ],
+    "sort/sort.js": [
       "aurelia-fetch-client"
     ]
   },
   bundles: {
     "app-build.js": [
-      "api.html!github:systemjs/plugin-text@0.0.8.js",
-      "api.js",
+      "api/api.html!github:systemjs/plugin-text@0.0.8.js",
+      "api/api.js",
       "app.html!github:systemjs/plugin-text@0.0.8.js",
       "app.js",
-      "basics.html!github:systemjs/plugin-text@0.0.8.js",
-      "basics.js",
-      "customPagination.html!github:systemjs/plugin-text@0.0.8.js",
-      "customPagination.js",
-      "filter.html!github:systemjs/plugin-text@0.0.8.js",
-      "filter.js",
-      "introduction.html!github:systemjs/plugin-text@0.0.8.js",
-      "introduction.js",
+      "basics/basics.html!github:systemjs/plugin-text@0.0.8.js",
+      "basics/basics.js",
+      "filter/custom-filter.html!github:systemjs/plugin-text@0.0.8.js",
+      "filter/custom-filter.js",
+      "filter/filter.html!github:systemjs/plugin-text@0.0.8.js",
+      "filter/filter.js",
+      "introduction/introduction.html!github:systemjs/plugin-text@0.0.8.js",
+      "introduction/introduction.js",
       "main.js",
       "nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
-      "pagination.html!github:systemjs/plugin-text@0.0.8.js",
-      "pagination.js",
-      "selection.html!github:systemjs/plugin-text@0.0.8.js",
-      "selection.js",
-      "sort.html!github:systemjs/plugin-text@0.0.8.js",
-      "sort.js"
+      "pagination/customPagination.html!github:systemjs/plugin-text@0.0.8.js",
+      "pagination/customPagination.js",
+      "pagination/pagination.html!github:systemjs/plugin-text@0.0.8.js",
+      "pagination/pagination.js",
+      "selection/selection.html!github:systemjs/plugin-text@0.0.8.js",
+      "selection/selection.js",
+      "sort/sort.html!github:systemjs/plugin-text@0.0.8.js",
+      "sort/sort.js"
     ],
     "aurelia.js": [
       "github:github/fetch@1.0.0.js",
       "github:github/fetch@1.0.0/fetch.js",
+      "github:tochoromero/aurelia-bootstrap@master.js",
+      "github:tochoromero/aurelia-bootstrap@master/accordion/aubs-accordion-group.js",
+      "github:tochoromero/aurelia-bootstrap@master/accordion/aubs-accordion.js",
+      "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-checkbox.js",
+      "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-disabled.js",
+      "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-loading.js",
+      "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-radio.js",
+      "github:tochoromero/aurelia-bootstrap@master/dropdown/aubs-dropdown-toggle.js",
+      "github:tochoromero/aurelia-bootstrap@master/dropdown/aubs-dropdown.js",
+      "github:tochoromero/aurelia-bootstrap@master/index.js",
+      "github:tochoromero/aurelia-bootstrap@master/popover/aubs-custom-popover.js",
+      "github:tochoromero/aurelia-bootstrap@master/popover/aubs-popover.js",
+      "github:tochoromero/aurelia-bootstrap@master/tabs/aubs-tab.js",
+      "github:tochoromero/aurelia-bootstrap@master/tabs/aubs-tabset.js",
+      "github:tochoromero/aurelia-bootstrap@master/tooltip/aubs-tooltip.js",
+      "github:tochoromero/aurelia-bootstrap@master/utils/tooltip-service.js",
       "github:tochoromero/aurelia-table@master.js",
       "github:tochoromero/aurelia-table@master/au-table-pagination.js",
       "github:tochoromero/aurelia-table@master/au-table-select.js",

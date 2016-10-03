@@ -1,0 +1,14 @@
+<template>
+    <div class="panel ${panelClass}">
+        <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+                <a role="button" href="javascript:void(0)" innerHTML.bind="title" click.delegate="toggle()"></a>
+            </h4>
+        </div>
+        <div class="panel-collapse au-animate" role="tabpanel" show.bind="isOpen">
+            <div class="panel-body">
+                <slot></slot>
+            </div>
+        </div>
+    </div>
+</template>
