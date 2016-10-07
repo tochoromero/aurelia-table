@@ -5,6 +5,7 @@ import {AureliaTableCustomAttribute} from "./au-table";
 export class AutSortCustomAttribute {
 
     @bindable key;
+    @bindable custom;
     @bindable default;
 
     order = 0;
@@ -35,6 +36,10 @@ export class AutSortCustomAttribute {
     }
 
     attached() {
+        if (this.key === null && this.custom === null) {
+            throw new Error('Must provide a key or a custom sort function.');
+        }
+
         this.element.style.cursor = 'pointer';
         this.element.classList.add('aut-sort');
 
@@ -59,7 +64,7 @@ export class AutSortCustomAttribute {
 
     doSort() {
         this.ignoreEvent = true;
-        this.auTable.sortChanged(this.key, this.order);
+        this.auTable.sortChanged(this.key, this.custom, this.order);
     }
 
     setClass() {

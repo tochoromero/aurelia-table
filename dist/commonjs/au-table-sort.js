@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AutSortCustomAttribute = undefined;
 
-var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
+var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
 var _aureliaFramework = require("aurelia-framework");
 
@@ -64,7 +64,9 @@ var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aurel
 
         _initDefineProp(this, "key", _descriptor, this);
 
-        _initDefineProp(this, "default", _descriptor2, this);
+        _initDefineProp(this, "custom", _descriptor2, this);
+
+        _initDefineProp(this, "default", _descriptor3, this);
 
         this.order = 0;
         this.orderClasses = ['aut-desc', 'aut-sortable', 'aut-asc'];
@@ -92,6 +94,10 @@ var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aurel
     };
 
     AutSortCustomAttribute.prototype.attached = function attached() {
+        if (this.key === null && this.custom === null) {
+            throw new Error('Must provide a key or a custom sort function.');
+        }
+
         this.element.style.cursor = 'pointer';
         this.element.classList.add('aut-sort');
 
@@ -116,7 +122,7 @@ var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aurel
 
     AutSortCustomAttribute.prototype.doSort = function doSort() {
         this.ignoreEvent = true;
-        this.auTable.sortChanged(this.key, this.order);
+        this.auTable.sortChanged(this.key, this.custom, this.order);
     };
 
     AutSortCustomAttribute.prototype.setClass = function setClass() {
@@ -138,7 +144,10 @@ var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aurel
 }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "key", [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "default", [_aureliaFramework.bindable], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "custom", [_aureliaFramework.bindable], {
+    enumerable: true,
+    initializer: null
+}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "default", [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
 })), _class2)) || _class);

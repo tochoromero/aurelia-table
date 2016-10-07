@@ -1,4 +1,4 @@
-var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
+var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
 function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -51,7 +51,9 @@ export let AutSortCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, 
     constructor(auTable, element) {
         _initDefineProp(this, "key", _descriptor, this);
 
-        _initDefineProp(this, "default", _descriptor2, this);
+        _initDefineProp(this, "custom", _descriptor2, this);
+
+        _initDefineProp(this, "default", _descriptor3, this);
 
         this.order = 0;
         this.orderClasses = ['aut-desc', 'aut-sortable', 'aut-asc'];
@@ -79,6 +81,10 @@ export let AutSortCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, 
     }
 
     attached() {
+        if (this.key === null && this.custom === null) {
+            throw new Error('Must provide a key or a custom sort function.');
+        }
+
         this.element.style.cursor = 'pointer';
         this.element.classList.add('aut-sort');
 
@@ -103,7 +109,7 @@ export let AutSortCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, 
 
     doSort() {
         this.ignoreEvent = true;
-        this.auTable.sortChanged(this.key, this.order);
+        this.auTable.sortChanged(this.key, this.custom, this.order);
     }
 
     setClass() {
@@ -119,7 +125,10 @@ export let AutSortCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, 
 }, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "key", [bindable], {
     enumerable: true,
     initializer: null
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "default", [bindable], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "custom", [bindable], {
+    enumerable: true,
+    initializer: null
+}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "default", [bindable], {
     enumerable: true,
     initializer: null
 })), _class2)) || _class);

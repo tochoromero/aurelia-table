@@ -184,8 +184,8 @@ System.register(['aurelia-framework'], function (_export, _context) {
                         localData = this.doFilter(localData);
                     }
 
-                    if (this.sortKey && this.sortOrder !== 0) {
-                        this.doSort(localData, this.sortKey, this.sortOrder);
+                    if ((this.sortKey || this.customSort) && this.sortOrder !== 0) {
+                        this.doSort(localData);
                     }
 
                     this.totalItems = localData.length;
@@ -281,32 +281,36 @@ System.register(['aurelia-framework'], function (_export, _context) {
                     return false;
                 };
 
-                AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort, sortKey, sortOrder) {
+                AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort) {
                     var _this2 = this;
 
                     toSort.sort(function (a, b) {
 
+                        if (typeof _this2.customSort === 'function') {
+                            return _this2.customSort(a, b, _this2.sortOrder);
+                        }
+
                         var val1 = void 0;
                         var val2 = void 0;
 
-                        if (typeof sortKey === "function") {
-                            val1 = sortKey(a, sortOrder);
-                            val2 = sortKey(b, sortOrder);
+                        if (typeof _this2.sortKey === "function") {
+                            val1 = _this2.sortKey(a, _this2.sortOrder);
+                            val2 = _this2.sortKey(b, _this2.sortOrder);
                         } else {
-                            val1 = _this2.getPropertyValue(a, sortKey);
-                            val2 = _this2.getPropertyValue(b, sortKey);
+                            val1 = _this2.getPropertyValue(a, _this2.sortKey);
+                            val2 = _this2.getPropertyValue(b, _this2.sortKey);
                         }
 
                         if (val1 == null) val1 = "";
                         if (val2 == null) val2 = "";
 
                         if (_this2.isNumeric(val1) && _this2.isNumeric(val2)) {
-                            return (val1 - val2) * sortOrder;
+                            return (val1 - val2) * _this2.sortOrder;
                         } else {
                             var str1 = val1.toString();
                             var str2 = val2.toString();
 
-                            return str1.localeCompare(str2) * sortOrder;
+                            return str1.localeCompare(str2) * _this2.sortOrder;
                         }
                     });
                 };
@@ -364,8 +368,9 @@ System.register(['aurelia-framework'], function (_export, _context) {
                     this.applyPlugins();
                 };
 
-                AureliaTableCustomAttribute.prototype.sortChanged = function sortChanged(key, order) {
+                AureliaTableCustomAttribute.prototype.sortChanged = function sortChanged(key, custom, order) {
                     this.sortKey = key;
+                    this.customSort = custom;
                     this.sortOrder = order;
                     this.applyPlugins();
                     this.emitSortChanged();

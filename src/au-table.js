@@ -96,8 +96,8 @@ export class AureliaTableCustomAttribute {
             localData = this.doFilter(localData);
         }
 
-        if (this.sortKey && this.sortOrder !== 0) {
-            this.doSort(localData, this.sortKey, this.sortOrder);
+        if ((this.sortKey || this.customSort) && this.sortOrder !== 0) {
+            this.doSort(localData);
         }
 
         this.totalItems = localData.length;
@@ -154,30 +154,34 @@ export class AureliaTableCustomAttribute {
         return false;
     }
 
-    doSort(toSort, sortKey, sortOrder) {
+    doSort(toSort) {
         toSort.sort((a, b) => {
+
+            if (typeof this.customSort === 'function') {
+                return this.customSort(a, b, this.sortOrder);
+            }
 
             let val1;
             let val2;
 
-            if (typeof sortKey === "function") {
-                val1 = sortKey(a, sortOrder);
-                val2 = sortKey(b, sortOrder);
+            if (typeof this.sortKey === "function") {
+                val1 = this.sortKey(a, this.sortOrder);
+                val2 = this.sortKey(b, this.sortOrder);
             } else {
-                val1 = this.getPropertyValue(a, sortKey);
-                val2 = this.getPropertyValue(b, sortKey);
+                val1 = this.getPropertyValue(a, this.sortKey);
+                val2 = this.getPropertyValue(b, this.sortKey);
             }
 
             if (val1 == null) val1 = "";
             if (val2 == null) val2 = "";
 
             if (this.isNumeric(val1) && this.isNumeric(val2)) {
-                return (val1 - val2) * sortOrder;
+                return (val1 - val2) * this.sortOrder;
             } else {
                 let str1 = val1.toString();
                 let str2 = val2.toString();
 
-                return str1.localeCompare(str2) * sortOrder;
+                return str1.localeCompare(str2) * this.sortOrder;
             }
         });
     }
@@ -238,8 +242,9 @@ export class AureliaTableCustomAttribute {
         this.applyPlugins();
     }
 
-    sortChanged(key, order) {
+    sortChanged(key, custom, order) {
         this.sortKey = key;
+        this.customSort = custom;
         this.sortOrder = order;
         this.applyPlugins();
         this.emitSortChanged();

@@ -1,7 +1,7 @@
 {
   "name": "aurelia-table",
-  "version": "0.1.6",
-  "description": "A simple data table for Aurelia.",
+  "version": "0.1.7",
+  "description": "A simple and powerful data table for Aurelia.",
   "keywords": [
     "aurelia",
     "table",
