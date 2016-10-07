@@ -13,4 +13,5 @@ Out of the box you will get:
  - Column Sorting
  - Client side pagination
  - Row Selection
+ 
 For a complete list of features and examples please visit the [project page](http://tochoromero.github.com/aurelia-table).
