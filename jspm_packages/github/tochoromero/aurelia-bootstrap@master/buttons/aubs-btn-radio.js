@@ -1,4 +1,4 @@
-/* */
+/* */ 
 define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
     'use strict';
 

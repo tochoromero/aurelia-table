@@ -1,4 +1,4 @@
-/* */
+/* */ 
 define(["exports", "aurelia-framework", "../utils/tooltip-service"], function (exports, _aureliaFramework, _tooltipService) {
     "use strict";
 

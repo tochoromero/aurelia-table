@@ -1,4 +1,4 @@
-/* */
+/* */ 
 define(['exports', 'aurelia-framework', './aubs-accordion'], function (exports, _aureliaFramework, _aubsAccordion) {
     'use strict';
 
@@ -77,7 +77,7 @@ define(['exports', 'aurelia-framework', './aubs-accordion'], function (exports, 
 
                 if (typeof this.isOpen !== 'boolean') {
                     this.isOpen = false;
-                }
+            }
             }
 
             AubsAccordionGroupCustomElement.prototype.isOpenChanged = function isOpenChanged() {
@@ -92,7 +92,7 @@ define(['exports', 'aurelia-framework', './aubs-accordion'], function (exports, 
             AubsAccordionGroupCustomElement.prototype.notifyToggle = function notifyToggle() {
                 if (this.isOpen) {
                     this.accordion.groupToggled(this);
-                }
+            }
             };
 
             return AubsAccordionGroupCustomElement;

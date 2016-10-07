@@ -1,4 +1,4 @@
-/* */
+/* */ 
 define(["exports", "aurelia-framework", "./aubs-tabset"], function (exports, _aureliaFramework, _aubsTabset) {
     "use strict";
 

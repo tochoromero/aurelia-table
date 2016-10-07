@@ -56,7 +56,7 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
         throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
     }
 
-    var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
+    var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
     var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_auTable.AureliaTableCustomAttribute, Element), _dec(_class = (_class2 = function () {
         function AutSortCustomAttribute(auTable, element) {
@@ -66,7 +66,9 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
 
             _initDefineProp(this, "key", _descriptor, this);
 
-            _initDefineProp(this, "default", _descriptor2, this);
+            _initDefineProp(this, "custom", _descriptor2, this);
+
+            _initDefineProp(this, "default", _descriptor3, this);
 
             this.order = 0;
             this.orderClasses = ['aut-desc', 'aut-sortable', 'aut-asc'];
@@ -94,6 +96,10 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
         };
 
         AutSortCustomAttribute.prototype.attached = function attached() {
+            if (this.key === null && this.custom === null) {
+                throw new Error('Must provide a key or a custom sort function.');
+            }
+
             this.element.style.cursor = 'pointer';
             this.element.classList.add('aut-sort');
 
@@ -118,7 +124,7 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
 
         AutSortCustomAttribute.prototype.doSort = function doSort() {
             this.ignoreEvent = true;
-            this.auTable.sortChanged(this.key, this.order);
+            this.auTable.sortChanged(this.key, this.custom, this.order);
         };
 
         AutSortCustomAttribute.prototype.setClass = function setClass() {
@@ -140,7 +146,10 @@ define(["exports", "aurelia-framework", "./au-table"], function (exports, _aurel
     }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "key", [_aureliaFramework.bindable], {
         enumerable: true,
         initializer: null
-    }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "default", [_aureliaFramework.bindable], {
+    }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "custom", [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "default", [_aureliaFramework.bindable], {
         enumerable: true,
         initializer: null
     })), _class2)) || _class);
