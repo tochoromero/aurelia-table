@@ -8,6 +8,16 @@
     "datatable",
     "grid"
   ],
+  "aurelia": {
+    "build": {
+      "resources": [
+        "aurelia-table/au-table", 
+        "aurelia-table/au-table-pagination", 
+        "aurelia-table/au-table-select", 
+        "aurelia-table/au-table-sort"
+      ]
+    }
+  },
   "homepage": "https://github.com/tochoromero/aurelia-table",
   "bugs": {
     "url": "https://github.com/tochoromero/aurelia-table/issues"
