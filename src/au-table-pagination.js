@@ -6,8 +6,16 @@ export class AutPaginationCustomElement {
     @bindable pageSize;
     @bindable totalItems;
     @bindable hideSinglePage = true;
+    @bindable paginationSize;
+    @bindable boundaryLinks = false;
+    @bindable firstText = 'First';
+    @bindable lastText = 'Last';
+    @bindable directionLinks = true;
+    @bindable previousText = '<';
+    @bindable nextText = '>';
 
     totalPages = 1;
+    displayPages = [];
 
 
     bind() {
@@ -21,20 +29,76 @@ export class AutPaginationCustomElement {
     }
 
     totalItemsChanged() {
-        this.calculateTotalPages();
+        this.calculatePages();
     }
 
     pageSizeChanged() {
-        this.calculateTotalPages();
+        this.calculatePages();
     }
 
-    calculateTotalPages() {
-        if (this.totalItems <= this.pageSize) {
-            this.totalPages = 1;
-            return;
+    currentPageChanged() {
+        this.calculatePages();
+    }
+
+    calculatePages() {
+        this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
+
+        if (isNaN(this.paginationSize) || this.paginationSize <= 0) {
+            this.displayAllPages();
+        } else {
+            this.limitVisiblePages();
+        }
+    }
+
+    displayAllPages() {
+        let displayPages = [];
+
+        for (let i = 1; i <= this.totalPages; i++) {
+            displayPages.push({
+                title: i.toString(),
+                value: i
+            });
+        }
+        this.displayPages = displayPages;
+    }
+
+    limitVisiblePages() {
+        let displayPages = [];
+
+        let totalTiers = Math.ceil(this.totalPages / this.paginationSize);
+
+        let activeTier = Math.ceil(this.currentPage / this.paginationSize);
+
+        let start = ((activeTier - 1) * this.paginationSize) + 1;
+        let end = start + this.paginationSize;
+
+        if (activeTier > 1) {
+            displayPages.push({
+                title: '...',
+                value: start - 1
+            });
         }
 
-        this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+        for (let i = start; i < end; i++) {
+
+            if (i > this.totalPages) {
+                break;
+            }
+
+            displayPages.push({
+                title: i.toString(),
+                value: i
+            });
+        }
+
+        if (activeTier < totalTiers) {
+            displayPages.push({
+                title: '...',
+                value: end
+            });
+        }
+
+        this.displayPages = displayPages;
     }
 
     selectPage(page) {
