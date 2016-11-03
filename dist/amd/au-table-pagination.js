@@ -98,10 +98,12 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
         };
 
         AutPaginationCustomElement.prototype.totalItemsChanged = function totalItemsChanged() {
+            this.currentPage = 1;
             this.calculatePages();
         };
 
         AutPaginationCustomElement.prototype.pageSizeChanged = function pageSizeChanged() {
+            this.currentPage = 1;
             this.calculatePages();
         };
 

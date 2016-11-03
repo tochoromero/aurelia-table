@@ -29,10 +29,12 @@ export class AutPaginationCustomElement {
     }
 
     totalItemsChanged() {
+        this.currentPage = 1;
         this.calculatePages();
     }
 
     pageSizeChanged() {
+        this.currentPage = 1;
         this.calculatePages();
     }
 

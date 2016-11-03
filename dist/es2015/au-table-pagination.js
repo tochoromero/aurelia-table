@@ -84,10 +84,12 @@ export let AutPaginationCustomElement = (_dec = bindable({defaultBindingMode: bi
     }
 
     totalItemsChanged() {
+        this.currentPage = 1;
         this.calculatePages();
     }
 
     pageSizeChanged() {
+        this.currentPage = 1;
         this.calculatePages();
     }
 

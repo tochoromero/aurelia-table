@@ -95,10 +95,12 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
     };
 
     AutPaginationCustomElement.prototype.totalItemsChanged = function totalItemsChanged() {
+        this.currentPage = 1;
         this.calculatePages();
     };
 
     AutPaginationCustomElement.prototype.pageSizeChanged = function pageSizeChanged() {
+        this.currentPage = 1;
         this.calculatePages();
     };
 

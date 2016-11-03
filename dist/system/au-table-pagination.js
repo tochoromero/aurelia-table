@@ -101,10 +101,12 @@ System.register(['aurelia-framework'], function (_export, _context) {
                 };
 
                 AutPaginationCustomElement.prototype.totalItemsChanged = function totalItemsChanged() {
+                    this.currentPage = 1;
                     this.calculatePages();
                 };
 
                 AutPaginationCustomElement.prototype.pageSizeChanged = function pageSizeChanged() {
+                    this.currentPage = 1;
                     this.calculatePages();
                 };
 
