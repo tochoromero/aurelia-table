@@ -189,6 +189,14 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
         }
     };
 
+    AutPaginationCustomElement.prototype.firstPage = function firstPage() {
+        this.currentPage = 1;
+    };
+
+    AutPaginationCustomElement.prototype.lastPage = function lastPage() {
+        this.currentPage = this.totalPages;
+    };
+
     return AutPaginationCustomElement;
 }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
     enumerable: true,

@@ -195,6 +195,14 @@ System.register(['aurelia-framework'], function (_export, _context) {
                     }
                 };
 
+                AutPaginationCustomElement.prototype.firstPage = function firstPage() {
+                    this.currentPage = 1;
+                };
+
+                AutPaginationCustomElement.prototype.lastPage = function lastPage() {
+                    this.currentPage = this.totalPages;
+                };
+
                 return AutPaginationCustomElement;
             }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
                 enumerable: true,

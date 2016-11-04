@@ -122,4 +122,12 @@ export class AutPaginationCustomElement {
             this.currentPage--;
         }
     }
+
+    firstPage() {
+        this.currentPage = 1;
+    }
+
+    lastPage() {
+        this.currentPage = this.totalPages;
+    }
 }

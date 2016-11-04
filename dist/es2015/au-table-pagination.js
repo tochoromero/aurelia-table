@@ -177,6 +177,14 @@ export let AutPaginationCustomElement = (_dec = bindable({defaultBindingMode: bi
             this.currentPage--;
         }
     }
+
+    firstPage() {
+        this.currentPage = 1;
+    }
+
+    lastPage() {
+        this.currentPage = this.totalPages;
+    }
 }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
     enumerable: true,
     initializer: null

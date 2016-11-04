@@ -4,7 +4,7 @@
             <ul class="pagination">
 
                 <li class-name.bind="currentPage === 1 ? 'disabled' : ''" if.bind="boundaryLinks">
-                    <a aria-label="Previous" click.delegate="selectPage(1)">
+                    <a aria-label="Previous" click.delegate="firstPage()">
                         <span aria-hidden="true" innerhtml.bind="firstText"></span>
                     </a>
                 </li>
@@ -26,7 +26,7 @@
                 </li>
 
                 <li class-name.bind="currentPage === totalPages ? 'disabled' : ''" if.bind="boundaryLinks">
-                    <a aria-label="Previous" click.delegate="selectPage(totalPages)">
+                    <a aria-label="Previous" click.delegate="lastPage()">
                         <span aria-hidden="true" innerhtml.bind="lastText"></span>
                     </a>
                 </li>
