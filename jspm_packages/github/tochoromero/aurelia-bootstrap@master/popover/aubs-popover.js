@@ -76,7 +76,7 @@ define(["exports", "aurelia-framework", "../utils/tooltip-service"], function (e
 
             _initDefineProp(this, "trigger", _descriptor6, this);
 
-            _initDefineProp(this, "customModel", _descriptor7, this);
+            _initDefineProp(this, "customPopover", _descriptor7, this);
 
             this.triggers = [];
             this.validPositions = ['top', 'bottom', 'left', 'right'];
@@ -222,8 +222,8 @@ define(["exports", "aurelia-framework", "../utils/tooltip-service"], function (e
         };
 
         AubsPopoverCustomAttribute.prototype.createPopover = function createPopover() {
-            if (this.customModel) {
-                this.popover = this.customModel;
+            if (this.customPopover) {
+                this.popover = this.customPopover;
                 this.popover.classList.add(this.position);
                 return;
             }
@@ -284,7 +284,7 @@ define(["exports", "aurelia-framework", "../utils/tooltip-service"], function (e
         initializer: function initializer() {
             return 'mouseover';
         }
-    }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "customModel", [_aureliaFramework.bindable], {
+    }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "customPopover", [_aureliaFramework.bindable], {
         enumerable: true,
         initializer: null
     })), _class2)) || _class);

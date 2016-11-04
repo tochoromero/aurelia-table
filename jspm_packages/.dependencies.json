@@ -192,5 +192,7 @@
   },
   "npm:prismjs@1.5.1": {},
   "github:tochoromero/aurelia-table@master": {},
-  "github:tochoromero/aurelia-bootstrap@master": {}
+  "github:tochoromero/aurelia-bootstrap@master": {
+    "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0"
+  }
 }

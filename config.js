@@ -44,6 +44,9 @@ System.config({
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
+    "github:tochoromero/aurelia-bootstrap@master": {
+      "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0"
+    },
     "github:twbs/bootstrap@3.3.7": {
       "jquery": "npm:jquery@2.2.4"
     },

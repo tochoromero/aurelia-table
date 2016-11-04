@@ -2,19 +2,32 @@
     <template replaceable part="pagination">
         <nav hide.bind="hideSinglePage && totalPages === 1">
             <ul class="pagination">
-                <li class-name.bind="currentPage === 1 ? 'disabled' : ''">
-                    <a aria-label="Previous" click.delegate="previousPage()">
-                        <span aria-hidden="true">&laquo;</span>
+
+                <li class-name.bind="currentPage === 1 ? 'disabled' : ''" if.bind="boundaryLinks">
+                    <a aria-label="Previous" click.delegate="firstPage()">
+                        <span aria-hidden="true" innerhtml.bind="firstText"></span>
                     </a>
                 </li>
 
-                <li repeat.for="i of totalPages" class-name.bind="currentPage === (i + 1) ? 'active' : ''">
-                    <a click.delegate="selectPage(i+1)">${i + 1}</a>
+                <li class-name.bind="currentPage === 1 ? 'disabled' : ''" if.bind="directionLinks">
+                    <a aria-label="Previous" click.delegate="previousPage()">
+                        <span aria-hidden="true" innerhtml.bind="previousText"></span>
+                    </a>
                 </li>
 
-                <li class-name.bind="currentPage === totalPages ? 'disabled' : ''">
+                <li repeat.for="page of displayPages" class-name.bind="currentPage === page.value ? 'active' : ''">
+                    <a click.delegate="selectPage(page.value)">${page.title}</a>
+                </li>
+
+                <li class-name.bind="currentPage === totalPages ? 'disabled' : ''" if.bind="directionLinks">
                     <a aria-label="Next" click.delegate="nextPage()">
-                        <span aria-hidden="true">&raquo;</span>
+                        <span aria-hidden="true" innerhtml.bind="nextText"></span>
+                    </a>
+                </li>
+
+                <li class-name.bind="currentPage === totalPages ? 'disabled' : ''" if.bind="boundaryLinks">
+                    <a aria-label="Previous" click.delegate="lastPage()">
+                        <span aria-hidden="true" innerhtml.bind="lastText"></span>
                     </a>
                 </li>
             </ul>
