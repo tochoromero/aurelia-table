@@ -7,6 +7,7 @@ export class AutSelectCustomAttribute {
   @bindable({defaultBindingMode: bindingMode.twoWay}) row;
   @bindable mode = 'single';
   @bindable selectedClass = 'aut-row-selected';
+  @bindable custom = false;
 
   selectedSubscription;
 
@@ -22,7 +23,10 @@ export class AutSelectCustomAttribute {
 
   attached() {
     this.element.style.cursor = 'pointer';
-    this.element.addEventListener('click', this.rowSelectedListener);
+
+    if (!this.custom) {
+      this.element.addEventListener('click', this.rowSelectedListener);
+    }
 
     this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$isSelected').subscribe(() => this.isSelectedChanged());
 
@@ -30,7 +34,10 @@ export class AutSelectCustomAttribute {
   }
 
   detached() {
-    this.element.removeEventListener('click', this.rowSelectedListener);
+    if (!this.custom) {
+      this.element.removeEventListener('click', this.rowSelectedListener);
+    }
+
     this.selectedSubscription.dispose();
   }
 
@@ -47,11 +54,6 @@ export class AutSelectCustomAttribute {
     if (source.tagName.toLowerCase() !== 'td') {
       return;
     }
-
-    if (this.mode === 'single') {
-      this.deselectAll();
-    }
-
     this.row.$isSelected = this.row.$isSelected ? false : true;
   }
 
@@ -75,6 +77,10 @@ export class AutSelectCustomAttribute {
     this.setClass();
 
     if (this.row.$isSelected) {
+      if (this.mode === 'single') {
+        this.deselectAll();
+      }
+
       this.dispatchSelectedEvent();
     }
   }
