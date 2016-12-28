@@ -1,5 +1,5 @@
-define(["exports", "./au-table", "./au-table-pagination", "./au-table-select", "./au-table-sort"], function (exports, _auTable, _auTablePagination, _auTableSelect, _auTableSort) {
-    "use strict";
+define(['exports', './au-table', './au-table-pagination', './au-table-select', './au-table-sort'], function (exports, _auTable, _auTablePagination, _auTableSelect, _auTableSort) {
+    'use strict';
 
     Object.defineProperty(exports, "__esModule", {
         value: true
