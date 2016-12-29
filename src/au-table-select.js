@@ -22,9 +22,8 @@ export class AutSelectCustomAttribute {
   }
 
   attached() {
-    this.element.style.cursor = 'pointer';
-
     if (!this.custom) {
+      this.element.style.cursor = 'pointer';
       this.element.addEventListener('click', this.rowSelectedListener);
     }
 

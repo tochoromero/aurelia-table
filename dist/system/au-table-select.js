@@ -90,9 +90,8 @@ System.register(['aurelia-framework', './au-table'], function (_export, _context
         AutSelectCustomAttribute.prototype.attached = function attached() {
           var _this2 = this;
 
-          this.element.style.cursor = 'pointer';
-
           if (!this.custom) {
+            this.element.style.cursor = 'pointer';
             this.element.addEventListener('click', this.rowSelectedListener);
           }
 

@@ -82,9 +82,8 @@ var AutSelectCustomAttribute = exports.AutSelectCustomAttribute = (_dec = (0, _a
   AutSelectCustomAttribute.prototype.attached = function attached() {
     var _this2 = this;
 
-    this.element.style.cursor = 'pointer';
-
     if (!this.custom) {
+      this.element.style.cursor = 'pointer';
       this.element.addEventListener('click', this.rowSelectedListener);
     }
 
