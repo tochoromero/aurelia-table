@@ -8,6 +8,7 @@ System.config({
   },
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0",
+    "aurelia-bootstrap": "github:tochoromero/aurelia-bootstrap@master",
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0",
     "aurelia-fetch-client": "npm:aurelia-fetch-client@1.0.0",
     "aurelia-framework": "npm:aurelia-framework@1.0.1",
@@ -18,6 +19,7 @@ System.config({
     "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0",
     "aurelia-router": "npm:aurelia-router@1.0.2",
     "aurelia-syntax-highlighter": "npm:aurelia-syntax-highlighter@0.0.4",
+    "aurelia-table": "github:tochoromero/aurelia-table@master",
     "aurelia-templating-binding": "npm:aurelia-templating-binding@1.0.0",
     "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0",
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0",
@@ -45,7 +47,9 @@ System.config({
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
     "github:tochoromero/aurelia-bootstrap@master": {
-      "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0"
+      "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0",
+      "tether": "npm:tether@1.4.0",
+      "velocity-animate": "npm:velocity-animate@1.4.0"
     },
     "github:twbs/bootstrap@3.3.7": {
       "jquery": "npm:jquery@2.2.4"
@@ -201,8 +205,15 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
     },
+    "npm:tether@1.4.0": {
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
+    },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:velocity-animate@1.4.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:vm-browserify@0.0.4": {
@@ -223,14 +234,15 @@ System.config({
       "aurelia-fetch-client"
     ],
     "main.js": [
-      "bootstrap",
-      "jquery",
       "fetch"
     ],
     "pagination/customPagination.js": [
       "aurelia-fetch-client"
     ],
     "pagination/pagination.js": [
+      "aurelia-fetch-client"
+    ],
+    "selection/custom-selection.js": [
       "aurelia-fetch-client"
     ],
     "selection/selection.js": [
@@ -260,6 +272,8 @@ System.config({
       "pagination/customPagination.js",
       "pagination/pagination.html!github:systemjs/plugin-text@0.0.8.js",
       "pagination/pagination.js",
+      "selection/custom-selection.html!github:systemjs/plugin-text@0.0.8.js",
+      "selection/custom-selection.js",
       "selection/selection.html!github:systemjs/plugin-text@0.0.8.js",
       "selection/selection.js",
       "sort/sort.html!github:systemjs/plugin-text@0.0.8.js",
@@ -268,33 +282,40 @@ System.config({
     "aurelia.js": [
       "github:github/fetch@1.0.0.js",
       "github:github/fetch@1.0.0/fetch.js",
+      "github:jspm/nodelibs-process@0.1.2.js",
+      "github:jspm/nodelibs-process@0.1.2/index.js",
+      "github:systemjs/plugin-text@0.0.8.js",
+      "github:systemjs/plugin-text@0.0.8/text.js",
       "github:tochoromero/aurelia-bootstrap@master.js",
+      "github:tochoromero/aurelia-bootstrap@master/accordion/aubs-accordion-group.html!github:systemjs/plugin-text@0.0.8.js",
       "github:tochoromero/aurelia-bootstrap@master/accordion/aubs-accordion-group.js",
+      "github:tochoromero/aurelia-bootstrap@master/accordion/aubs-accordion.html!github:systemjs/plugin-text@0.0.8.js",
       "github:tochoromero/aurelia-bootstrap@master/accordion/aubs-accordion.js",
       "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-checkbox.js",
-      "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-disabled.js",
       "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-loading.js",
       "github:tochoromero/aurelia-bootstrap@master/buttons/aubs-btn-radio.js",
+      "github:tochoromero/aurelia-bootstrap@master/collapse/aubs-collapse.js",
       "github:tochoromero/aurelia-bootstrap@master/dropdown/aubs-dropdown-toggle.js",
       "github:tochoromero/aurelia-bootstrap@master/dropdown/aubs-dropdown.js",
       "github:tochoromero/aurelia-bootstrap@master/index.js",
-      "github:tochoromero/aurelia-bootstrap@master/popover/aubs-custom-popover.js",
+      "github:tochoromero/aurelia-bootstrap@master/pagination/aubs-pagination.html!github:systemjs/plugin-text@0.0.8.js",
+      "github:tochoromero/aurelia-bootstrap@master/pagination/aubs-pagination.js",
       "github:tochoromero/aurelia-bootstrap@master/popover/aubs-popover.js",
+      "github:tochoromero/aurelia-bootstrap@master/tabs/aubs-tab.html!github:systemjs/plugin-text@0.0.8.js",
       "github:tochoromero/aurelia-bootstrap@master/tabs/aubs-tab.js",
+      "github:tochoromero/aurelia-bootstrap@master/tabs/aubs-tabset.html!github:systemjs/plugin-text@0.0.8.js",
       "github:tochoromero/aurelia-bootstrap@master/tabs/aubs-tabset.js",
       "github:tochoromero/aurelia-bootstrap@master/tooltip/aubs-tooltip.js",
+      "github:tochoromero/aurelia-bootstrap@master/utils/bootstrap-config.js",
+      "github:tochoromero/aurelia-bootstrap@master/utils/bootstrap-options.js",
       "github:tochoromero/aurelia-bootstrap@master/utils/tooltip-service.js",
       "github:tochoromero/aurelia-table@master.js",
+      "github:tochoromero/aurelia-table@master/au-table-pagination.html!github:systemjs/plugin-text@0.0.8.js",
       "github:tochoromero/aurelia-table@master/au-table-pagination.js",
       "github:tochoromero/aurelia-table@master/au-table-select.js",
       "github:tochoromero/aurelia-table@master/au-table-sort.js",
       "github:tochoromero/aurelia-table@master/au-table.js",
       "github:tochoromero/aurelia-table@master/index.js",
-      "github:twbs/bootstrap@3.3.7.js",
-      "github:twbs/bootstrap@3.3.7/css/bootstrap.css!github:systemjs/plugin-text@0.0.8.js",
-      "github:twbs/bootstrap@3.3.7/js/bootstrap.js",
-      "npm:aurelia-animator-css@1.0.0.js",
-      "npm:aurelia-animator-css@1.0.0/aurelia-animator-css.js",
       "npm:aurelia-binding@1.0.1.js",
       "npm:aurelia-binding@1.0.1/aurelia-binding.js",
       "npm:aurelia-bootstrapper@1.0.0.js",
@@ -333,6 +354,9 @@ System.config({
       "npm:aurelia-route-recognizer@1.0.0/aurelia-route-recognizer.js",
       "npm:aurelia-router@1.0.2.js",
       "npm:aurelia-router@1.0.2/aurelia-router.js",
+      "npm:aurelia-syntax-highlighter@0.0.4.js",
+      "npm:aurelia-syntax-highlighter@0.0.4/index.js",
+      "npm:aurelia-syntax-highlighter@0.0.4/syntax-highlighter.js",
       "npm:aurelia-task-queue@1.0.0.js",
       "npm:aurelia-task-queue@1.0.0/aurelia-task-queue.js",
       "npm:aurelia-templating-binding@1.0.0.js",
@@ -375,8 +399,14 @@ System.config({
       "npm:aurelia-templating-router@1.0.0/router-view.js",
       "npm:aurelia-templating@1.0.0.js",
       "npm:aurelia-templating@1.0.0/aurelia-templating.js",
-      "npm:jquery@2.2.4.js",
-      "npm:jquery@2.2.4/dist/jquery.js"
+      "npm:prismjs@1.5.1.js",
+      "npm:prismjs@1.5.1/prism.js",
+      "npm:process@0.11.6.js",
+      "npm:process@0.11.6/browser.js",
+      "npm:tether@1.4.0.js",
+      "npm:tether@1.4.0/dist/js/tether.js",
+      "npm:velocity-animate@1.4.0.js",
+      "npm:velocity-animate@1.4.0/velocity.js"
     ]
   }
 });

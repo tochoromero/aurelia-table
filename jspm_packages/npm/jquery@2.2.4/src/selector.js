@@ -1,2 +1,0 @@
-/* */ 
-define( [ "./selector-sizzle" ], function() {} );
