@@ -27,7 +27,7 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "fetch": "github:github/fetch@1.0.0",
     "font-awesome": "npm:font-awesome@4.6.3",
-    "jquery": "npm:jquery@2.2.4",
+    "jquery": "npm:jquery@3.1.1",
     "text": "github:systemjs/plugin-text@0.0.8",
     "tochoromero/aurelia-bootstrap": "github:tochoromero/aurelia-bootstrap@master",
     "tochoromero/aurelia-table": "github:tochoromero/aurelia-table@master",
@@ -52,7 +52,7 @@ System.config({
       "velocity-animate": "npm:velocity-animate@1.4.0"
     },
     "github:twbs/bootstrap@3.3.7": {
-      "jquery": "npm:jquery@2.2.4"
+      "jquery": "npm:jquery@3.1.1"
     },
     "npm:assert@1.4.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
@@ -223,6 +223,9 @@ System.config({
   depCache: {
     "api/api.js": [
       "aurelia-fetch-client"
+    ],
+    "app.js": [
+      "jquery"
     ],
     "basics/basics.js": [
       "aurelia-fetch-client"
@@ -399,6 +402,8 @@ System.config({
       "npm:aurelia-templating-router@1.0.0/router-view.js",
       "npm:aurelia-templating@1.0.0.js",
       "npm:aurelia-templating@1.0.0/aurelia-templating.js",
+      "npm:jquery@3.1.1.js",
+      "npm:jquery@3.1.1/dist/jquery.js",
       "npm:prismjs@1.5.1.js",
       "npm:prismjs@1.5.1/prism.js",
       "npm:process@0.11.6.js",
