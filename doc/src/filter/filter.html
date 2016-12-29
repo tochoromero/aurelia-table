@@ -1,0 +1,135 @@
+<template>
+    <require from="./custom-filter"></require>
+
+    <div class="page-header" id="filter">
+        <a class="btn btn-default pull-right" target="_blank"
+           href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/filter">
+            <i class="fa fa-edit"></i> Improve documentation</a>
+        <h1>Filter Data</h1>
+    </div>
+
+    <p>The Filter Plugin has been updated to allow multiple filters at the same time. The <code>filter-text</code> and
+        <code>filter-keys</code> properties <strong>have been replaced</strong> by a <code>filters</code> property.</p>
+
+    <p>The new <code>filters</code> property expects an array of objects as the following:</p>
+
+    <pre><code class="language-js" au-syntax>filters = [
+    {value: '', keys: ['name', 'address.state']},
+    {value: '', keys: ['eyeColor']},
+];</code></pre>
+
+    <p>The <code>value</code> property represents the filter value, normally you would bind it to a text input or a select, but you can
+        handle it anyway you want. You can also set a default value for it and your data will be filtered on load.</p>
+    <p>The <code>keys</code> property is an array if the fields you want to filter by. Aurelia Table will filter your data matching the
+        <code>value</code> with the <code>keys</code> you provide.</p>
+
+    <p>Note how you can use nested paths such as <code>address.state</code> for your key values.</p>
+
+    <h3>Example</h3>
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+
+
+            <br>
+            <div class="form-group">
+                <input type="text" value.bind="filters[0].value" placeholder="Enter filter text" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="eyeColor">Eye Color </label>
+                <select id="eyeColor" class="form-control" value.bind="filters[1].value">
+                    <option repeat.for="color of eyeColors" model.bind="color">${color}</option>
+                </select>
+            </div>
+
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData; filters.bind: filters">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>State</th>
+                    <th>E-mail</th>
+                    <th>Eye Color</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData">
+                    <td>${user.name}</td>
+                    <td>${user.address.state}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.eyeColor}</td>
+                </tr>
+                </tbody>
+            </table>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+    <pre><code class="language-markup" au-syntax>&lt;div class="form-group">
+    &lt;input type="text" value.bind="filters[0].value" placeholder="Enter filter text" class="form-control"/>
+&lt;/div>
+
+&lt;div class="form-group">
+    &lt;label for="eyeColor">Eye Color &lt;/label>
+    &lt;select id="eyeColor" class="form-control" value.bind="filters[1].value">
+        &lt;option repeat.for="color of eyeColors" model.bind="color">${open}color}&lt;/option>
+    &lt;/select>
+&lt;/div>
+
+&lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData; filters.bind: filters">
+    &lt;thead>
+    &lt;tr>
+        &lt;th>Name&lt;/th>
+        &lt;th>State&lt;/th>
+        &lt;th>E-mail&lt;/th>
+        &lt;th>Eye Color&lt;/th>
+    &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+    &lt;tr repeat.for="user of $displayData">
+        &lt;td>${open}user.name}&lt;/td>
+        &lt;td>${open}user.address.state}&lt;/td>
+        &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+        &lt;td>${open}user.eyeColor}&lt;/td>
+    &lt;/tr>
+    &lt;/tbody>
+&lt;/table></code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+    eyeColors = [];
+
+    filters = [
+        {value: '', keys: ['name', 'address.state']},
+        {value: '', keys: ['eyeColor']},
+    ];
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+            .then(() => this.populateColors())
+    }
+
+    populateColors(){
+        this.eyeColors.push('');
+        for(let next of this.users){
+            let nextColor = next.eyeColor;
+
+            if(this.eyeColors.indexOf(nextColor) === -1){
+                this.eyeColors.push(nextColor);
+            }
+        }
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+
+    <p>Note how the text input is binding to the filter value with: <code>value.bind="filters[0].value"</code>. And the Select is doing the
+        same thing: <code>value.bind="filters[1].value"</code>. With this approach you can add many filters very easily, just make sure
+        you keep track of the filters index.</p>
+
+    <custom-filter></custom-filter>
+</template>

@@ -1,0 +1,172 @@
+<template>
+    <require from="./customPagination"></require>
+
+    <div class="page-header" id="pagination">
+        <a class="btn btn-default pull-right" target="_blank"
+           href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/pagination">
+            <i class="fa fa-edit"></i> Improve documentation</a>
+        <h1>Pagination</h1>
+    </div>
+
+    <p>Aurelia Table supports client side pagination. It is very easy to enable pagination, there are 3 properties you need to provide:
+    <ul>
+        <li><code>current-page</code>: This property specifies the page that is currently active, the index starts at 1.</li>
+        <li><code>page-size</code>: This property specifies how many items you want to display on each page.</li>
+        <li><code>total-items</code>: This property specifies the total number of items in the table.</li>
+    </ul>
+
+    There is also a <code>hide-single-page</code> property. This property is <code>true</code> by default and it will hide the Pagination
+    Component when there is only a single page. And of course you can bind this to <code>false</code> to disable the behavior.
+    </p>
+
+    <p>Of the 3 properties <code>current-page</code> and <code>page-size</code> need to be manually managed outside of Aurelia Table.
+        <code>total-items</code> will be managed by Aurelia Table based on the <code>data</code> property and any filters we may have.</p>
+
+    <p>As mentioned there are some properties you need to manually manage, but don't worry, we provide a Pagination Component that will
+        allow you to have pagination out of the box</p>
+
+    <h3>Pagination Component</h3>
+    <p>The <code>aut-pagination</code> component provides a simple pagination control that will allow you to navigate the table pages. For
+        this component you also need to provide the same 3 properties you used for the Aurelia Table: <code>current-page</code>,
+        <code>page-size</code> and <code>total-items</code>.
+    </p>
+
+    <p>Additionally there are some extra configurations for the pagination:</p>
+    <ul>
+        <li><code>hide-single-page</code>: Boolean that determines whether or not we show hide the pagination when there is only one single
+            page.
+            This is <code>true</code> by default.
+        </li>
+        <li><code>pagination-size</code>: You can specify the number of visible page links for the pagination.
+            By default we will show every single page link. <br/>When you provide a number, the visible links will adhere to it and we will
+            add controls to navigate into the invisible links.
+        </li>
+        <li><code>boundary-links</code>: Boolean that determines whether or not we should two links to navigate to the First and Last page.
+            This is <code>false</code> by default.
+        </li>
+        <li><code>first-text</code>: You can specify the text for the First Page link. By default it is 'First'.</li>
+        <li><code>last-text</code>: You can specify the text for the Last Page link. By default it is 'Last'.</li>
+        <li><code>direction-links</code>: Booleans that determines whether or not we should have direction links to navigate back and forth
+            between pages. By default this is <code>true</code>.
+        </li>
+        <li><code>previous-text</code>: You can specify the text for the Previous Page link. By default it is '&lt;'.</li>
+        <li><code>next-text</code>: You can specify the text for the Next Page link. By default it is '&gt;'.</li>
+    </ul>
+
+    <p class="bg-info padding">The Pagination Component requires Bootstrap for its layout. If you don't want to have a dependency in
+        Bootstrap you can provide your own template. Check the <a href="#custom-pagination">Custom Pagination</a> section for details.</p>
+
+    <h3>Example</h3>
+
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData;
+                                              current-page.bind: currentPage; page-size.bind: pageSize; total-items.bind: totalItems;">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>E-mail</th>
+                    <th>Active</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData">
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.isActive}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="totalItems"
+                                    pagination-size.bind="5" boundary-links.bind="true"></aut-pagination>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-inline">
+                        <div class="form-group pull-right">
+                            <label for="pageSize">Page Size: </label>
+                            <select value.bind="pageSize" id="pageSize" class="form-control">
+                                <option model.bind="5">5</option>
+                                <option model.bind="10">10</option>
+                                <option model.bind="20">20</option>
+                                <option model.bind="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData;
+                                              current-page.bind: currentPage; page-size.bind: pageSize; total-items.bind: totalItems;">
+        &lt;thead>
+        &lt;tr>
+            &lt;th>Name&lt;/th>
+            &lt;th>Age&lt;/th>
+            &lt;th>E-mail&lt;/th>
+            &lt;th>Active&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="user of $displayData">
+            &lt;td>${open}user.name}&lt;/td>
+            &lt;td>${open}user.age}&lt;/td>
+            &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+            &lt;td>${open}user.isActive}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+
+    &lt;div class="row">
+        &lt;div class="col-md-9">
+            &lt;aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="totalItems"
+                                   pagination-size.bind="5" boundary-links.bind="true"> &lt;/aut-pagination>
+        &lt;/div>
+
+        &lt;div class="col-md-3">
+            &lt;div class="form-inline">
+                &lt;div class="form-group pull-right">
+                    &lt;label for="pageSize">Page Size: &lt;/label>
+                    &lt;select value.bind="pageSize" id="pageSize" class="form-control">
+                        &lt;option model.bind="5">5&lt;/option>
+                        &lt;option model.bind="10">10&lt;/option>
+                        &lt;option model.bind="20">20&lt;/option>
+                        &lt;option model.bind="50">50&lt;/option>
+                    &lt;/select>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/template></code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    pageSize = 10;
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+
+    <p>Don't get scared by the long markup, a big part of it is just Bootstrap layout. Note how the <code>aut-pagination</code> controller
+        is binding the same properties we are setting into the <code>aurelia-table</code> custom attribute. We are also adding a standard
+        dropdown to control the page size.</p>
+
+    <custom-pagination></custom-pagination>
+</template>

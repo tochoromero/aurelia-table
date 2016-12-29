@@ -1,0 +1,178 @@
+<template>
+    <h2 id="custom-pagination">Custom Pagination</h2>
+
+    <p>If you don't want a dependency in Bootstrap or you simply want a different layout for the pagination, you can replace the
+        <code>aut-pagination</code> template with your own. This is achieved through Aurelia's <code>replace-part</code> capabilities. Of
+        course you can always forget about the <code>aut-pagination</code> component
+        all together and write your own, but we provide you a couple of properties and methods aditional to the properties you already
+        provide:
+
+    <ul>
+        <li><code>totalPages</code>: Specify the total number of pages. This property is calculated out of the <code>total-items</code> and
+            <code>page-size</code> properties. And it will updated any time any of them
+            changes.
+        </li>
+        <li><code>displayPages</code>: When you choose to limit the number of visible page links, this array will contain every page link
+            that is currently visible. The array contain objects with two properties: <code>title</code> Wish is the text of the link, and
+            <code>value</code> wish is the page number the link will take you to.
+        </li>
+        <li><code>selectPage(page)</code>: This function will select the page number you provide. You want to call this when your user
+            select one page in your paginator.
+        </li>
+        <li><code>nextPage()</code>: This function will select the next page if available.</li>
+        <li><code>previousPage()</code>: This function will select the previous page if available.</li>
+        <li><code>firstPage()</code>: This function will select the first page.</li>
+        <li><code>LastPage()</code>: This function will select the last page.</li>
+    </ul>
+    </p>
+
+    <h3>Example</h3>
+
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData;
+                                              current-page.bind: currentPage; page-size.bind: pageSize; total-items.bind: totalItems;">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>E-mail</th>
+                    <th>Active</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData">
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.isActive}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="totalItems"
+                                pagination-size.bind="5">
+                    <template replace-part="pagination">
+                        <ul class="custom-pagination" hide.bind="hideSinglePage && totalPages === 1">
+                            <li>
+                                <a aria-label="Previous" click.delegate="previousPage()"
+                                   class-name.bind="currentPage === 1 ? 'disabled' : ''">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li repeat.for="page of displayPages">
+                                <a click.delegate="selectPage(page.value)" class-name.bind="currentPage === page.value ? 'active' : ''">
+                                    ${page.title}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a aria-label="Next" click.delegate="nextPage()"
+                                   class-name.bind="currentPage === totalPages ? 'disabled' : ''">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </template>
+                </aut-pagination>
+            </div>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData;
+                                              current-page.bind: currentPage; page-size.bind: pageSize; total-items.bind: totalItems;">
+        &lt;thead>
+        &lt;tr>
+            &lt;th>Name&lt;/th>
+            &lt;th>Age&lt;/th>
+            &lt;th>E-mail&lt;/th>
+            &lt;th>Active&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="user of $displayData">
+            &lt;td>${open}user.name}&lt;/td>
+            &lt;td>${open}user.age}&lt;/td>
+            &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+            &lt;td>${open}user.isActive}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+
+    &lt;aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="totalItems">
+        &lt;template replace-part="pagination">
+            &lt;ul class="custom-pagination" hide.bind="hideSinglePage && totalPages === 1">
+                &lt;li>
+                    &lt;a aria-label="Previous" click.delegate="previousPage()"
+                       class-name.bind="currentPage === 1 ? 'disabled' : ''">
+                        &lt;span aria-hidden="true">&laquo;&lt;/span>
+                    &lt;/a>
+                &lt;/li>
+
+                &lt;li repeat.for="page of displayPages">
+                    &lt;a click.delegate="selectPage(page.value)" class-name.bind="currentPage === page.value ? 'active' : ''">
+                        ${open}page.title}
+                    &lt;/a>
+                &lt;/li>
+
+                &lt;li>
+                    &lt;a aria-label="Next" click.delegate="nextPage()"
+                       class-name.bind="currentPage === totalPages ? 'disabled' : ''">
+                        &lt;span aria-hidden="true">&raquo;&lt;/span>
+                    &lt;/a>
+                &lt;/li>
+            &lt;/ul>
+        &lt;/template>
+    &lt;/aut-pagination>
+
+&lt;/template></code></pre>
+        </aubs-tab>
+        <aubs-tab header="CSS">
+        <pre><code class="language-css" au-syntax>.ul.custom-pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+ul.custom-pagination li {display: inline;}
+
+ul.custom-pagination li a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+ul.custom-pagination li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+ul.custom-pagination li a:hover:not(.active):not(.disabled) {background-color: #ddd;}
+
+ul.custom-pagination li a.disabled {
+  color: darkgrey;
+}</code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    pageSize = 10;
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+</template>

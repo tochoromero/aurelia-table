@@ -1,0 +1,161 @@
+<template>
+    <div class="page-header" id="sort">
+        <a class="btn btn-default pull-right" target="_blank"
+           href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/sort">
+            <i class="fa fa-edit"></i> Improve documentation</a>
+        <h1>Column Sorting</h1>
+    </div>
+
+    <p>The <code>aut-sort</code> attribute when added to a <code>th</code> element, enables sorting for that column. There are 3 properties:
+    <ul>
+        <li><code>key</code>: This is just a string with the name of the column it will sort by, you will want to match this to the actual
+            column you are adding it to.
+        </li>
+        <li><code>custom</code>: In some cases you need more control over sorting, for instance if you have a complex object or your sorting
+            depends in two or more values. For those cases you can use this property to provide a custom sorting function.<br/>
+            Your function will receive the 2 rows being compared and a third parameter with the sort order where <code>1</code> represents
+            ascending and <code>-1</code> represents descending.
+        </li>
+        <li><code>default</code>: You should provide this for the one column you want to be sorted by default. The possible values are:
+            <code>asc</code> for ascending ordering and <code>desc</code> for descending order.
+        </li>
+    </ul>
+
+    <p>There is also the option to use a getter function in the <code>key</code> property. When using a function it will be called
+        once per each row and it will receive the row object, it then should return the value to sort by. A common example of this would be
+        a function that returns the length of one property, so then the column will be sorted by length.</p>
+    </p>
+
+    <p>The </p>
+
+    <h3>Styling</h3>
+    <p>There are 4 CSS classes for <code>th</code> elements with sorting enabled:
+    <ul>
+        <li><code>aut-sort</code>: This class is always present, its purpose is to provide a constant CSS class for the columns with
+            sorting.
+        </li>
+        <li><code>aut-sortable</code>: This class indicates the column can be sorted and it is present when the column is not currently
+            sorted.
+        </li>
+        <li><code>aut-asc</code>: This class indicates the column is being sorted by an ascending order.</li>
+        <li><code>aut-desc</code>: This class indicates the column is being sorted by a descending order.</li>
+    </ul>
+    </p>
+
+    <p>You will need to provide the styles for this classes. In this example we are leveraging Font Awesome to show the appropriate
+        icons.</p>
+
+    <h3>Example</h3>
+
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+
+
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+                <thead>
+                <tr>
+                    <th aut-sort="key.bind: nameLength">Name</th>
+                    <th aut-sort="key: age; default: desc">Age</th>
+                    <th>E-mail</th>
+                    <th aut-sort="custom.bind: dateSort">Registered</th>
+                    <th aut-sort="key: isActive">Active</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData">
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.registered}</td>
+                    <td>${user.isActive}</td>
+                </tr>
+                </tbody>
+            </table>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+        &lt;thead>
+        &lt;tr>
+            &lt;th aut-sort="key.bind: nameLength">Name&lt;/th>
+            &lt;th aut-sort="key: age; default: desc">Age&lt;/th>
+            &lt;th>E-mail&lt;/th>
+            &lt;th aut-sort="custom.bind: dateSort">Registered&lt;/th>
+            &lt;th aut-sort="key: isActive">Active&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="user of $displayData">
+            &lt;td>${open}user.name}&lt;/td>
+            &lt;td>${open}user.age}&lt;/td>
+            &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+            &lt;td>${open}user.registered}&lt;/td>
+            &lt;td>${open}user.isActive}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+&lt;/template></code></pre>
+        </aubs-tab>
+        <aubs-tab header="CSS">
+        <pre><code class="language-css" au-syntax>.aut-sort:before{
+    font-family: FontAwesome;
+    padding-right: 0.5em;
+    width: 1.28571429em;
+    display: inline-block;
+    text-align: center;
+}
+
+.aut-sortable:before{
+    content: "\f0dc";
+}
+
+.aut-asc:before{
+    content: "\f160";
+}
+
+.aut-desc:before{
+    content: "\f161";
+}</code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+
+    nameLength(row) {
+        return row.name.length;
+    }
+
+    dateSort(a, b, sortOrder) {
+        let date1 = new Date(a.registered);
+        let date2 = new Date(b.registered);
+
+        if (date1 === date2) {
+            return 0;
+        }
+
+        if (date1 > date2) {
+            return 1 * sortOrder;
+        }
+
+        return -1 * sortOrder;
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+
+    <p>Note how the name column is being sorted by its length: <code>aut-sort="key.bind: nameLength"</code>.
+        You can see the simple <code>nameLength</code> function in the JS tab.<br/>
+        Also note the Registered column is using the <code>custom</code> property to provide a custom sort function:
+        <code>aut-sort="custom.bind: dateSort"</code>. You can see the <code>dateSort</code> function in the JS tab.
+    </p>
+</template>

@@ -1,0 +1,97 @@
+<template>
+  <require from="./custom-selection"></require>
+
+  <div class="page-header" id="selection">
+    <a class="btn btn-default pull-right" target="_blank"
+       href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/selection">
+      <i class="fa fa-edit"></i> Improve documentation</a>
+    <h1>Row Selection</h1>
+  </div>
+
+  <p>The <code>aut-select</code> attribute, when added to the rows will make them selectable. Its properties are:
+  <ul>
+    <li><code>row</code>: You need to bind the current row in your table repeat. This is the only required property.</li>
+    <li><code>mode</code>: This is the selection mode. If you don't provide it is 'single' by default, you can also set it to multiple.
+    </li>
+    <li><code>selected-class</code>: Specifies the css class for the selected rows. By default this is <code>aut-row-selected</code>
+    </li>
+
+  </ul>
+  </p>
+
+  <p class="bg-info padding">When you select a row, the property <code>$isSelected</code> is set to true in the row object.</p>
+
+  <p>There is also a <code>select</code> custom event that is triggered in the <code>tr</code> element when it gets selected. You can
+    listen
+    for this event if you need to perform an action when a row is selected </p>
+
+  <h3>Example</h3>
+
+  <aubs-tabset>
+    <aubs-tab header="Preview">
+      <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>E-mail</th>
+          <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="user of $displayData" aut-select="row.bind: user; mode: multiple;selected-class: info"
+            select.delegate="rowSelected($event)">
+          <td>${user.name}</td>
+          <td>${user.age}</td>
+          <td><a href="mailto:${user.email}">${user.email}</a></td>
+          <td>${user.isActive}</td>
+        </tr>
+        </tbody>
+      </table>
+    </aubs-tab>
+    <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+        &lt;thead>
+        &lt;tr>
+            &lt;th>Name&lt;/th>
+            &lt;th>Age&lt;/th>
+            &lt;th>E-mail&lt;/th>
+            &lt;th>Active&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="user of $displayData" aut-select="row.bind: user; mode: multiple; selected-class: info"
+                select.delegate="rowSelected($event)">
+            &lt;td>${open}user.name}&lt;/td>
+            &lt;td>${open}user.age}&lt;/td>
+            &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+            &lt;td>${open}user.isActive}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+&lt;/template></code></pre>
+    </aubs-tab>
+    <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+
+    rowSelected($event){
+        console.log($event.detail.row);
+    }
+}</code></pre>
+    </aubs-tab>
+  </aubs-tabset>
+
+  <custom-selection></custom-selection>
+</template>

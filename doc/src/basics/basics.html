@@ -1,0 +1,94 @@
+<template>
+    <div class="page-header" id="basics">
+        <a class="btn btn-default pull-right" target="_blank"
+           href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/basics">
+            <i class="fa fa-edit"></i> Improve documentation</a>
+        <h1>The Basics</h1>
+    </div>
+
+    <p>One of the goals for Aurelia Table is for it to be easy to use. Because of this we start with the normal html table markup and then
+        we build on top of it. This will allow you to easily customize your tables with CSS. For this examples we have chosen to use
+        Bootstrap and Font Awesome but you can use whatever your heart desires.</p>
+
+    <p>Here is the code for the simplest table you can create:</p>
+
+
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>E-mail</th>
+                    <th>Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData">
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.address.street + ', ' + user.address.city}</td>
+                </tr>
+                </tbody>
+            </table>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+        &lt;thead>
+        &lt;tr>
+            &lt;th>Name&lt;/th>
+            &lt;th>Age&lt;/th>
+            &lt;th>E-mail&lt;/th>
+            &lt;th>Address&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="user of $displayData">
+            &lt;td>${open}user.name}&lt;/td>
+            &lt;td>${open}user.age}&lt;/td>
+            &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+            &lt;td>${open}user.address.street + ', ' + user.address.city}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+&lt;/template></code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+
+
+    <p>The <code>aurelia-table</code> custom attribute takes in a list of bindable properties:
+    <ul>
+        <li><code>data</code>: You need to bind this to the array in your view-model that holds the original data for your table. Aurelia
+            Table will observe this array for changes, so you can load your data asynchronously and the table will update itself when the
+            data becomes available.
+        </li>
+        <li><code>display-data</code>: Aurelia Table will make a copy of the array provided in the <code>data</code> property and will set
+            into this property. The property you are binding here doesn't need to be declared or initialized in your view-model, just make
+            sure you provide a unique property name that is not used anywhere else outside the table.
+        </li>
+    </ul>
+
+    The other noteworthy code is the repeater: <code>repeat.for="user of $displayData"</code>. You want to repeat over whatever property
+    you used for the <code>display-data</code> property; in this case it was <code>$displayData</code>.</p>
+
+    <p>All right, this is the simplest table you can create, but right now Aurelia Table is effectively doing nothing. Keep reading to
+        discover how easy it is to add functionality with plugins.</p>
+</template>

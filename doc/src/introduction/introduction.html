@@ -1,0 +1,97 @@
+<template>
+    <div class="page-banner">
+        <h1 class="project-name">Aurelia Table</h1>
+        <h2 class="project-tagline">Simple functional data table</h2>
+        <a href="https://github.com/tochoromero/aurelia-table" class="btn">View on GitHub</a>
+        <a href="https://github.com/tochoromero/aurelia-table/zipball/master" class="btn">Download .zip</a>
+        <a href="https://github.com/tochoromero/aurelia-table/tarball/master" class="btn">Download .tar.gz</a>
+    </div>
+
+    <div class="container">
+
+        <div class="row" id="introduction">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <a class="btn btn-default pull-right" target="_blank"
+                       href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/introduction">
+                        <i class="fa fa-edit"></i> Improve documentation</a>
+                    <h1>Introduction</h1>
+                </div>
+
+                <p>Aurelia Table was created out of the need for a simple highly customizable data table plugin
+                    that could take advantage of Aurelia's data binding. It has no dependencies but Aurelia itself and because it
+                    uses the standard HTML table it is compatible with CSS Frameworks such as Bootstrap and Foundation.</p>
+
+                <p>Out of the box you will get plugins for row searching, column sorting, client side
+                    pagination and row selection. But if you require very complex tables, high performance with big volumes of data or
+                    you don't care about data binding you may want to take a look at <a href="https://www.ag-grid.com/">Ag-Grid</a>, it
+                    has a web component mode that can be used with Aurelia.
+                </p>
+
+                <p>Also a big shout to the team behind
+                    <a href="http://lorenzofox3.github.io/smart-table-website/" target="_blank">Smart-Table</a>, Aurelia
+                    Table was inspired by this library. If you are ever in need for a good table library for Angular please take a look
+                    at this library.
+                </p>
+
+                <div class="page-header" id="installation">
+                    <h1>Installation</h1>
+                </div>
+
+                <h2>JSPM Installation</h2>
+
+                <p>
+                    You can install the plugin directly from its Github repository with jspm:
+                <pre>jspm install aurelia-table -y</pre>
+                </p>
+
+                <p>
+                    Once the plugin is installed we need to indicate Aurelia to use it. To do this find your <code>main.js</code> file
+                    and add the plugin:
+                <pre><code class="language-js" au-syntax>export function configure(aurelia) {
+  aurelia.use
+    .standardConfiguration()
+    .developmentLogging()
+    .plugin('aurelia-table');
+
+  aurelia.start().then(() => aurelia.setRoot());
+}</code></pre>
+                </p>
+
+                <h2>Aurelia CLI installation</h2>
+
+                <p>
+                    First you need to install the plugin with npm:
+                <pre>npm install tochoromero/aurelia-table --save</pre>
+                </p>
+
+                <p>
+                    Now we need to indicate Aurelia CLI how to load the plugin. Add the following in your <code>aurelia.json</code>
+                    project file:
+                <pre><code class="language-js" au-syntax>{
+  "name": "aurelia-table",
+  "path": "../node_modules/aurelia-table/dist/amd",
+  "main": "index",
+  "resources": [
+    "au-table-pagination.html"
+  ]
+}</code></pre>
+                </p>
+
+                <p>Finally we need to indicate Aurelia to use the plugin. Find your <code>main.js</code> file and add the following:
+                <pre><code class="language-js" au-syntax>export function configure(aurelia) {
+  aurelia.use
+    .standardConfiguration()
+    .developmentLogging()
+    .plugin('aurelia-table')
+    .feature('resources');
+
+  aurelia.start().then(() => aurelia.setRoot());
+}</code></pre>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</template>

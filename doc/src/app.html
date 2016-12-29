@@ -1,0 +1,36 @@
+<template>
+    <require from="nav-bar.html"></require>
+    <require from="bootstrap/css/bootstrap.css"></require>
+    <require from="./introduction/introduction"></require>
+    <require from="./basics/basics"></require>
+    <require from="./filter/filter"></require>
+    <require from="./sort/sort"></require>
+    <require from="./pagination/pagination"></require>
+    <require from="./selection/selection"></require>
+    <require from="./api/api"></require>
+
+    <nav-bar></nav-bar>
+
+    <div class="page-host">
+        <introduction></introduction>
+
+        <div class="container">
+            <basics></basics>
+
+            <filter></filter>
+
+            <sort></sort>
+
+            <pagination></pagination>
+
+            <selection></selection>
+
+            <api></api>
+
+            <div class="text-center">
+                <hr/>
+                <p>Hector Romero, 2016 under the MIT License</p>
+            </div>
+        </div>
+    </div>
+</template>

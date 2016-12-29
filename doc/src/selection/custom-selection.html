@@ -1,0 +1,84 @@
+<template>
+  <h2>Custom Selection</h2>
+
+  <p>By default, a row gets selected when the user clicks on it. Sometimes this is not desired behaviour, and instead you may want to use a
+    checkbox or a button. For those instances you can enable custom selection.
+  </p>
+
+  <p>To enable custom selection set the <code>custom</code> property to <code>true</code>. After that, Aurelia Table will not listen for
+    click events in the rows; instead it is your responsibility to update the <code>$isSelected</code> property in the rows.</p>
+
+  <p>Aurelia Table will still trigger the selected events, handle the row class and respect the selection mode (single, multiple).</p>
+
+  <h3>Example</h3>
+
+  <aubs-tabset>
+    <aubs-tab header="Preview">
+      <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>E-mail</th>
+          <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="user of $displayData" aut-select="row.bind: user; custom.bind: true; mode: multiple;selected-class: info"
+            select.delegate="rowSelected($event)">
+          <td><input type="checkbox" checked.bind="user.$isSelected"/></td>
+          <td>${user.name}</td>
+          <td>${user.age}</td>
+          <td><a href="mailto:${user.email}">${user.email}</a></td>
+          <td>${user.isActive}</td>
+        </tr>
+        </tbody>
+      </table>
+    </aubs-tab>
+    <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+        &lt;thead>
+        &lt;tr>
+            &lt;th>&lt;/th>
+            &lt;th>Name&lt;/th>
+            &lt;th>Age&lt;/th>
+            &lt;th>E-mail&lt;/th>
+            &lt;th>Active&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="user of $displayData" aut-select="row.bind: user; custom.bind: true; mode: multiple; selected-class: info"
+                select.delegate="rowSelected($event)">
+            &lt;td>&lt;input type="checkbox" checked.bind="user.$isSelected"/>&lt;/td>
+            &lt;td>${open}user.name}&lt;/td>
+            &lt;td>${open}user.age}&lt;/td>
+            &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+            &lt;td>${open}user.isActive}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+&lt;/template></code></pre>
+    </aubs-tab>
+    <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+
+    rowSelected($event){
+        console.log($event.detail.row);
+    }
+}</code></pre>
+    </aubs-tab>
+  </aubs-tabset>
+</template>

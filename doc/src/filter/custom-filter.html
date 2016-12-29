@@ -1,0 +1,104 @@
+<template>
+    <h2>Custom Filters</h2>
+    <p>You also have the option to provide a custom filter for more complex situations. A custom filter will look like this:</p>
+
+    <pre><code class="language-js" au-syntax>filters = [
+    {value: '', custom: this.customFilter}
+];
+
+customFilter(filterValue, row){
+ ...
+}</code></pre>
+
+    <p>As before you provide a <code>value</code> field, but you also provide a <code>custom</code> function. This function receives the
+        <code>filterValue</code> as the first argument and the <code>row</code> as second argument; your function must return
+        <code>true</code>
+        if the row should be included in the results or <code>false</code> otherwise.
+    </p>
+
+    <p>Note that you can use both a <code>custom</code> function and the normal <code>keys</code> in the same filter.</p>
+
+    <h3>Example</h3>
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+            <br>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" checked.bind="filters[0].value">
+                    Show inactive
+                </label>
+            </div>
+
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData; filters.bind: filters">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>State</th>
+                    <th>E-mail</th>
+                    <th>Active</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData">
+                    <td>${user.name}</td>
+                    <td>${user.address.state}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.isActive}</td>
+                </tr>
+                </tbody>
+            </table>
+        </aubs-tab>
+
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;div class="checkbox">
+    &lt;label>
+        &lt;input type="checkbox" checked.bind="filters[0].value">
+        Show inactive
+    &lt;/label>
+&lt;/div>
+
+&lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData; filters.bind: filters">
+    &lt;thead>
+    &lt;tr>
+        &lt;th>Name&lt;/th>
+        &lt;th>State&lt;/th>
+        &lt;th>E-mail&lt;/th>
+        &lt;th>Active&lt;/th>
+    &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+    &lt;tr repeat.for="user of $displayData">
+        &lt;td>${open}user.name}&lt;/td>
+        &lt;td>${open}user.address.state}&lt;/td>
+        &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+        &lt;td>${open}user.isActive}&lt;/td>
+    &lt;/tr>
+    &lt;/tbody>
+&lt;/table></code></pre>
+        </aubs-tab>
+
+        <aubs-tab header="JS">
+            <pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    filters = [
+        {value: true, custom: this.inactiveFilter}
+    ];
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+
+    inactiveFilter(filterValue, row) {
+        return filterValue || row.isActive;
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+</template>

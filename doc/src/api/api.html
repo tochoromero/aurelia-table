@@ -1,0 +1,126 @@
+<template>
+    <div class="page-header" id="api">
+        <a class="btn btn-default pull-right" target="_blank"
+           href="https://github.com/tochoromero/aurelia-table-documentation/tree/master/src/api">
+            <i class="fa fa-edit"></i> Improve documentation</a>
+        <h1>Api</h1>
+    </div>
+
+    <p>Though you can have access to many of the internals of the <code>aut-table</code> plugin through data binding, there are some
+        instances when it is not enough. For those instances we are exposing an Api that will give you access to extra functionality.
+    </p>
+
+    <p>To get a hold of the api you need to bind the <code>api</code> property, the <code>aut-table</code> will set its api into it.
+        Right now the api contains:
+
+    <ul>
+        <li><code>revealItem(item):boolean</code>: When pagination is enabled, this function will allow you to reveal the page where the
+            provided <code>item</code> is.<br/>
+            You will get back a boolean, where <code>true</code> indicates the item was
+            revealed correctly and <code>false</code> indicates one of three things:
+            <ol>
+                <li>The provided item does not exist in the table.</li>
+                <li>The provided item exists but it is not visible because of a filter. On which case you can clear the filter and try
+                    again.
+                </li>
+                <li>Pagination is not enabled.</li>
+            </ol>
+        </li>
+    </ul>
+    </p>
+
+    <h3>Example</h3>
+
+    <aubs-tabset>
+        <aubs-tab header="Preview">
+            <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData;
+                                              current-page.bind: currentPage; page-size.bind: pageSize; total-items.bind: totalItems;
+                                              api.bind: tableApi;">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>E-mail</th>
+                    <th>Active</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="user of $displayData" aut-select="row.bind: user; selected-class: info">
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td><a href="mailto:${user.email}">${user.email}</a></td>
+                    <td>${user.isActive}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <aut-pagination current-page.bind="currentPage" page-size.bind="pageSize"
+                                    total-items.bind="totalItems"></aut-pagination>
+                </div>
+
+                <div class="col-md-3 text-right">
+                    <button class="btn btn-default" click.delegate="selectLast()">Select Last</button>
+                </div>
+            </div>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData;
+                                              current-page.bind: currentPage; page-size.bind: pageSize; total-items.bind: totalItems;
+                                              api.bind: tableApi;">
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Name&lt;/th>
+                &lt;th>Age&lt;/th>
+                &lt;th>E-mail&lt;/th>
+                &lt;th>Active&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
+            &lt;tr repeat.for="user of $displayData" aut-select="row.bind: user; selected-class: info">
+                &lt;td>${open}user.name}&lt;/td>
+                &lt;td>${open}user.age}&lt;/td>
+                &lt;td>&lt;a href="mailto:${open}user.email}">${open}user.email}&lt;/a>&lt;/td>
+                &lt;td>${open}user.isActive}&lt;/td>
+            &lt;/tr>
+            &lt;/tbody>
+        &lt;/table>
+
+        &lt;div class="row">
+            &lt;div class="col-md-9">
+                &lt;aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="totalItems">&lt;/aut-pagination>
+            &lt;/div>
+
+            &lt;div class="col-md-3 text-right">
+                &lt;button class="btn btn-default" click.delegate="selectLast()">Select Last&lt;/button>
+            &lt;/div>
+        &lt;/div>
+&lt;/template></code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import {HttpClient} from "aurelia-fetch-client";
+
+export class Example {
+    users = [];
+
+    pageSize = 10;
+
+    bind(){
+        let client = new HttpClient();
+
+        return client.fetch('data.json')
+            .then(response => response.json())
+            .then(users => this.users = users);
+    }
+
+    selectLast(){
+        let last = this.users[this.users.length - 1];
+        last.$isSelected = true;
+        this.tableApi.revealItem(last);
+    }
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+</template>
