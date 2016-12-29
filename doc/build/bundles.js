@@ -32,6 +32,7 @@ module.exports = {
         'aurelia-templating-resources',
         'aurelia-templating-router',
         'fetch',
+        'jquery',
         'text'
       ],
       'options': {
