@@ -1,6 +1,6 @@
 {
   "name": "aurelia-table",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A simple and powerful data table for Aurelia.",
   "keywords": [
     "aurelia",
@@ -11,10 +11,10 @@
   "aurelia": {
     "build": {
       "resources": [
-        "aurelia-table/au-table",
-        "aurelia-table/au-table-pagination",
-        "aurelia-table/au-table-select",
-        "aurelia-table/au-table-sort"
+        "au-table/au-table",
+        "au-table/au-table-pagination",
+        "au-table/au-table-select",
+        "au-table/au-table-sort"
       ]
     }
   },
