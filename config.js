@@ -220,41 +220,6 @@ System.config({
       "indexof": "npm:indexof@0.0.1"
     }
   },
-  depCache: {
-    "api/api.js": [
-      "aurelia-fetch-client"
-    ],
-    "app.js": [
-      "jquery"
-    ],
-    "basics/basics.js": [
-      "aurelia-fetch-client"
-    ],
-    "filter/custom-filter.js": [
-      "aurelia-fetch-client"
-    ],
-    "filter/filter.js": [
-      "aurelia-fetch-client"
-    ],
-    "main.js": [
-      "fetch"
-    ],
-    "pagination/customPagination.js": [
-      "aurelia-fetch-client"
-    ],
-    "pagination/pagination.js": [
-      "aurelia-fetch-client"
-    ],
-    "selection/custom-selection.js": [
-      "aurelia-fetch-client"
-    ],
-    "selection/selection.js": [
-      "aurelia-fetch-client"
-    ],
-    "sort/sort.js": [
-      "aurelia-fetch-client"
-    ]
-  },
   bundles: {
     "app-build.js": [
       "api/api.html!github:systemjs/plugin-text@0.0.8.js",
@@ -412,6 +377,41 @@ System.config({
       "npm:tether@1.4.0/dist/js/tether.js",
       "npm:velocity-animate@1.4.0.js",
       "npm:velocity-animate@1.4.0/velocity.js"
+    ]
+  },
+  depCache: {
+    "api/api.js": [
+      "aurelia-fetch-client"
+    ],
+    "app.js": [
+      "jquery"
+    ],
+    "basics/basics.js": [
+      "aurelia-fetch-client"
+    ],
+    "filter/custom-filter.js": [
+      "aurelia-fetch-client"
+    ],
+    "filter/filter.js": [
+      "aurelia-fetch-client"
+    ],
+    "main.js": [
+      "fetch"
+    ],
+    "pagination/customPagination.js": [
+      "aurelia-fetch-client"
+    ],
+    "pagination/pagination.js": [
+      "aurelia-fetch-client"
+    ],
+    "selection/custom-selection.js": [
+      "aurelia-fetch-client"
+    ],
+    "selection/selection.js": [
+      "aurelia-fetch-client"
+    ],
+    "sort/sort.js": [
+      "aurelia-fetch-client"
     ]
   }
 });
