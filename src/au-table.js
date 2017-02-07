@@ -11,7 +11,6 @@ export class AureliaTableCustomAttribute {
   @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
   @bindable pageSize;
   @bindable({defaultBindingMode: bindingMode.twoWay}) totalItems;
-  @bindable preservePage = false;
 
   @bindable({defaultBindingMode: bindingMode.twoWay}) api;
 
@@ -62,6 +61,9 @@ export class AureliaTableCustomAttribute {
   }
 
   filterChanged() {
+    if (this.hasPagination()) {
+      this.currentPage = 1;
+    }
     this.applyPlugins();
   }
 
@@ -210,13 +212,7 @@ export class AureliaTableCustomAttribute {
 
   doPaginate(toPaginate) {
     if (toPaginate.length <= this.pageSize) {
-      this.currentPage = 1;
       return toPaginate;
-    }
-
-    let totalPages = Math.ceil(this.totalItems / this.pageSize);
-    if (!this.preservePage || this.currentPage > totalPages) {
-      this.currentPage = 1;
     }
 
     let start = (this.currentPage - 1) * this.pageSize;

@@ -1,4 +1,4 @@
-var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8;
+var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
 function _initDefineProp(target, property, descriptor, context) {
   if (!descriptor) return;
@@ -60,9 +60,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
 
     _initDefineProp(this, 'totalItems', _descriptor6, this);
 
-    _initDefineProp(this, 'preservePage', _descriptor7, this);
-
-    _initDefineProp(this, 'api', _descriptor8, this);
+    _initDefineProp(this, 'api', _descriptor7, this);
 
     this.isAttached = false;
     this.sortChangedListeners = [];
@@ -105,6 +103,9 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
   }
 
   filterChanged() {
+    if (this.hasPagination()) {
+      this.currentPage = 1;
+    }
     this.applyPlugins();
   }
 
@@ -241,13 +242,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
 
   doPaginate(toPaginate) {
     if (toPaginate.length <= this.pageSize) {
-      this.currentPage = 1;
       return toPaginate;
-    }
-
-    let totalPages = Math.ceil(this.totalItems / this.pageSize);
-    if (!this.preservePage || this.currentPage > totalPages) {
-      this.currentPage = 1;
     }
 
     let start = (this.currentPage - 1) * this.pageSize;
@@ -339,12 +334,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
 }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
   enumerable: true,
   initializer: null
-}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'preservePage', [bindable], {
-  enumerable: true,
-  initializer: function () {
-    return false;
-  }
-}), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
+}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
   enumerable: true,
   initializer: null
 })), _class2)) || _class);

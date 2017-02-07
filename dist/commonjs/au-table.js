@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AureliaTableCustomAttribute = undefined;
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8;
+var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
 var _aureliaFramework = require('aurelia-framework');
 
@@ -70,9 +70,7 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
 
     _initDefineProp(this, 'totalItems', _descriptor6, this);
 
-    _initDefineProp(this, 'preservePage', _descriptor7, this);
-
-    _initDefineProp(this, 'api', _descriptor8, this);
+    _initDefineProp(this, 'api', _descriptor7, this);
 
     this.isAttached = false;
     this.sortChangedListeners = [];
@@ -149,6 +147,9 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
   };
 
   AureliaTableCustomAttribute.prototype.filterChanged = function filterChanged() {
+    if (this.hasPagination()) {
+      this.currentPage = 1;
+    }
     this.applyPlugins();
   };
 
@@ -326,13 +327,7 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
 
   AureliaTableCustomAttribute.prototype.doPaginate = function doPaginate(toPaginate) {
     if (toPaginate.length <= this.pageSize) {
-      this.currentPage = 1;
       return toPaginate;
-    }
-
-    var totalPages = Math.ceil(this.totalItems / this.pageSize);
-    if (!this.preservePage || this.currentPage > totalPages) {
-      this.currentPage = 1;
     }
 
     var start = (this.currentPage - 1) * this.pageSize;
@@ -442,12 +437,7 @@ var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = 
 }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
   enumerable: true,
   initializer: null
-}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'preservePage', [_aureliaFramework.bindable], {
-  enumerable: true,
-  initializer: function initializer() {
-    return false;
-  }
-}), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
+}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
   enumerable: true,
   initializer: null
 })), _class2)) || _class);

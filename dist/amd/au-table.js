@@ -55,7 +55,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
     throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
   }
 
-  var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8;
+  var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
   var AureliaTableCustomAttribute = exports.AureliaTableCustomAttribute = (_dec = (0, _aureliaFramework.inject)(_aureliaFramework.BindingEngine), _dec2 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec3 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec4 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec5 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec(_class = (_class2 = function () {
     function AureliaTableCustomAttribute(bindingEngine) {
@@ -73,9 +73,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
 
       _initDefineProp(this, 'totalItems', _descriptor6, this);
 
-      _initDefineProp(this, 'preservePage', _descriptor7, this);
-
-      _initDefineProp(this, 'api', _descriptor8, this);
+      _initDefineProp(this, 'api', _descriptor7, this);
 
       this.isAttached = false;
       this.sortChangedListeners = [];
@@ -152,6 +150,9 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
     };
 
     AureliaTableCustomAttribute.prototype.filterChanged = function filterChanged() {
+      if (this.hasPagination()) {
+        this.currentPage = 1;
+      }
       this.applyPlugins();
     };
 
@@ -329,13 +330,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
 
     AureliaTableCustomAttribute.prototype.doPaginate = function doPaginate(toPaginate) {
       if (toPaginate.length <= this.pageSize) {
-        this.currentPage = 1;
         return toPaginate;
-      }
-
-      var totalPages = Math.ceil(this.totalItems / this.pageSize);
-      if (!this.preservePage || this.currentPage > totalPages) {
-        this.currentPage = 1;
       }
 
       var start = (this.currentPage - 1) * this.pageSize;
@@ -445,12 +440,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
   }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'totalItems', [_dec4], {
     enumerable: true,
     initializer: null
-  }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'preservePage', [_aureliaFramework.bindable], {
-    enumerable: true,
-    initializer: function initializer() {
-      return false;
-    }
-  }), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
+  }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, 'api', [_dec5], {
     enumerable: true,
     initializer: null
   })), _class2)) || _class);
