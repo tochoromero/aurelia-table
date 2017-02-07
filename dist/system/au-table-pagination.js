@@ -101,12 +101,10 @@ System.register(['aurelia-framework'], function (_export, _context) {
         };
 
         AutPaginationCustomElement.prototype.totalItemsChanged = function totalItemsChanged() {
-          this.currentPage = 1;
           this.calculatePages();
         };
 
         AutPaginationCustomElement.prototype.pageSizeChanged = function pageSizeChanged() {
-          this.currentPage = 1;
           this.calculatePages();
         };
 
@@ -116,6 +114,10 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
         AutPaginationCustomElement.prototype.calculatePages = function calculatePages() {
           this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
+
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = 1;
+          }
 
           if (isNaN(this.paginationSize) || this.paginationSize <= 0) {
             this.displayAllPages();
