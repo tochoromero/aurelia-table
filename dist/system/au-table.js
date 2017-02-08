@@ -84,6 +84,8 @@ System.register(['aurelia-framework'], function (_export, _context) {
           this.sortChangedListeners = [];
           this.beforePagination = [];
           this.filterObservers = [];
+          this.applyPromise = null;
+          this.waitingPromise = null;
 
           this.bindingEngine = bindingEngine;
         }
@@ -93,7 +95,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
           if (Array.isArray(this.data)) {
             this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
-              return _this.applyPlugins();
+              return _this.applyOrWait();
             });
           }
 
@@ -122,13 +124,16 @@ System.register(['aurelia-framework'], function (_export, _context) {
           this.api = {
             revealItem: function revealItem(item) {
               return _this.revealItem(item);
+            },
+            revealPage: function revealPage(page) {
+              return _this.revealPage(page);
             }
           };
         };
 
         AureliaTableCustomAttribute.prototype.attached = function attached() {
           this.isAttached = true;
-          this.applyPlugins();
+          this.applyOrWait();
         };
 
         AureliaTableCustomAttribute.prototype.detached = function detached() {
@@ -155,22 +160,76 @@ System.register(['aurelia-framework'], function (_export, _context) {
         };
 
         AureliaTableCustomAttribute.prototype.filterChanged = function filterChanged() {
-          if (this.hasPagination()) {
-            this.currentPage = 1;
-          }
-          this.applyPlugins();
+          this.applyOrWait();
         };
 
         AureliaTableCustomAttribute.prototype.currentPageChanged = function currentPageChanged() {
-          this.applyPlugins();
+          this.applyOrWait();
         };
 
         AureliaTableCustomAttribute.prototype.pageSizeChanged = function pageSizeChanged() {
-          this.applyPlugins();
+          this.applyOrWait();
         };
 
-        AureliaTableCustomAttribute.prototype.getDataCopy = function getDataCopy() {
-          return [].concat(this.data);
+        AureliaTableCustomAttribute.prototype.dataChanged = function dataChanged() {
+          var _this2 = this;
+
+          this.applyOrWait();
+
+          if (this.dataObserver) {
+            this.dataObserver.dispose();
+          }
+
+          this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
+            return _this2.applyOrWait();
+          });
+        };
+
+        AureliaTableCustomAttribute.prototype.sortChanged = function sortChanged(key, custom, order) {
+          var _this3 = this;
+
+          this.sortKey = key;
+          this.customSort = custom;
+          this.sortOrder = order;
+
+          this.applyOrWait().then(function () {
+            return _this3.emitSortChanged();
+          });
+        };
+
+        AureliaTableCustomAttribute.prototype.addSortChangedListener = function addSortChangedListener(callback) {
+          this.sortChangedListeners.push(callback);
+        };
+
+        AureliaTableCustomAttribute.prototype.removeSortChangedListener = function removeSortChangedListener(callback) {
+          this.removeListener(callback, this.sortChangedListeners);
+        };
+
+        AureliaTableCustomAttribute.prototype.emitSortChanged = function emitSortChanged() {
+          for (var _iterator3 = this.sortChangedListeners, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+            var _ref3;
+
+            if (_isArray3) {
+              if (_i3 >= _iterator3.length) break;
+              _ref3 = _iterator3[_i3++];
+            } else {
+              _i3 = _iterator3.next();
+              if (_i3.done) break;
+              _ref3 = _i3.value;
+            }
+
+            var listener = _ref3;
+
+            listener();
+          }
+        };
+
+        AureliaTableCustomAttribute.prototype.removeListener = function removeListener(callback, listeners) {
+          var index = listeners.indexOf(callback);
+
+          if (index > -1) {
+            listeners.splice(index, 1);
+          }
         };
 
         AureliaTableCustomAttribute.prototype.applyPlugins = function applyPlugins() {
@@ -178,7 +237,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
             return;
           }
 
-          var localData = this.getDataCopy();
+          var localData = [].concat(this.data);
 
           if (this.hasFilter()) {
             localData = this.doFilter(localData);
@@ -198,38 +257,72 @@ System.register(['aurelia-framework'], function (_export, _context) {
           this.displayData = localData;
         };
 
+        AureliaTableCustomAttribute.prototype.applyOrWait = function applyOrWait() {
+          var _this4 = this;
+
+          if (this.applyPromise) {
+            if (this.waitingPromise) {
+              return this.waitingPromise;
+            }
+
+            this.waitingPromise = new Promise(function (resolve) {
+              _this4.applyPromise.then(function () {
+                _this4.applyPlugins();
+                resolve();
+              });
+            });
+
+            this.waitingPromise.then(function () {
+              return _this4.waitingPromise = null;
+            });
+
+            return this.waitingPromise;
+          }
+
+          this.applyPromise = new Promise(function (resolve) {
+            _this4.applyPlugins();
+            resolve();
+          });
+
+          this.applyPromise.then(function () {
+            _this4.applyPromise = null;
+          });
+
+          return this.applyPromise;
+        };
+
         AureliaTableCustomAttribute.prototype.doFilter = function doFilter(toFilter) {
           var filteredData = [];
 
-          for (var _iterator3 = toFilter, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
-            var _ref3;
+          for (var _iterator4 = toFilter, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
+            var _ref4;
 
-            if (_isArray3) {
-              if (_i3 >= _iterator3.length) break;
-              _ref3 = _iterator3[_i3++];
+            if (_isArray4) {
+              if (_i4 >= _iterator4.length) break;
+              _ref4 = _iterator4[_i4++];
             } else {
-              _i3 = _iterator3.next();
-              if (_i3.done) break;
-              _ref3 = _i3.value;
+              _i4 = _iterator4.next();
+              if (_i4.done) break;
+              _ref4 = _i4.value;
             }
 
-            var item = _ref3;
+            var item = _ref4;
 
             var passed = true;
 
-            for (var _iterator4 = this.filters, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
-              var _ref4;
+            for (var _iterator5 = this.filters, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : _iterator5[Symbol.iterator]();;) {
+              var _ref5;
 
-              if (_isArray4) {
-                if (_i4 >= _iterator4.length) break;
-                _ref4 = _iterator4[_i4++];
+              if (_isArray5) {
+                if (_i5 >= _iterator5.length) break;
+                _ref5 = _iterator5[_i5++];
               } else {
-                _i4 = _iterator4.next();
-                if (_i4.done) break;
-                _ref4 = _i4.value;
+                _i5 = _iterator5.next();
+                if (_i5.done) break;
+                _ref5 = _i5.value;
               }
 
-              var filter = _ref4;
+              var filter = _ref5;
 
               if (!this.passFilter(item, filter)) {
                 passed = false;
@@ -254,19 +347,19 @@ System.register(['aurelia-framework'], function (_export, _context) {
             return true;
           }
 
-          for (var _iterator5 = filter.keys, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : _iterator5[Symbol.iterator]();;) {
-            var _ref5;
+          for (var _iterator6 = filter.keys, _isArray6 = Array.isArray(_iterator6), _i6 = 0, _iterator6 = _isArray6 ? _iterator6 : _iterator6[Symbol.iterator]();;) {
+            var _ref6;
 
-            if (_isArray5) {
-              if (_i5 >= _iterator5.length) break;
-              _ref5 = _iterator5[_i5++];
+            if (_isArray6) {
+              if (_i6 >= _iterator6.length) break;
+              _ref6 = _iterator6[_i6++];
             } else {
-              _i5 = _iterator5.next();
-              if (_i5.done) break;
-              _ref5 = _i5.value;
+              _i6 = _iterator6.next();
+              if (_i6.done) break;
+              _ref6 = _i6.value;
             }
 
-            var key = _ref5;
+            var key = _ref6;
 
             var value = this.getPropertyValue(item, key);
 
@@ -282,35 +375,35 @@ System.register(['aurelia-framework'], function (_export, _context) {
         };
 
         AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort) {
-          var _this2 = this;
+          var _this5 = this;
 
           toSort.sort(function (a, b) {
-            if (typeof _this2.customSort === 'function') {
-              return _this2.customSort(a, b, _this2.sortOrder);
+            if (typeof _this5.customSort === 'function') {
+              return _this5.customSort(a, b, _this5.sortOrder);
             }
 
             var val1 = void 0;
             var val2 = void 0;
 
-            if (typeof _this2.sortKey === 'function') {
-              val1 = _this2.sortKey(a, _this2.sortOrder);
-              val2 = _this2.sortKey(b, _this2.sortOrder);
+            if (typeof _this5.sortKey === 'function') {
+              val1 = _this5.sortKey(a, _this5.sortOrder);
+              val2 = _this5.sortKey(b, _this5.sortOrder);
             } else {
-              val1 = _this2.getPropertyValue(a, _this2.sortKey);
-              val2 = _this2.getPropertyValue(b, _this2.sortKey);
+              val1 = _this5.getPropertyValue(a, _this5.sortKey);
+              val2 = _this5.getPropertyValue(b, _this5.sortKey);
             }
 
             if (val1 === null) val1 = '';
             if (val2 === null) val2 = '';
 
-            if (_this2.isNumeric(val1) && _this2.isNumeric(val2)) {
-              return (val1 - val2) * _this2.sortOrder;
+            if (_this5.isNumeric(val1) && _this5.isNumeric(val2)) {
+              return (val1 - val2) * _this5.sortOrder;
             }
 
             var str1 = val1.toString();
             var str2 = val2.toString();
 
-            return str1.localeCompare(str2) * _this2.sortOrder;
+            return str1.localeCompare(str2) * _this5.sortOrder;
           });
         };
 
@@ -353,68 +446,23 @@ System.register(['aurelia-framework'], function (_export, _context) {
           return this.currentPage > 0;
         };
 
-        AureliaTableCustomAttribute.prototype.dataChanged = function dataChanged() {
-          var _this3 = this;
-
-          if (this.dataObserver) {
-            this.dataObserver.dispose();
-          }
-
-          this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(function () {
-            return _this3.applyPlugins();
-          });
-
-          this.applyPlugins();
-        };
-
-        AureliaTableCustomAttribute.prototype.sortChanged = function sortChanged(key, custom, order) {
-          this.sortKey = key;
-          this.customSort = custom;
-          this.sortOrder = order;
-          this.applyPlugins();
-          this.emitSortChanged();
-        };
-
-        AureliaTableCustomAttribute.prototype.addSortChangedListener = function addSortChangedListener(callback) {
-          this.sortChangedListeners.push(callback);
-        };
-
-        AureliaTableCustomAttribute.prototype.removeSortChangedListener = function removeSortChangedListener(callback) {
-          this.removeListener(callback, this.sortChangedListeners);
-        };
-
-        AureliaTableCustomAttribute.prototype.emitSortChanged = function emitSortChanged() {
-          for (var _iterator6 = this.sortChangedListeners, _isArray6 = Array.isArray(_iterator6), _i6 = 0, _iterator6 = _isArray6 ? _iterator6 : _iterator6[Symbol.iterator]();;) {
-            var _ref6;
-
-            if (_isArray6) {
-              if (_i6 >= _iterator6.length) break;
-              _ref6 = _iterator6[_i6++];
-            } else {
-              _i6 = _iterator6.next();
-              if (_i6.done) break;
-              _ref6 = _i6.value;
-            }
-
-            var listener = _ref6;
-
-            listener();
-          }
-        };
-
-        AureliaTableCustomAttribute.prototype.removeListener = function removeListener(callback, listeners) {
-          var index = listeners.indexOf(callback);
-
-          if (index > -1) {
-            listeners.splice(index, 1);
-          }
-        };
-
         AureliaTableCustomAttribute.prototype.revealItem = function revealItem(item) {
+          var _this6 = this;
+
           if (!this.hasPagination()) {
             return true;
           }
 
+          if (this.applyPromise) {
+            return this.applyPromise.then(function () {
+              return _this6.doRevealItem(item);
+            });
+          }
+
+          return Promise.resolve(this.doRevealItem(item));
+        };
+
+        AureliaTableCustomAttribute.prototype.doRevealItem = function doRevealItem(item) {
           var index = this.beforePagination.indexOf(item);
 
           if (index === -1) {
@@ -424,6 +472,22 @@ System.register(['aurelia-framework'], function (_export, _context) {
           this.currentPage = Math.ceil((index + 1) / this.pageSize);
 
           return true;
+        };
+
+        AureliaTableCustomAttribute.prototype.revealPage = function revealPage(page) {
+          var _this7 = this;
+
+          if (!this.hasPagination()) {
+            return;
+          }
+
+          if (this.applyPromise) {
+            this.applyPromise.then(function () {
+              return _this7.currentPage = page;
+            });
+          } else {
+            this.currentPage = page;
+          }
         };
 
         return AureliaTableCustomAttribute;
