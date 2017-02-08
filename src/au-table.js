@@ -23,6 +23,8 @@ export class AureliaTableCustomAttribute {
 
   dataObserver;
   filterObservers = [];
+  applyPromise = null;
+  waitingPromise = null;
 
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
@@ -30,7 +32,7 @@ export class AureliaTableCustomAttribute {
 
   bind() {
     if (Array.isArray(this.data)) {
-      this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+      this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyOrWait());
     }
 
     if (Array.isArray(this.filters)) {
@@ -41,13 +43,14 @@ export class AureliaTableCustomAttribute {
     }
 
     this.api = {
-      revealItem: (item) => this.revealItem(item)
+      revealItem: item => this.revealItem(item),
+      revealPage: page => this.revealPage(page)
     };
   }
 
   attached() {
     this.isAttached = true;
-    this.applyPlugins();
+    this.applyOrWait();
   }
 
   detached() {
@@ -61,25 +64,57 @@ export class AureliaTableCustomAttribute {
   }
 
   filterChanged() {
-    if (this.hasPagination()) {
-      this.currentPage = 1;
-    }
-    this.applyPlugins();
+    this.applyOrWait();
   }
 
   currentPageChanged() {
-    this.applyPlugins();
+    this.applyOrWait();
   }
 
   pageSizeChanged() {
-    this.applyPlugins();
+    this.applyOrWait();
   }
 
-  /**
-   * Copies the data into the display data
-   */
-  getDataCopy() {
-    return [].concat(this.data);
+  dataChanged() {
+    this.applyOrWait();
+
+    if (this.dataObserver) {
+      this.dataObserver.dispose();
+    }
+
+    this.dataObserver = this.bindingEngine.collectionObserver(this.data)
+      .subscribe(() => this.applyOrWait());
+  }
+
+  sortChanged(key, custom, order) {
+    this.sortKey = key;
+    this.customSort = custom;
+    this.sortOrder = order;
+
+    this.applyOrWait()
+      .then(() => this.emitSortChanged());
+  }
+
+  addSortChangedListener(callback) {
+    this.sortChangedListeners.push(callback);
+  }
+
+  removeSortChangedListener(callback) {
+    this.removeListener(callback, this.sortChangedListeners);
+  }
+
+  emitSortChanged() {
+    for (let listener of this.sortChangedListeners) {
+      listener();
+    }
+  }
+
+  removeListener(callback, listeners) {
+    let index = listeners.indexOf(callback);
+
+    if (index > -1) {
+      listeners.splice(index, 1);
+    }
   }
 
   /**
@@ -90,7 +125,7 @@ export class AureliaTableCustomAttribute {
       return;
     }
 
-    let localData = this.getDataCopy();
+    let localData = [].concat(this.data);
 
     if (this.hasFilter()) {
       localData = this.doFilter(localData);
@@ -108,6 +143,39 @@ export class AureliaTableCustomAttribute {
     }
 
     this.displayData = localData;
+  }
+
+  applyOrWait() {
+    if (this.applyPromise) {
+      if (this.waitingPromise) {
+        return this.waitingPromise;
+      }
+
+      this.waitingPromise = new Promise(resolve => {
+        this.applyPromise
+          .then(() => {
+            this.applyPlugins();
+            resolve();
+          });
+      });
+
+      this.waitingPromise
+        .then(() => this.waitingPromise = null);
+
+      return this.waitingPromise;
+    }
+
+    this.applyPromise = new Promise(resolve => {
+      this.applyPlugins();
+      resolve();
+    });
+
+    this.applyPromise
+      .then(() => {
+        this.applyPromise = null;
+      });
+
+    return this.applyPromise;
   }
 
   doFilter(toFilter) {
@@ -230,52 +298,20 @@ export class AureliaTableCustomAttribute {
     return this.currentPage > 0;
   }
 
-  dataChanged() {
-    if (this.dataObserver) {
-      this.dataObserver.dispose();
-    }
-
-    this.dataObserver = this.bindingEngine.collectionObserver(this.data)
-      .subscribe(() => this.applyPlugins());
-
-    this.applyPlugins();
-  }
-
-  sortChanged(key, custom, order) {
-    this.sortKey = key;
-    this.customSort = custom;
-    this.sortOrder = order;
-    this.applyPlugins();
-    this.emitSortChanged();
-  }
-
-  addSortChangedListener(callback) {
-    this.sortChangedListeners.push(callback);
-  }
-
-  removeSortChangedListener(callback) {
-    this.removeListener(callback, this.sortChangedListeners);
-  }
-
-  emitSortChanged() {
-    for (let listener of this.sortChangedListeners) {
-      listener();
-    }
-  }
-
-  removeListener(callback, listeners) {
-    let index = listeners.indexOf(callback);
-
-    if (index > -1) {
-      listeners.splice(index, 1);
-    }
-  }
-
   revealItem(item) {
     if (!this.hasPagination()) {
       return true;
     }
 
+    if (this.applyPromise) {
+      return this.applyPromise
+        .then(() => this.doRevealItem(item));
+    }
+
+    return Promise.resolve(this.doRevealItem(item));
+  }
+
+  doRevealItem(item) {
     let index = this.beforePagination.indexOf(item);
 
     if (index === -1) {
@@ -287,4 +323,16 @@ export class AureliaTableCustomAttribute {
     return true;
   }
 
+  revealPage(page) {
+    if (!this.hasPagination()) {
+      return;
+    }
+
+    if (this.applyPromise) {
+      this.applyPromise
+        .then(() => this.currentPage = page);
+    } else {
+      this.currentPage = page;
+    }
+  }
 }

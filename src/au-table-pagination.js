@@ -45,6 +45,10 @@ export class AutPaginationCustomElement {
   calculatePages() {
     this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
 
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = 1;
+    }
+
     if (isNaN(this.paginationSize) || this.paginationSize <= 0) {
       this.displayAllPages();
     } else {
