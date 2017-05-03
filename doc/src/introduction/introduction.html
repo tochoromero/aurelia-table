@@ -42,7 +42,7 @@
 
         <p>
           You can install the plugin directly from its Github repository with jspm:
-        <pre>jspm install aurelia-table -y</pre>
+        <pre>jspm install au-table -y</pre>
         </p>
 
         <p>
@@ -52,7 +52,7 @@
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
-    .plugin('aurelia-table');
+    .plugin('au-table');
 
   aurelia.start().then(() => aurelia.setRoot());
 }</code></pre>
@@ -69,7 +69,7 @@
           Now we need to indicate Aurelia CLI how to load the plugin. Add the following in your <code>aurelia.json</code>
           project file:
         <pre><code class="language-js" au-syntax>{
-  "name": "aurelia-table",
+  "name": "au-table",
   "path": "../node_modules/au-table/dist/amd",
   "main": "index",
   "resources": [
@@ -83,7 +83,7 @@
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
-    .plugin('aurelia-table')
+    .plugin('au-table')
     .feature('resources');
 
   aurelia.start().then(() => aurelia.setRoot());
