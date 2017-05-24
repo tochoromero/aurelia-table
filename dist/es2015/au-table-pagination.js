@@ -1,4 +1,4 @@
-var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11;
+var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _class2, _temp;
 
 function _initDefineProp(target, property, descriptor, context) {
   if (!descriptor) return;
@@ -43,10 +43,10 @@ function _initializerWarningHelper(descriptor, context) {
   throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-import { bindable, bindingMode } from 'aurelia-framework';
+import { bindable, bindingMode, DOM } from 'aurelia-framework';
 
-export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = class AutPaginationCustomElement {
-  constructor() {
+export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: bindingMode.twoWay }), (_class = (_temp = _class2 = class AutPaginationCustomElement {
+  constructor(element) {
     _initDefineProp(this, 'currentPage', _descriptor, this);
 
     _initDefineProp(this, 'pageSize', _descriptor2, this);
@@ -71,6 +71,8 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
 
     this.totalPages = 1;
     this.displayPages = [];
+
+    this.element = element;
   }
 
   bind() {
@@ -95,6 +97,17 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
 
   currentPageChanged() {
     this.calculatePages();
+    this.dispatchPageChangedEvent();
+  }
+
+  dispatchPageChangedEvent() {
+    let event = DOM.createCustomEvent('page-changed', {
+      bubbles: true,
+      detail: {
+        currentPage: this.currentPage
+      }
+    });
+    this.element.dispatchEvent(event);
   }
 
   calculatePages() {
@@ -184,7 +197,7 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
   lastPage() {
     this.currentPage = this.totalPages;
   }
-}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
+}, _class2.inject = [Element], _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
   enumerable: true,
   initializer: null
 }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'pageSize', [bindable], {

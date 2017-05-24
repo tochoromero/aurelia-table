@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AutPaginationCustomElement = undefined;
 
-var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11;
+var _dec, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _class2, _temp;
 
 var _aureliaFramework = require('aurelia-framework');
 
@@ -54,8 +54,8 @@ function _initializerWarningHelper(descriptor, context) {
   throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), (_class = function () {
-  function AutPaginationCustomElement() {
+var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), (_class = (_temp = _class2 = function () {
+  function AutPaginationCustomElement(element) {
     _classCallCheck(this, AutPaginationCustomElement);
 
     _initDefineProp(this, 'currentPage', _descriptor, this);
@@ -82,6 +82,8 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
 
     this.totalPages = 1;
     this.displayPages = [];
+
+    this.element = element;
   }
 
   AutPaginationCustomElement.prototype.bind = function bind() {
@@ -106,6 +108,17 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
 
   AutPaginationCustomElement.prototype.currentPageChanged = function currentPageChanged() {
     this.calculatePages();
+    this.dispatchPageChangedEvent();
+  };
+
+  AutPaginationCustomElement.prototype.dispatchPageChangedEvent = function dispatchPageChangedEvent() {
+    var event = _aureliaFramework.DOM.createCustomEvent('page-changed', {
+      bubbles: true,
+      detail: {
+        currentPage: this.currentPage
+      }
+    });
+    this.element.dispatchEvent(event);
   };
 
   AutPaginationCustomElement.prototype.calculatePages = function calculatePages() {
@@ -197,7 +210,7 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
   };
 
   return AutPaginationCustomElement;
-}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
+}(), _class2.inject = [Element], _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_dec], {
   enumerable: true,
   initializer: null
 }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'pageSize', [_aureliaFramework.bindable], {

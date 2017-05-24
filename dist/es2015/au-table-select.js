@@ -43,7 +43,7 @@ function _initializerWarningHelper(descriptor, context) {
   throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 }
 
-import { inject, bindable, bindingMode, BindingEngine } from 'aurelia-framework';
+import { inject, bindable, bindingMode, BindingEngine, DOM } from 'aurelia-framework';
 import { AureliaTableCustomAttribute } from './au-table';
 
 export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute, Element, BindingEngine), _dec2 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = (_class2 = class AutSelectCustomAttribute {
@@ -103,17 +103,10 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
 
   dispatchSelectedEvent() {
     let selectedEvent;
-    if (window.CustomEvent) {
-      selectedEvent = new CustomEvent('select', {
-        detail: { row: this.row },
-        bubbles: true
-      });
-    } else {
-      selectedEvent = document.createEvent('CustomEvent');
-      selectedEvent.initCustomEvent('select', true, true, {
-        detail: { row: this.row }
-      });
-    }
+    selectedEvent = DOM.createCustomEvent('select', {
+      detail: { row: this.row },
+      bubbles: true
+    });
     this.element.dispatchEvent(selectedEvent);
   }
 

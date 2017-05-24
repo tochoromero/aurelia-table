@@ -120,17 +120,10 @@ var AutSelectCustomAttribute = exports.AutSelectCustomAttribute = (_dec = (0, _a
 
   AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
     var selectedEvent = void 0;
-    if (window.CustomEvent) {
-      selectedEvent = new CustomEvent('select', {
-        detail: { row: this.row },
-        bubbles: true
-      });
-    } else {
-      selectedEvent = document.createEvent('CustomEvent');
-      selectedEvent.initCustomEvent('select', true, true, {
-        detail: { row: this.row }
-      });
-    }
+    selectedEvent = _aureliaFramework.DOM.createCustomEvent('select', {
+      detail: { row: this.row },
+      bubbles: true
+    });
     this.element.dispatchEvent(selectedEvent);
   };
 

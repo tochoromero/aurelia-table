@@ -3,6 +3,8 @@ import {inject, bindable, bindingMode, BindingEngine} from 'aurelia-framework';
 @inject(BindingEngine)
 export class AureliaTableCustomAttribute {
 
+  @bindable dataSource = 'local'; // local, ajax and server;
+
   @bindable data;
   @bindable({defaultBindingMode: bindingMode.twoWay}) displayData;
 
@@ -61,6 +63,9 @@ export class AureliaTableCustomAttribute {
   }
 
   filterChanged() {
+    if (this.dataSource === 'server') {
+      return;
+    }
     if (this.hasPagination()) {
       this.currentPage = 1;
     }
@@ -82,11 +87,20 @@ export class AureliaTableCustomAttribute {
     return [].concat(this.data);
   }
 
+  getPageData(localData) {
+    if (this.hasPagination()) {
+      this.beforePagination = [].concat(localData);
+      return this.doPaginate(localData);
+    }
+
+    return localData;
+  }
+
   /**
    * Applies all the plugins to the display data
    */
   applyPlugins() {
-    if (!this.isAttached || !this.data) {
+    if (!this.isAttached || !this.data || this.dataSource === 'server') {
       return;
     }
 
@@ -102,12 +116,7 @@ export class AureliaTableCustomAttribute {
 
     this.totalItems = localData.length;
 
-    if (this.hasPagination()) {
-      this.beforePagination = [].concat(localData);
-      localData = this.doPaginate(localData);
-    }
-
-    this.displayData = localData;
+    this.displayData = this.getPageData(localData);
   }
 
   doFilter(toFilter) {

@@ -1,4 +1,4 @@
-import {inject, bindable, bindingMode, BindingEngine} from 'aurelia-framework';
+import {inject, bindable, bindingMode, BindingEngine, DOM} from 'aurelia-framework';
 import {AureliaTableCustomAttribute} from './au-table';
 
 @inject(AureliaTableCustomAttribute, Element, BindingEngine)
@@ -58,17 +58,10 @@ export class AutSelectCustomAttribute {
 
   dispatchSelectedEvent() {
     let selectedEvent;
-    if (window.CustomEvent) {
-      selectedEvent = new CustomEvent('select', {
-        detail: {row: this.row},
-        bubbles: true
-      });
-    } else {
-      selectedEvent = document.createEvent('CustomEvent');
-      selectedEvent.initCustomEvent('select', true, true, {
-        detail: {row: this.row}
-      });
-    }
+    selectedEvent = DOM.createCustomEvent('select', {
+      detail: {row: this.row},
+      bubbles: true
+    });
     this.element.dispatchEvent(selectedEvent);
   }
 

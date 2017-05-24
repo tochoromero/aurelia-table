@@ -1,0 +1,204 @@
+<template>
+    <div class="page-header" id="api">
+        <a class="btn btn-default pull-right" target="_blank"
+           href="https://github.com/tochoromero/aurelia-table/tree/master/doc/src/server-side">
+            <i class="fa fa-edit"></i> Improve documentation</a>
+        <h1>Server Side Processing</h1>
+    </div>
+
+    <p>Using server side is simple as indicating <code>data-source.bind: 'server'</code> in <code>au-table</code> attribute and using <code>TableSettings</code> class then pass your Promise.
+    </p>
+
+    <p>The function that will be pass on <code>TableSettings</code> should have this signature <code>(searchValue: ITableRequest&lt;T>) => Promise&lt;TableResult&lt;T>></code>. </p>
+    
+    <p><pre>
+        <code>interface ITableRequest&lt;T> {
+    draw: number;
+    start: number;
+    pageSize: number;
+    filter?: T
+}</code>
+        <code>class TableResult&lt;T> {
+    draw: number;
+    totalItems: number;
+    items: T[];
+    constructor(result: TableResult&lt;T>) {
+        this.draw = result.draw;
+        this.totalItems = result.totalItems;
+        this.items = result.items;
+    }
+}</code></pre>
+    </p>
+
+    <h3>Example</h3>
+
+    <aubs-tabset>
+        <aubs-tab header="Preview">            
+    <div class="row">
+        <div class="col-md-3">
+            <form submit.delegate="tableSettings.loadItems()">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="Username"
+                        value.bind="tableSettings.filter.username">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default">Search</button>
+                    </span>
+                </div>            
+            </form>
+        </div>
+        <div class="col-md-offset-6 col-md-3">
+            <div class="form-inline">
+                <div class="form-group pull-right">
+                    <label for="pageSize">Page Size: </label>
+                    <select value.bind="tableSettings.pageSize" id="pageSize" class="form-control">
+                        <option model.bind="5">5</option>
+                        <option model.bind="10">10</option>
+                        <option model.bind="20">20</option>
+                        <option model.bind="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped" aurelia-table="data.bind: tableSettings.items; display-data.bind: $displayData; data-source.bind: 'server';
+                                                        current-page.bind: tableSettings.currentPage; page-size.bind: tableSettings.pageSize;">
+        <thead>
+        <tr>
+            <th>Active</th>
+            <th>Username</th>
+            <th>Fullname</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Birthdate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="employee of $displayData">
+            <td>${employee.userId}</td>
+            <td>${employee.username}</td>
+            <td>${employee.firstname + ' ' + employee.lastname}</td>
+            <td>${employee.age}</td>
+            <td>${employee.gender}</td>
+            <td>${employee.birthdate}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-9">
+            <aut-pagination current-page.bind="tableSettings.currentPage" page-size.bind="tableSettings.pageSize" total-items.bind="tableSettings.totalItems"
+                                   pagination-size.bind="5" boundary-links.bind="true"> </aut-pagination>
+        </div>
+    </div>
+        </aubs-tab>
+        <aubs-tab header="HTML">
+            <pre><code class="language-markup" au-syntax>&lt;template>
+    &lt;div class="row">
+        &lt;div class="col-md-3">
+            &lt;form submit.delegate="tableSettings.loadItems()">
+                &lt;div class="input-group">
+                    &lt;input type="text" class="form-control" id="exampleInputAmount" placeholder="Username"
+                        value.bind="tableSettings.filter.username">
+                    &lt;span class="input-group-btn">
+                        &lt;button class="btn btn-default">Search&lt;/button>
+                    &lt;/span>
+                &lt;/div>            
+            &lt;/form>
+        &lt;/div>
+        &lt;div class="col-md-offset-6 col-md-3">
+            &lt;div class="form-inline">
+                &lt;div class="form-group pull-right">
+                    &lt;label for="pageSize">Page Size: &lt;/label>
+                    &lt;select value.bind="tableSettings.pageSize" id="pageSize" class="form-control">
+                        &lt;option model.bind="5">5&lt;/option>
+                        &lt;option model.bind="10">10&lt;/option>
+                        &lt;option model.bind="20">20&lt;/option>
+                        &lt;option model.bind="50">50&lt;/option>
+                    &lt;/select>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    &lt;table class="table table-striped" aurelia-table="data.bind: tableSettings.items; display-data.bind: $displayData; 
+                                                        current-page.bind: tableSettings.currentPage; page-size.bind: tableSettings.pageSize;">
+        &lt;thead>
+        &lt;tr>
+            &lt;th>Active&lt;/th>
+            &lt;th>Username&lt;/th>
+            &lt;th>Fullname&lt;/th>
+            &lt;th>Age&lt;/th>
+            &lt;th>Gender&lt;/th>
+            &lt;th>Birthdate&lt;/th>
+        &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
+        &lt;tr repeat.for="employee of $displayData">
+            &lt;td>${open}employee.userId}&lt;/td>
+            &lt;td>${open}employee.username}&lt;/a>                
+            &lt;/td>
+            &lt;td>${open}employee.firstname + ' ' + employee.lastname}&lt;/td>
+            &lt;td>${open}employee.age}&lt;/td>
+            &lt;td>${open}employee.gender}&lt;/td>
+            &lt;td>${open}employee.birthdate}&lt;/td>
+        &lt;/tr>
+        &lt;/tbody>
+    &lt;/table>
+    &lt;div class="row">
+        &lt;div class="col-md-9">
+            &lt;aut-pagination current-page.bind="tableSettings.currentPage" page-size.bind="tableSettings.pageSize" total-items.bind="tableSettings.totalItems"
+                                   pagination-size.bind="5" boundary-links.bind="true"> &lt;/aut-pagination>
+        &lt;/div>
+    &lt;/div>
+&lt;/template></code></pre>
+        </aubs-tab>
+        <aubs-tab header="JS">
+<pre><code class="language-js" au-syntax>import { TableSettings } from 'au-table/TableSettings';
+
+export class EmployeeList {
+  service;
+  tableSettings = new TableSettings(this.service.getEmployeeList.bind(this.service));
+
+  static inject = [EmployeeService];
+  constructor(service) {    
+      this.service = service;
+  }
+
+  bind() {
+    return this.tableSettings.loadItems();
+  }
+}
+
+//employee-service.js
+class EmployeeService {
+    constructor() {
+        this.employees = [];
+        for (int i = 1; i <= 100; i++)
+        {
+            let employee = {
+                UserId = userId,
+                username = username,
+                firstname = firstname,
+                lastname = lastname,          
+                age = 10,
+                gender = userId % 2 == 0 ? "Male" : "Female",
+                birthdate = new Date()
+            };
+            this.employees.push(employee);
+        }
+     }
+
+    getEmployeeList(request) {
+        return new Promise((resolve) => {
+            var filtered = this.employees
+                .filter(item => !request.filter
+                    || !request.filter.username
+                    || item.username.indexOf(request.filter.username) !== -1);
+            var result = filtered
+                .splice(request.start, request.pageSize + request.start);
+            request.totalItems = filtered.length;
+            resolve(request);
+        });
+    }    
+}</code></pre>
+        </aubs-tab>
+    </aubs-tabset>
+</template>

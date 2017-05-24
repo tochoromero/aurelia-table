@@ -122,6 +122,9 @@ define(['exports', 'aurelia-framework', './au-table'], function (exports, _aurel
     };
 
     AutSortCustomAttribute.prototype.doSort = function doSort() {
+      if (this.auTable.dataSource === 'server') {
+        return;
+      }
       this.ignoreEvent = true;
       this.auTable.sortChanged(this.key, this.custom, this.order);
     };

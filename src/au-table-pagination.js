@@ -1,4 +1,4 @@
-import {bindable, bindingMode} from 'aurelia-framework';
+import {bindable, bindingMode, DOM} from 'aurelia-framework';
 
 export class AutPaginationCustomElement {
 
@@ -17,6 +17,10 @@ export class AutPaginationCustomElement {
   totalPages = 1;
   displayPages = [];
 
+  static inject = [Element];
+  constructor(element) {
+    this.element = element;
+  }
 
   bind() {
     if (this.currentPage === undefined || this.currentPage === null || this.currentPage < 1) {
@@ -40,6 +44,17 @@ export class AutPaginationCustomElement {
 
   currentPageChanged() {
     this.calculatePages();
+    this.dispatchPageChangedEvent();
+  }
+
+  dispatchPageChangedEvent() {
+    let event = DOM.createCustomEvent('page-changed', {
+      bubbles: true,
+      detail: {
+        currentPage: this.currentPage
+      }
+    });
+    this.element.dispatchEvent(event);
   }
 
   calculatePages() {

@@ -3,7 +3,7 @@
 System.register(['aurelia-framework', './au-table'], function (_export, _context) {
   "use strict";
 
-  var inject, bindable, bindingMode, BindingEngine, AureliaTableCustomAttribute, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, AutSelectCustomAttribute;
+  var inject, bindable, bindingMode, BindingEngine, DOM, AureliaTableCustomAttribute, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, AutSelectCustomAttribute;
 
   function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -60,6 +60,7 @@ System.register(['aurelia-framework', './au-table'], function (_export, _context
       bindable = _aureliaFramework.bindable;
       bindingMode = _aureliaFramework.bindingMode;
       BindingEngine = _aureliaFramework.BindingEngine;
+      DOM = _aureliaFramework.DOM;
     }, function (_auTable) {
       AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;
     }],
@@ -128,17 +129,10 @@ System.register(['aurelia-framework', './au-table'], function (_export, _context
 
         AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
           var selectedEvent = void 0;
-          if (window.CustomEvent) {
-            selectedEvent = new CustomEvent('select', {
-              detail: { row: this.row },
-              bubbles: true
-            });
-          } else {
-            selectedEvent = document.createEvent('CustomEvent');
-            selectedEvent.initCustomEvent('select', true, true, {
-              detail: { row: this.row }
-            });
-          }
+          selectedEvent = DOM.createCustomEvent('select', {
+            detail: { row: this.row },
+            bubbles: true
+          });
           this.element.dispatchEvent(selectedEvent);
         };
 

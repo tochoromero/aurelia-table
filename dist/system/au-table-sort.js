@@ -127,6 +127,9 @@ System.register(['aurelia-framework', './au-table'], function (_export, _context
         };
 
         AutSortCustomAttribute.prototype.doSort = function doSort() {
+          if (this.auTable.dataSource === 'server') {
+            return;
+          }
           this.ignoreEvent = true;
           this.auTable.sortChanged(this.key, this.custom, this.order);
         };

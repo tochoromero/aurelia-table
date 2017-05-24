@@ -121,6 +121,9 @@ var AutSortCustomAttribute = exports.AutSortCustomAttribute = (_dec = (0, _aurel
   };
 
   AutSortCustomAttribute.prototype.doSort = function doSort() {
+    if (this.auTable.dataSource === 'server') {
+      return;
+    }
     this.ignoreEvent = true;
     this.auTable.sortChanged(this.key, this.custom, this.order);
   };
