@@ -6,15 +6,15 @@ export class AureliaTableCustomAttribute {
   @bindable dataSource = 'local'; // local, ajax and server;
 
   @bindable data;
-  @bindable({defaultBindingMode: bindingMode.twoWay}) displayData;
+  @bindable({defaultBindingMode: bindingMode.twoWay})displayData;
 
   @bindable filters;
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
+  @bindable({defaultBindingMode: bindingMode.twoWay})currentPage;
   @bindable pageSize;
-  @bindable({defaultBindingMode: bindingMode.twoWay}) totalItems;
+  @bindable({defaultBindingMode: bindingMode.twoWay})totalItems;
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) api;
+  @bindable({defaultBindingMode: bindingMode.twoWay})api;
 
   isAttached = false;
 
@@ -32,13 +32,21 @@ export class AureliaTableCustomAttribute {
 
   bind() {
     if (Array.isArray(this.data)) {
-      this.dataObserver = this.bindingEngine.collectionObserver(this.data).subscribe(() => this.applyPlugins());
+      this.dataObserver = this
+        .bindingEngine
+        .collectionObserver(this.data)
+        .subscribe(() => this.applyPlugins());
     }
 
     if (Array.isArray(this.filters)) {
       for (let filter of this.filters) {
-        let observer = this.bindingEngine.propertyObserver(filter, 'value').subscribe(() => this.filterChanged());
-        this.filterObservers.push(observer);
+        let observer = this
+          .bindingEngine
+          .propertyObserver(filter, 'value')
+          .subscribe(() => this.filterChanged());
+        this
+          .filterObservers
+          .push(observer);
       }
     }
 
@@ -54,7 +62,9 @@ export class AureliaTableCustomAttribute {
 
   detached() {
     if (this.dataObserver) {
-      this.dataObserver.dispose();
+      this
+        .dataObserver
+        .dispose();
     }
 
     for (let observer of this.filterObservers) {
@@ -153,7 +163,9 @@ export class AureliaTableCustomAttribute {
       let value = this.getPropertyValue(item, key);
 
       if (value !== null && value !== undefined) {
-        value = value.toString().toLowerCase();
+        value = value
+          .toString()
+          .toLowerCase();
 
         if (value.indexOf(filter.value.toString().toLowerCase()) > -1) {
           return true;
@@ -180,8 +192,12 @@ export class AureliaTableCustomAttribute {
         val2 = this.getPropertyValue(b, this.sortKey);
       }
 
-      if (val1 === null) val1 = '';
-      if (val2 === null) val2 = '';
+      if (val1 === null) {
+        val1 = '';
+      }
+      if (val2 === null) {
+        val2 = '';
+      }
 
       if (this.isNumeric(val1) && this.isNumeric(val2)) {
         return (val1 - val2) * this.sortOrder;
@@ -202,7 +218,7 @@ export class AureliaTableCustomAttribute {
    */
   getPropertyValue(object, keyPath) {
     keyPath = keyPath.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    keyPath = keyPath.replace(/^\./, '');           // strip a leading dot
+    keyPath = keyPath.replace(/^\./, ''); // strip a leading dot
     let a = keyPath.split('.');
     for (let i = 0, n = a.length; i < n; ++i) {
       let k = a[i];
@@ -241,10 +257,14 @@ export class AureliaTableCustomAttribute {
 
   dataChanged() {
     if (this.dataObserver) {
-      this.dataObserver.dispose();
+      this
+        .dataObserver
+        .dispose();
     }
 
-    this.dataObserver = this.bindingEngine.collectionObserver(this.data)
+    this.dataObserver = this
+      .bindingEngine
+      .collectionObserver(this.data)
       .subscribe(() => this.applyPlugins());
 
     this.applyPlugins();
@@ -259,7 +279,9 @@ export class AureliaTableCustomAttribute {
   }
 
   addSortChangedListener(callback) {
-    this.sortChangedListeners.push(callback);
+    this
+      .sortChangedListeners
+      .push(callback);
   }
 
   removeSortChangedListener(callback) {
@@ -285,7 +307,9 @@ export class AureliaTableCustomAttribute {
       return true;
     }
 
-    let index = this.beforePagination.indexOf(item);
+    let index = this
+      .beforePagination
+      .indexOf(item);
 
     if (index === -1) {
       return false;

@@ -4,7 +4,7 @@ import {AureliaTableCustomAttribute} from './au-table';
 @inject(AureliaTableCustomAttribute, Element, BindingEngine)
 export class AutSelectCustomAttribute {
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) row;
+  @bindable({defaultBindingMode: bindingMode.twoWay})row;
   @bindable mode = 'single';
   @bindable selectedClass = 'aut-row-selected';
   @bindable custom = false;
@@ -24,27 +24,42 @@ export class AutSelectCustomAttribute {
   attached() {
     if (!this.custom) {
       this.element.style.cursor = 'pointer';
-      this.element.addEventListener('click', this.rowSelectedListener);
+      this
+        .element
+        .addEventListener('click', this.rowSelectedListener);
     }
 
-    this.selectedSubscription = this.bindingEngine.propertyObserver(this.row, '$isSelected').subscribe(() => this.isSelectedChanged());
+    this.selectedSubscription = this
+      .bindingEngine
+      .propertyObserver(this.row, '$isSelected')
+      .subscribe(() => this.isSelectedChanged());
 
     this.setClass();
   }
 
   detached() {
     if (!this.custom) {
-      this.element.removeEventListener('click', this.rowSelectedListener);
+      this
+        .element
+        .removeEventListener('click', this.rowSelectedListener);
     }
 
-    this.selectedSubscription.dispose();
+    this
+      .selectedSubscription
+      .dispose();
   }
 
   setClass() {
     if (this.row.$isSelected) {
-      this.element.classList.add(this.selectedClass);
+      this
+        .element
+        .classList
+        .add(this.selectedClass);
     } else {
-      this.element.classList.remove(this.selectedClass);
+      this
+        .element
+        .classList
+        .remove(this.selectedClass);
     }
   }
 
@@ -53,16 +68,22 @@ export class AutSelectCustomAttribute {
     if (source.tagName.toLowerCase() !== 'td') {
       return;
     }
-    this.row.$isSelected = this.row.$isSelected ? false : true;
+    this.row.$isSelected = this.row.$isSelected
+      ? false
+      : true;
   }
 
   dispatchSelectedEvent() {
     let selectedEvent;
     selectedEvent = DOM.createCustomEvent('select', {
-      detail: {row: this.row},
+      detail: {
+        row: this.row
+      },
       bubbles: true
     });
-    this.element.dispatchEvent(selectedEvent);
+    this
+      .element
+      .dispatchEvent(selectedEvent);
   }
 
   isSelectedChanged() {
@@ -78,10 +99,13 @@ export class AutSelectCustomAttribute {
   }
 
   deselectAll() {
-    this.auTable.data.forEach(item => {
-      if (item !== this.row) {
-        item.$isSelected = false;
-      }
-    });
+    this
+      .auTable
+      .data
+      .forEach(item => {
+        if (item !== this.row) {
+          item.$isSelected = false;
+        }
+      });
   }
 }

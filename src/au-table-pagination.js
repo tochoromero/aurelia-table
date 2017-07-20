@@ -2,7 +2,7 @@ import {bindable, bindingMode, DOM} from 'aurelia-framework';
 
 export class AutPaginationCustomElement {
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
+  @bindable({defaultBindingMode: bindingMode.twoWay})currentPage;
   @bindable pageSize;
   @bindable totalItems;
   @bindable hideSinglePage = true;
@@ -54,11 +54,15 @@ export class AutPaginationCustomElement {
         currentPage: this.currentPage
       }
     });
-    this.element.dispatchEvent(event);
+    this
+      .element
+      .dispatchEvent(event);
   }
 
   calculatePages() {
-    this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
+    this.totalPages = this.totalItems <= this.pageSize
+      ? 1
+      : Math.ceil(this.totalItems / this.pageSize);
 
     if (isNaN(this.paginationSize) || this.paginationSize <= 0) {
       this.displayAllPages();
@@ -108,10 +112,7 @@ export class AutPaginationCustomElement {
     }
 
     if (activeTier < totalTiers) {
-      displayPages.push({
-        title: '...',
-        value: end
-      });
+      displayPages.push({title: '...', value: end});
     }
 
     this.displayPages = displayPages;

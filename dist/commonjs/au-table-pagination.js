@@ -172,10 +172,7 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
     }
 
     if (activeTier < totalTiers) {
-      displayPages.push({
-        title: '...',
-        value: end
-      });
+      displayPages.push({ title: '...', value: end });
     }
 
     this.displayPages = displayPages;

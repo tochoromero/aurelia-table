@@ -179,10 +179,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
           }
 
           if (activeTier < totalTiers) {
-            displayPages.push({
-              title: '...',
-              value: end
-            });
+            displayPages.push({ title: '...', value: end });
           }
 
           this.displayPages = displayPages;

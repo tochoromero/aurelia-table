@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.AutSortCustomAttribute = exports.AutSelectCustomAttribute = exports.AutPaginationCustomElement = exports.AureliaTableCustomAttribute = undefined;
 exports.configure = configure;
@@ -14,8 +14,10 @@ var _auTableSelect = require('./au-table-select');
 
 var _auTableSort = require('./au-table-sort');
 
+var _aureliaFramework = require('aurelia-framework');
+
 function configure(config) {
-    config.globalResources('./au-table', './au-table-pagination', './au-table-select', './au-table-sort');
+  config.globalResources(_aureliaFramework.PLATFORM.moduleName('./au-table'), _aureliaFramework.PLATFORM.moduleName('./au-table-pagination'), _aureliaFramework.PLATFORM.moduleName('./au-table-select'), _aureliaFramework.PLATFORM.moduleName('./au-table-sort'));
 }
 
 exports.AureliaTableCustomAttribute = _auTable.AureliaTableCustomAttribute;

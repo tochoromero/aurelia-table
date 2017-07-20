@@ -1,12 +1,13 @@
 {
-  "name": "aurelia-table",
-  "version": "0.1.13",
-  "description": "A simple and powerful data table for Aurelia.",
+  "name": "au-table",
+  "version": "0.2.0",
+  "description": "A fork on project by Hector Romero. Added some support for server-side processing. A simple and powerful data table for Aurelia.",
   "keywords": [
     "aurelia",
     "table",
     "datatable",
-    "grid"
+    "grid",
+    "server-side processing"
   ],
   "aurelia": {
     "build": {
@@ -27,7 +28,7 @@
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/tochoromero/aurelia-table"
+    "url": "http://github.com/jmvtrinidad/aurelia-table"
   },
   "devDependencies": {
     "aurelia-tools": "^0.2.4",

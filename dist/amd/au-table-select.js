@@ -122,7 +122,9 @@ define(['exports', 'aurelia-framework', './au-table'], function (exports, _aurel
     AutSelectCustomAttribute.prototype.dispatchSelectedEvent = function dispatchSelectedEvent() {
       var selectedEvent = void 0;
       selectedEvent = _aureliaFramework.DOM.createCustomEvent('select', {
-        detail: { row: this.row },
+        detail: {
+          row: this.row
+        },
         bubbles: true
       });
       this.element.dispatchEvent(selectedEvent);

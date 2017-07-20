@@ -104,7 +104,9 @@ export let AutSelectCustomAttribute = (_dec = inject(AureliaTableCustomAttribute
   dispatchSelectedEvent() {
     let selectedEvent;
     selectedEvent = DOM.createCustomEvent('select', {
-      detail: { row: this.row },
+      detail: {
+        row: this.row
+      },
       bubbles: true
     });
     this.element.dispatchEvent(selectedEvent);

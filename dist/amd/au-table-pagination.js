@@ -175,10 +175,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
       }
 
       if (activeTier < totalTiers) {
-        displayPages.push({
-          title: '...',
-          value: end
-        });
+        displayPages.push({ title: '...', value: end });
       }
 
       this.displayPages = displayPages;

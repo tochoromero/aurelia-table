@@ -304,8 +304,12 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
           val2 = _this2.getPropertyValue(b, _this2.sortKey);
         }
 
-        if (val1 === null) val1 = '';
-        if (val2 === null) val2 = '';
+        if (val1 === null) {
+          val1 = '';
+        }
+        if (val2 === null) {
+          val2 = '';
+        }
 
         if (_this2.isNumeric(val1) && _this2.isNumeric(val2)) {
           return (val1 - val2) * _this2.sortOrder;

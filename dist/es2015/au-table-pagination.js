@@ -161,10 +161,7 @@ export let AutPaginationCustomElement = (_dec = bindable({ defaultBindingMode: b
     }
 
     if (activeTier < totalTiers) {
-      displayPages.push({
-        title: '...',
-        value: end
-      });
+      displayPages.push({ title: '...', value: end });
     }
 
     this.displayPages = displayPages;
