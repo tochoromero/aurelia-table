@@ -94,6 +94,8 @@ System.register(['aurelia-framework'], function (_export, _context) {
 
           this.totalItems = 0;
           this.draw = 0;
+
+          this.getItems = getItems;
         }
 
         TableSettings.prototype.pageSizeChanged = function pageSizeChanged(newValue, oldValue) {

@@ -6,17 +6,16 @@ export class TableSettings {
   totalItems = 0;
   items;
   filter;
-  /**
-     * (searchValue: ITableRequest<T>) => Promise<TableResult<T>>
-     */
-  getItems;
+
   draw = 0;
 
   get start() {
     return (this.currentPage - 1) * this.pageSize;
   }
 
-  constructor(getItems) {}
+  constructor(getItems) {
+    this.getItems = getItems;
+  }
 
   pageSizeChanged(newValue, oldValue) {
     if (oldValue === undefined) {

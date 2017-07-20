@@ -58,6 +58,8 @@ export let TableSettings = (_class = class TableSettings {
 
     this.totalItems = 0;
     this.draw = 0;
+
+    this.getItems = getItems;
   }
 
   pageSizeChanged(newValue, oldValue) {

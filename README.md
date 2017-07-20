@@ -16,12 +16,43 @@ Out of the box you will get:
  - Row Selection
  - Server-side processing
  
-##Getting started
+## Getting started
 
 1. Install package.
 
     ```
-    npm i angular2-datagrid --save
+    npm i @jmvtrinidad/au-table --save
+    ```
+    or
+    ```
+    au install @jmvtrinidad/au-table
+    ```
+    then in your aurelia.json
+    ```json
+    {
+      "dependencies": [
+          {
+            "name": "au-table",
+            "main": "index",
+            "path": "../node_modules/@jmvtrinidad/au-table/dist/amd",
+            "resources": [
+              "au-table-pagination.html"
+            ]
+          }
+      ]
+    }
+    ```
+
+    and add this to your tsconfig.json
+    ```json
+    {
+      "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+          "au-table": ["node_modules/@jmvtrinidad/au-table"]
+        }
+      }
+    }
     ```
 
 2. Specify your template.
@@ -123,9 +154,27 @@ Out of the box you will get:
         }
 
         async getEmployeeList(request: ITableRequest<any>) {
-            let result = await this.client.get('Employee/GetEmployeeList', request, true);
-            let content = await (result.content as TableResult<Employee>);
-            return content;
+            var result : TableResult < Employee > = {
+              items: [],
+              totalItems: 100,
+              draw: 0
+            }
+            for (var index = 0; index < 10; index++) {
+              result
+                .items
+                .push({
+                  age: index,
+                  birthdate: new Date().toString(),
+                  firstname: 'jmv' + index,
+                  gender: 'male',
+                  isActive: true,
+                  lastname: 'tri' + index,
+                  userId: index,
+                  username: 'jmvt' + index
+                });
+            }
+
+            return result;
         }
     }
 

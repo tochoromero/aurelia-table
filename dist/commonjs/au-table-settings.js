@@ -73,6 +73,8 @@ var TableSettings = exports.TableSettings = (_class = function () {
 
     this.totalItems = 0;
     this.draw = 0;
+
+    this.getItems = getItems;
   }
 
   TableSettings.prototype.pageSizeChanged = function pageSizeChanged(newValue, oldValue) {
