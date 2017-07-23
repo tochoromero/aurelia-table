@@ -29,6 +29,9 @@
     "type": "git",
     "url": "http://github.com/tochoromero/aurelia-table"
   },
+  "dependencies": {
+    "aurelia-pal": "^1.3.0"
+  },
   "devDependencies": {
     "aurelia-tools": "^0.2.4",
     "babel": "^6.5.2",
@@ -70,6 +73,9 @@
     "format": "amd",
     "directories": {
       "dist": "dist/amd"
+    },
+    "dependencies": {
+      "aurelia-pal": "^1.3.0"
     },
     "devDependencies": {
       "aurelia-polyfills": "^1.0.0-beta.1.1.0"
