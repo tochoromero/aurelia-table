@@ -257,7 +257,7 @@ export let AureliaTableCustomAttribute = (_dec = inject(BindingEngine), _dec2 = 
   }
 
   hasPagination() {
-    return this.currentPage > 0;
+    return this.currentPage > 0 && this.pageSize > 0;
   }
 
   dataChanged() {

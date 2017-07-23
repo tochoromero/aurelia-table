@@ -350,7 +350,7 @@ System.register(['aurelia-framework'], function (_export, _context) {
         };
 
         AureliaTableCustomAttribute.prototype.hasPagination = function hasPagination() {
-          return this.currentPage > 0;
+          return this.currentPage > 0 && this.pageSize > 0;
         };
 
         AureliaTableCustomAttribute.prototype.dataChanged = function dataChanged() {

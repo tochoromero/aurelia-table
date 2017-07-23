@@ -345,7 +345,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
     };
 
     AureliaTableCustomAttribute.prototype.hasPagination = function hasPagination() {
-      return this.currentPage > 0;
+      return this.currentPage > 0 && this.pageSize > 0;
     };
 
     AureliaTableCustomAttribute.prototype.dataChanged = function dataChanged() {
