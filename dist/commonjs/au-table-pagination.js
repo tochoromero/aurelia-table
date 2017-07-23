@@ -109,7 +109,11 @@ var AutPaginationCustomElement = exports.AutPaginationCustomElement = (_dec = (0
   };
 
   AutPaginationCustomElement.prototype.calculatePages = function calculatePages() {
-    this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
+    if (this.pageSize === 0) {
+      this.totalPages = 1;
+    } else {
+      this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
+    }
 
     if (isNaN(this.paginationSize) || this.paginationSize <= 0) {
       this.displayAllPages();
