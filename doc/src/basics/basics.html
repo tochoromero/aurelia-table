@@ -67,7 +67,7 @@ export class Example {
 
         return client.fetch('data.json')
             .then(response => response.json())
-            .then(users => this.users = users);
+            .then((users:any) => this.users = users);
     }
 }</code></pre>
         </aubs-tab>
