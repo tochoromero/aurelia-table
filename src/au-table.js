@@ -172,8 +172,8 @@ export class AureliaTableCustomAttribute {
       }
 
       // accounting for null and undefined properties
-      if (val1 == null) val1 = '';
-      if (val2 == null) val2 = '';
+      if (val1 === null || val1 === undefined) val1 = '';
+      if (val2 === null || val2 === undefined) val2 = '';
 
       if (this.isNumeric(val1) && this.isNumeric(val2)) {
         return (val1 - val2) * this.sortOrder;
