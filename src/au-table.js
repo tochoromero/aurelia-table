@@ -171,8 +171,9 @@ export class AureliaTableCustomAttribute {
         val2 = this.getPropertyValue(b, this.sortKey);
       }
 
-      if (val1 === null) val1 = '';
-      if (val2 === null) val2 = '';
+      // accounting for null and undefined properties
+      if (val1 == null) val1 = '';
+      if (val2 == null) val2 = '';
 
       if (this.isNumeric(val1) && this.isNumeric(val2)) {
         return (val1 - val2) * this.sortOrder;
