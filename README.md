@@ -12,6 +12,10 @@ For a complete list of features and examples please visit the [project page](htt
 
 ### Release Notes
 
+#### 0.1.14
+* Allow rows without a keys
+* Better Null check for sorting
+
 #### 0.1.13
 * Disable pagination if Page size is 0. Fixes #32
 * Improve support for webpack 2.0. Fixes #38

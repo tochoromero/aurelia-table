@@ -95,18 +95,16 @@ define(['exports', 'aurelia-framework', './au-table'], function (exports, _aurel
     };
 
     AutSortCustomAttribute.prototype.attached = function attached() {
-      if (this.key === null && this.custom === null) {
-        throw new Error('Must provide a key or a custom sort function.');
+      if (this.key || this.custom) {
+        this.element.style.cursor = 'pointer';
+        this.element.classList.add('aut-sort');
+
+        this.element.addEventListener('click', this.rowSelectedListener);
+        this.auTable.addSortChangedListener(this.sortChangedListener);
+
+        this.handleDefault();
+        this.setClass();
       }
-
-      this.element.style.cursor = 'pointer';
-      this.element.classList.add('aut-sort');
-
-      this.element.addEventListener('click', this.rowSelectedListener);
-      this.auTable.addSortChangedListener(this.sortChangedListener);
-
-      this.handleDefault();
-      this.setClass();
     };
 
     AutSortCustomAttribute.prototype.detached = function detached() {
