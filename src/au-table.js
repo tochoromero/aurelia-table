@@ -136,7 +136,7 @@ export class AureliaTableCustomAttribute {
       return false;
     }
 
-    if (filter.value === null || filter.value === undefined || !Array.isArray(filter.keys)) {
+    if (filter.value === null || filter.value === undefined || filter.value === "" || !Array.isArray(filter.keys)) {
       return true;
     }
 
