@@ -155,6 +155,7 @@ export class AureliaTableCustomAttribute {
   }
 
   doSort(toSort) {
+    console.log('doSort',toSort);
     toSort.sort((a, b) => {
       if (typeof this.customSort === 'function') {
         return this.customSort(a, b, this.sortOrder);

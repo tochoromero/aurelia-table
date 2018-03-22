@@ -279,6 +279,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
     AureliaTableCustomAttribute.prototype.doSort = function doSort(toSort) {
       var _this2 = this;
 
+      console.log('doSort', toSort);
       toSort.sort(function (a, b) {
         if (typeof _this2.customSort === 'function') {
           return _this2.customSort(a, b, _this2.sortOrder);
@@ -315,7 +316,7 @@ define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
       var a = keyPath.split('.');
       for (var i = 0, n = a.length; i < n; ++i) {
         var k = a[i];
-        if (k in object) {
+        if (object && k in object) {
           object = object[k];
         } else {
           return;
