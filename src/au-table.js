@@ -155,6 +155,7 @@ export class AureliaTableCustomAttribute {
   }
 
   doSort(toSort) {
+    console.log('doSort',toSort);
     toSort.sort((a, b) => {
       if (typeof this.customSort === 'function') {
         return this.customSort(a, b, this.sortOrder);
@@ -198,7 +199,7 @@ export class AureliaTableCustomAttribute {
     let a = keyPath.split('.');
     for (let i = 0, n = a.length; i < n; ++i) {
       let k = a[i];
-      if (k in object) {
+      if (object && k in object) {
         object = object[k];
       } else {
         return;
