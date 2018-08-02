@@ -1,12 +1,18 @@
-import {inject, bindable} from 'aurelia-framework';
-import {AureliaTableCustomAttribute} from './au-table';
+import {
+  inject,
+  bindable
+} from 'aurelia-framework';
+import {
+  AureliaTableCustomAttribute
+} from './au-table';
 
 @inject(AureliaTableCustomAttribute, Element)
 export class AutSortCustomAttribute {
 
-    @bindable key;
-    @bindable custom;
-    @bindable default;
+  @bindable key;
+  @bindable custom;
+  @bindable
+  default;
 
   order = 0;
   orderClasses = ['aut-desc', 'aut-sortable', 'aut-asc'];
@@ -36,7 +42,7 @@ export class AutSortCustomAttribute {
   }
 
   attached() {
-    if (this.key || this.custom ) {
+    if (this.key || this.custom) {
       this.element.style.cursor = 'pointer';
       this.element.classList.add('aut-sort');
 
@@ -71,7 +77,7 @@ export class AutSortCustomAttribute {
   }
 
   handleHeaderClicked() {
-    this.order = this.order === 0 || this.order === -1 ? this.order + 1 : -1;
+    this.order = this.order === 0 || this.order === -1 ? 1 : -1;
     this.setClass();
     this.doSort();
   }
