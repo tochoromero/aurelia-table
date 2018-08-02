@@ -139,7 +139,7 @@ System.register(['aurelia-framework', './au-table'], function (_export, _context
         };
 
         AutSortCustomAttribute.prototype.handleHeaderClicked = function handleHeaderClicked() {
-          this.order = this.order === 0 || this.order === -1 ? this.order + 1 : -1;
+          this.order = this.order === 0 || this.order === -1 ? 1 : -1;
           this.setClass();
           this.doSort();
         };
