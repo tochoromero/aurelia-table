@@ -15,8 +15,8 @@
                     </a>
                 </li>
 
-                <li repeat.for="page of displayPages" class-name.bind="currentPage === page.value ? 'active' : ''">
-                    <a click.delegate="selectPage(page.value)">${page.title}</a>
+                <li repeat.for="page of displayPages" class="page-item" class-name.bind="currentPage === page.value ? 'active' : ''">
+                    <a class="page-link" click.delegate="selectPage(page.value)">${page.title}</a>
                 </li>
 
                 <li class-name.bind="currentPage === totalPages ? 'disabled' : ''" if.bind="directionLinks">
